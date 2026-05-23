@@ -20,10 +20,169 @@
       <p class="eyebrow">Agents</p>
       <h1>Designing agent workflows that do not fall apart</h1>
       <p class="hero-text">
-        Draft outline: tool contracts, typed state, retries, timeout handling, guardrails,
-        human review points, and trace-driven debugging.
+        Agentic systems become useful when they can call tools, make decisions, and recover from
+        messy real-world inputs. They become production-ready when those decisions are bounded by
+        contracts, state, evaluation, and observability.
       </p>
+
+      <article class="article-body">
+        <p>
+          I do not think of an agent as a magic autonomous worker. I think of it as a workflow that
+          uses an LLM for reasoning at specific decision points. That distinction matters. A
+          workflow can be tested, traced, retried, constrained, and explained. A vague autonomous
+          loop is much harder to trust.
+        </p>
+
+        <p>
+          When I design an agent workflow, my goal is to make every step explicit enough that the
+          system can fail safely. The LLM can still plan, choose tools, summarize evidence, and
+          decide what to do next, but the application owns the boundaries.
+        </p>
+
+        <h2>Start with the job, not the agent</h2>
+        <p>
+          The first question I ask is not, "What can the agent do?" It is, "What job should this
+          workflow complete?" For a mortgage research copilot, the job might be to answer a
+          question using approved documents, cite the evidence, and refuse if the evidence is not
+          present. For a natural-language-to-SQL assistant, the job might be to generate a safe
+          Athena query, validate it, execute it, and explain the result.
+        </p>
+
+        <p>
+          Once the job is clear, I can define the workflow states: collect input, retrieve context,
+          select tool, execute tool, validate output, generate answer, and record trace. This makes
+          the system easier to reason about than an open-ended loop.
+        </p>
+
+        <h2>Use tools with strict contracts</h2>
+        <p>
+          Tool calling is where many agent demos become fragile. If a tool accepts loose text and
+          returns unstructured text, the next step has to guess what happened. I prefer typed tool
+          contracts with clear input schemas, output schemas, and failure modes.
+        </p>
+
+        <pre><code>{
+  "tool": "search_documents",
+  "input": {
+    "query": "borrower risk trend in Q2",
+    "filters": {
+      "document_type": "risk_report"
+    },
+    "top_k": 8
+  },
+  "output": {
+    "matches": [
+      {
+        "document_id": "housing-risk-report-q2",
+        "chunk_id": "chunk-014",
+        "score": 0.83,
+        "excerpt": "..."
+      }
+    ]
+  }
+}</code></pre>
+
+        <p>
+          A typed contract does not remove the need for LLM reasoning. It makes the reasoning safer
+          because the model is choosing among well-defined actions instead of improvising an
+          integration protocol at runtime.
+        </p>
+
+        <h2>Make state visible</h2>
+        <p>
+          Agents need memory, but not all memory belongs in the prompt. I separate durable workflow
+          state from conversational context. Durable state includes the original user request,
+          selected tools, retrieved documents, validation results, retry counts, and final answer
+          status. Conversational context is only the subset the model needs for the next decision.
+        </p>
+
+        <p>
+          This approach makes debugging much easier. If the final answer is wrong, I can inspect
+          whether the system retrieved the wrong evidence, selected the wrong tool, passed a bad
+          argument, ignored a validation error, or generated unsupported text.
+        </p>
+
+        <h2>Design failure handling before success handling</h2>
+        <p>
+          Production agent workflows fail in ordinary ways: a tool times out, a query returns no
+          rows, a document search retrieves weak evidence, an API returns malformed JSON, or a model
+          produces a response that does not match the required schema. These cases should be part of
+          the design, not surprises found later.
+        </p>
+
+        <ul>
+          <li><strong>Timeouts:</strong> every tool call should have a maximum runtime.</li>
+          <li><strong>Retries:</strong> retry only when the failure is likely transient.</li>
+          <li><strong>Fallbacks:</strong> use simpler paths when advanced tools fail.</li>
+          <li><strong>Refusals:</strong> return a clear answer when evidence or permissions are insufficient.</li>
+          <li><strong>Human review:</strong> require approval for high-impact or low-confidence actions.</li>
+        </ul>
+
+        <p>
+          A good agent does not always complete the task. Sometimes the correct behavior is to stop,
+          explain what failed, and avoid making the situation worse.
+        </p>
+
+        <h2>Guardrails should be close to the risk</h2>
+        <p>
+          I do not rely on one giant system prompt as the only guardrail. Prompts help, but the most
+          reliable guardrails live near the risky action. SQL safety belongs near SQL execution.
+          Citation validation belongs near answer generation. Permission checks belong before tool
+          execution. Cost limits belong around model and retrieval calls.
+        </p>
+
+        <p>
+          This is especially important in enterprise systems. The application should be able to say,
+          "The model asked to do this, but the policy does not allow it."
+        </p>
+
+        <h2>Trace every run</h2>
+        <p>
+          Agent bugs are often sequence bugs. The final answer may look strange because of a
+          decision made four steps earlier. That is why I want traces for each run: user input,
+          model decision, tool call, tool result, validation result, retry, fallback, and final
+          output.
+        </p>
+
+        <p>
+          A useful trace lets me answer practical questions quickly: Which tool was selected? What
+          arguments were passed? How long did it take? What did it cost? Which evidence was used?
+          Did validation pass? Did the final answer cite the evidence correctly?
+        </p>
+
+        <h2>Evaluate the workflow, not just the final answer</h2>
+        <p>
+          For agent workflows, final-answer scoring is not enough. I also evaluate the intermediate
+          behavior. If the final answer is correct but the agent used the wrong tool or skipped a
+          required validation step, that is still a defect.
+        </p>
+
+        <ul>
+          <li>Did the agent choose the expected tool?</li>
+          <li>Did the tool arguments match the task?</li>
+          <li>Did the workflow stop when required evidence was missing?</li>
+          <li>Did retries happen only for retryable failures?</li>
+          <li>Did the final answer reflect the tool output accurately?</li>
+        </ul>
+
+        <p>
+          This kind of evaluation makes prompt and model changes safer. It also makes the system
+          easier to explain to reviewers, teammates, and stakeholders.
+        </p>
+
+        <h2>The practical lesson</h2>
+        <p>
+          The best agent systems I want to build are not unconstrained loops. They are engineered
+          workflows with explicit state, typed tools, local guardrails, traceable decisions, and
+          evaluation at multiple layers.
+        </p>
+
+        <p>
+          That design gives the LLM room to reason while giving the application enough structure to
+          remain reliable. For enterprise AI, that balance is the difference between a clever demo
+          and a system people can actually use.
+        </p>
+      </article>
     </main>
   </body>
 </html>
-
