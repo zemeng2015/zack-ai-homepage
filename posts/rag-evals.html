@@ -20,10 +20,121 @@
       <p class="eyebrow">RAG Evaluation</p>
       <h1>How I evaluate citation-grounded RAG systems</h1>
       <p class="hero-text">
-        Draft outline: retrieval recall, citation correctness, grounded answer scoring,
-        negative tests, regression datasets, and quality gates before deployment.
+        A RAG system is not production-ready because it gives a good answer once. It is
+        production-ready when I can measure whether the answer is grounded, reproducible,
+        and safe to ship after every prompt, model, or retrieval change.
       </p>
+
+      <article class="article-body">
+        <p>
+          When I build a citation-grounded RAG application, I treat evaluation as part of the
+          system design, not as a final QA step. The goal is simple: if the assistant answers a
+          question, it should retrieve the right evidence, cite the right source, avoid unsupported
+          claims, and fail clearly when the answer is not available.
+        </p>
+
+        <h2>The failure modes I care about first</h2>
+        <p>
+          RAG systems usually fail in predictable ways. The retriever may miss the right document.
+          The prompt may ask the model to answer more confidently than the evidence supports. The
+          answer may contain a correct sentence with the wrong citation. Or the system may answer a
+          question that should have been rejected because the corpus does not contain enough
+          information.
+        </p>
+
+        <p>
+          I evaluate those risks separately because a single overall score hides too much. A system
+          with strong language quality but weak citation accuracy is dangerous in a financial,
+          healthcare, legal, or enterprise analytics context.
+        </p>
+
+        <h2>My minimum evaluation set</h2>
+        <p>
+          I start with a small golden dataset before adding more automation. Each case includes the
+          user question, expected facts, required source documents, acceptable citations, and notes
+          about what the assistant should not say.
+        </p>
+
+        <pre><code>{
+  "id": "case-001",
+  "question": "What changed in borrower risk this quarter?",
+  "expected_facts": ["delinquency improved", "risk remains elevated in one segment"],
+  "required_citations": ["housing-risk-report-q2"],
+  "negative_claims": ["risk disappeared", "all segments improved"]
+}</code></pre>
+
+        <p>
+          This format is intentionally plain. It can live in JSONL, run in CI, and be reviewed by
+          engineers, analysts, or domain experts without requiring a special labeling platform.
+        </p>
+
+        <h2>The metrics I track</h2>
+        <p>
+          I separate RAG evaluation into retrieval, answer, citation, and operational metrics.
+        </p>
+
+        <ul>
+          <li><strong>Retrieval recall:</strong> did the retriever bring back the documents needed to answer the question?</li>
+          <li><strong>Groundedness:</strong> are the answer claims supported by the retrieved context?</li>
+          <li><strong>Citation correctness:</strong> do the cited chunks actually support the sentence they are attached to?</li>
+          <li><strong>Refusal quality:</strong> does the system decline when the corpus does not contain the answer?</li>
+          <li><strong>Latency:</strong> how long does retrieval, reranking, generation, and validation take?</li>
+          <li><strong>Cost:</strong> how many tokens and model calls does one successful answer require?</li>
+        </ul>
+
+        <h2>Negative tests are not optional</h2>
+        <p>
+          I like adding questions where the right behavior is to say, "I do not have enough
+          evidence." These cases are especially useful because they catch the most damaging kind of
+          hallucination: an answer that sounds reasonable but cannot be traced back to the corpus.
+        </p>
+
+        <p>
+          For example, if the documents only discuss national housing trends, the assistant should
+          not invent county-level mortgage risk. A good RAG system should know the difference
+          between missing data and inconvenient data.
+        </p>
+
+        <h2>Regression testing prompts and models</h2>
+        <p>
+          Every prompt change should run against the same evaluation set. Every model upgrade should
+          do the same. I want to know whether a new prompt improved groundedness but hurt refusal
+          quality, or whether a cheaper model saved cost but lost citation precision.
+        </p>
+
+        <p>
+          That is why my evaluation runner stores prompt version, model name, latency, token usage,
+          score breakdown, and failure notes for every run. The score is useful, but the failure
+          notes are where the engineering work happens.
+        </p>
+
+        <h2>What I would ship first</h2>
+        <p>
+          For an MVP, I would not try to build a perfect evaluator. I would ship a simple and
+          explainable loop:
+        </p>
+
+        <ul>
+          <li>A JSONL golden dataset with 30 to 50 realistic questions.</li>
+          <li>Retrieval recall checks against required documents.</li>
+          <li>LLM-assisted groundedness scoring with human-reviewable notes.</li>
+          <li>Citation matching checks for required sources.</li>
+          <li>Latency and token cost tracking for every run.</li>
+          <li>A CI quality gate that fails when core metrics regress.</li>
+        </ul>
+
+        <h2>The practical lesson</h2>
+        <p>
+          RAG quality is an engineering system. Chunking, retrieval, reranking, prompting,
+          generation, citation formatting, and refusal behavior all interact. Without evaluation,
+          every change is a guess. With evaluation, the team can improve the system deliberately.
+        </p>
+
+        <p>
+          That is the standard I want for AI applications in enterprise environments: not just a
+          convincing answer, but a measurable answer with evidence behind it.
+        </p>
+      </article>
     </main>
   </body>
 </html>
-
