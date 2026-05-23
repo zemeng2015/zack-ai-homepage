@@ -321,6 +321,17 @@ h3 {
   color: var(--muted);
 }
 
+.project-link {
+  display: inline-flex;
+  margin-top: 2px;
+  color: var(--accent-dark);
+  font-weight: 900;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
 .project-kicker {
   margin-bottom: 8px;
   color: var(--warm) !important;
