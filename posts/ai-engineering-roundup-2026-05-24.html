@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI engineering roundup: Spring AI, LM Studio, NVIDIA Nemotron, Mistral | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Roundup | May 24, 2026</p>
+      <h1>What changed in AI engineering over May 22-23</h1>
+      <p class="hero-text">
+        The last 48 hours brought a useful mix of framework, runtime, and model-system updates:
+        Spring AI tightened its Java stack, LM Studio pushed multi-token speculative decoding into
+        stable, NVIDIA published a practical diffusion LLM path for faster generation, and Mistral
+        signaled that industrial and physics-aware agents are moving closer to the product roadmap.
+      </p>
+
+      <article class="article-body">
+        <p>
+          For an applied AI engineer, the interesting part is not hype. It is whether the update
+          changes how we build, serve, evaluate, or integrate LLM systems. These four developments
+          do.
+        </p>
+
+        <h2>1. Spring AI moved more of the Java AI stack toward production defaults</h2>
+        <p>
+          On May 23, the Spring team released Spring AI <code>1.0.8</code>, <code>1.1.7</code>,
+          and <code>2.0.0-M7</code>. The headline is not just another point release. The
+          <code>2.0.0-M7</code> stream deprecates SSE transports in favor of Streamable HTTP for
+          MCP servers, makes <code>ToolCallAdvisor</code> the default tool-calling path, adds a
+          fluent <code>ToolSpec</code> API, and refreshes Gemini support to Gemini 2.5 Flash. The
+          release notes also call out security fixes in <code>1.1.7</code> and
+          <code>2.0.0-M7</code>.
+        </p>
+        <p>
+          Practical takeaway: if you are building Spring Boot based AI services, this is a strong
+          signal that MCP transport conventions and tool-calling abstractions are settling. That
+          matters for teams trying to standardize internal agent platforms instead of carrying
+          one-off integrations.
+        </p>
+
+        <h2>2. LM Studio made MTP speculative decoding a stable local inference feature</h2>
+        <p>
+          LM Studio's May 22 <code>0.4.14 Build 4</code> release promotes MTP speculative decoding
+          to stable. The changelog frames it as a generation speedup for models that ship with
+          built-in multi-token prediction heads. The same release also fixes a non-MTP speculative
+          decoding error while MTP was enabled, improves remote model visibility in
+          <code>lms chat</code>, and follows recent releases that expanded MCP OAuth support and
+          compatibility with OpenAI- and Anthropic-style APIs.
+        </p>
+        <p>
+          Practical takeaway: local AI stacks are getting more serious about inference ergonomics.
+          If you use LM Studio as a dev or eval environment, MTP support means local latency can
+          get closer to the shape of optimized hosted serving, especially for agent loops where
+          many short tool-calling generations dominate the wall clock time.
+        </p>
+
+        <h2>3. NVIDIA published a more deployment-friendly diffusion LLM story</h2>
+        <p>
+          NVIDIA published its Nemotron-Labs Diffusion article on May 23 alongside model releases
+          on Hugging Face. The core idea is a tri-mode model family that can run in autoregressive
+          mode, diffusion mode, or self-speculation mode from the same checkpoint. The article
+          reports that the 8B model improves average accuracy by 1.2% over Qwen3 8B while reaching
+          2.6x higher tokens per forward pass in diffusion mode and up to 6x to 6.4x in
+          self-speculation mode. NVIDIA also states that deployment support is coming through
+          SGLang, which is the key operational detail.
+        </p>
+        <p>
+          Practical takeaway: this is one of the more concrete attempts to make non-AR decoding
+          operationally usable. The model is not only a research artifact; it is being positioned
+          as a serving option where speed, single-query performance, and deployment-time mode
+          switching matter. That is directly relevant for low-latency assistants and coding agents.
+        </p>
+
+        <h2>4. Mistral is pushing harder into industrial and physics-aware agent systems</h2>
+        <p>
+          Mistral's May 22 announcement that it is acquiring Emmi AI is not a model release, but
+          it is still an engineering signal worth tracking. Mistral says it is extending its models
+          to understand and model physics, enabling AI agents to use existing engineering tools,
+          and using Emmi's large engineering models to accelerate real-time simulation and digital
+          twin workflows.
+        </p>
+        <p>
+          Practical takeaway: applied AI work is moving beyond text-only copilots. For teams in
+          manufacturing, semiconductors, automotive, or industrial software, the interesting future
+          stack is likely a hybrid of LLM orchestration, domain simulators, engineering tools, and
+          specialized models grounded in physical systems.
+        </p>
+
+        <h2>What I would do with this as an engineer</h2>
+        <ul>
+          <li>Revisit tool-calling and MCP abstractions if your stack still depends on ad hoc HTTP endpoints.</li>
+          <li>Benchmark speculative or multi-token decoding in local eval environments, not just hosted inference.</li>
+          <li>Track alternative decoding paths like diffusion and self-speculation for latency-sensitive applications.</li>
+          <li>Design agent platforms so domain simulators and enterprise tools can become first-class tools, not afterthoughts.</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>
+          The clear pattern from May 22-23 is that AI engineering is becoming more systems-heavy.
+          Frameworks are standardizing tool protocols, local runtimes are chasing better decoding
+          efficiency, model builders are experimenting with new serving primitives, and vendors are
+          expanding from chat agents into domain-specific operational systems. That is good news for
+          engineers who care less about demos and more about reliable, fast, and integrated AI.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://spring.io/blog/2026/05/23/spring-ai-1-0-8-1-1-7-2-0-0-M7-available-now/" target="_blank" rel="noreferrer">Spring AI 1.0.8, 1.1.7, 2.0.0-M7 Available Now</a></li>
+          <li><a href="https://lmstudio.ai/changelog" target="_blank" rel="noreferrer">LM Studio Changelog: 0.4.14 Build 4</a></li>
+          <li><a href="https://huggingface.co/blog/nvidia/nemotron-labs-diffusion" target="_blank" rel="noreferrer">NVIDIA: Towards Speed-of-Light Text Generation with Nemotron-Labs Diffusion Language Models</a></li>
+          <li><a href="https://huggingface.co/nvidia/Nemotron-Labs-Diffusion-3B" target="_blank" rel="noreferrer">NVIDIA Nemotron-Labs-Diffusion model card</a></li>
+          <li><a href="https://mistral.ai/news/science-to-win-industrial-ai" target="_blank" rel="noreferrer">Mistral AI: Doubling Down on Science to Win Industrial AI</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
