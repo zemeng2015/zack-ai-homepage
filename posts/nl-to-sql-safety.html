@@ -20,10 +20,169 @@
       <p class="eyebrow">Data + AI</p>
       <h1>Making natural-language-to-SQL safe for enterprise data</h1>
       <p class="hero-text">
-        Draft outline: schema retrieval, SQL parsing, denylisted operations, required LIMIT,
-        cost control, result verification, and user-facing caveats.
+        Natural-language-to-SQL is powerful because it gives more people access to data. It is risky
+        for the same reason. A production system needs schema grounding, SQL validation, cost
+        controls, result checks, and clear refusal behavior.
       </p>
+
+      <article class="article-body">
+        <p>
+          The hard part of natural-language-to-SQL is not generating a query that looks plausible.
+          The hard part is making sure the query is grounded in real schema, safe to execute,
+          cost-aware, and honest about what the result means. In enterprise environments, a bad SQL
+          assistant can create confusion, leak sensitive data, or run expensive queries against
+          large datasets.
+        </p>
+
+        <p>
+          I design NL-to-SQL systems as governed data workflows. The LLM helps translate user intent,
+          but the application controls schema context, query validation, execution policy, and final
+          explanation.
+        </p>
+
+        <h2>Start with schema retrieval</h2>
+        <p>
+          The model should not guess table names, column names, or business definitions from memory.
+          Before generating SQL, I retrieve relevant schema metadata: table names, columns, data
+          types, partition keys, row counts, ownership, descriptions, and examples of safe queries.
+        </p>
+
+        <p>
+          For Athena, that context can come from the Glue Data Catalog, a curated data dictionary,
+          and previous verified queries. The retrieval step narrows the model's world to the data
+          it is actually allowed to use.
+        </p>
+
+        <pre><code>{
+  "table": "loan_performance",
+  "database": "mortgage_analytics",
+  "columns": [
+    {"name": "reporting_month", "type": "date"},
+    {"name": "loan_status", "type": "string"},
+    {"name": "delinquency_bucket", "type": "string"},
+    {"name": "current_balance", "type": "double"}
+  ],
+  "partitions": ["reporting_month"],
+  "notes": "Use reporting_month filters for cost control."
+}</code></pre>
+
+        <h2>Generate SQL with constraints</h2>
+        <p>
+          The prompt should make the allowed behavior explicit. I usually ask the model to produce
+          structured output: the SQL, the selected tables, the assumptions, and the reason each table
+          is needed. This makes the next validation step easier.
+        </p>
+
+        <p>
+          I also prefer generating conservative SQL. For exploratory questions, the first query
+          should often aggregate or sample rather than scan raw detail rows. The system can always
+          ask a follow-up question when the user's intent is ambiguous.
+        </p>
+
+        <h2>Parse and validate before execution</h2>
+        <p>
+          SQL should be parsed before it is executed. String matching is useful as a quick guard, but
+          it is not enough. A parser can identify statement type, referenced tables, selected
+          columns, filters, joins, limits, and functions.
+        </p>
+
+        <p>
+          My default safety rules are intentionally strict:
+        </p>
+
+        <ul>
+          <li>Only allow <strong>SELECT</strong> statements.</li>
+          <li>Block DDL and DML such as <strong>DROP</strong>, <strong>DELETE</strong>, <strong>INSERT</strong>, <strong>UPDATE</strong>, and <strong>CREATE</strong>.</li>
+          <li>Require a <strong>LIMIT</strong> for detail-level queries.</li>
+          <li>Require partition filters for large Athena tables.</li>
+          <li>Allow only approved catalogs, databases, tables, and columns.</li>
+          <li>Reject cross joins or suspicious cartesian patterns unless explicitly approved.</li>
+        </ul>
+
+        <p>
+          The important principle is that the model can suggest SQL, but the execution layer decides
+          whether the SQL is allowed.
+        </p>
+
+        <h2>Control cost before running Athena</h2>
+        <p>
+          Athena is powerful, but poorly constrained queries can scan a lot of data. For an AI data
+          assistant, cost control is part of correctness. I want the system to understand partitions,
+          file formats, table size, and query shape before execution.
+        </p>
+
+        <p>
+          In a production design, I would add query planning checks before execution: estimate the
+          likely scan size, require partition predicates, set workgroup limits, and stop queries that
+          exceed policy. If the user asks a broad question, the assistant should narrow it before
+          running a large query.
+        </p>
+
+        <h2>Explain assumptions to the user</h2>
+        <p>
+          The final answer should not just show a chart or a number. It should explain which tables
+          were used, which filters were applied, what time range was selected, and what assumptions
+          were made. This is especially important when business terms can map to multiple columns or
+          definitions.
+        </p>
+
+        <p>
+          For example, "active loans" may mean different things depending on whether the business
+          excludes paid-off loans, delinquent loans, transferred loans, or loans with missing status.
+          The assistant should surface that assumption instead of hiding it inside generated SQL.
+        </p>
+
+        <h2>Verify the result</h2>
+        <p>
+          Result verification is where NL-to-SQL becomes more than query generation. After execution,
+          I check whether the result shape matches the question. If the user asked for a trend, the
+          result should include time periods. If the user asked for top categories, the result should
+          include grouped labels and metrics. If the query returns zero rows, the assistant should
+          explain whether that means "no data" or "possibly wrong filter."
+        </p>
+
+        <p>
+          I also like simple sanity checks: row counts, null rates, date range, unusually large
+          values, and whether the query used the expected partition. These checks help catch queries
+          that are syntactically valid but analytically misleading.
+        </p>
+
+        <h2>Evaluate SQL accuracy and failure behavior</h2>
+        <p>
+          A good evaluation set for NL-to-SQL should include more than easy happy-path questions. I
+          want cases that test table selection, join logic, aggregation, filters, ambiguity, and
+          refusal behavior.
+        </p>
+
+        <ul>
+          <li><strong>Schema accuracy:</strong> did the system use real tables and columns?</li>
+          <li><strong>Intent accuracy:</strong> does the SQL answer the actual business question?</li>
+          <li><strong>Execution accuracy:</strong> does the query run successfully?</li>
+          <li><strong>Result accuracy:</strong> does the result set match an expected answer?</li>
+          <li><strong>Safety accuracy:</strong> did the system block unsafe or overbroad queries?</li>
+          <li><strong>Explanation accuracy:</strong> did the final answer describe assumptions correctly?</li>
+        </ul>
+
+        <p>
+          Exact SQL string comparison is often too brittle. I care more about whether the query uses
+          the right data, applies the right logic, and produces the right result. For many cases,
+          result-set comparison is more useful than SQL text comparison.
+        </p>
+
+        <h2>The practical lesson</h2>
+        <p>
+          Natural-language-to-SQL should be treated as an AI-assisted data workflow, not as a direct
+          text-to-database shortcut. The LLM is valuable for interpreting intent and drafting SQL,
+          but production reliability comes from schema grounding, validation, execution policy,
+          cost controls, result verification, and evaluation.
+        </p>
+
+        <p>
+          That is the kind of system I want to build: useful enough for analysts, constrained enough
+          for enterprise data, and transparent enough that users can trust how an answer was
+          produced.
+        </p>
+      </article>
     </main>
   </body>
 </html>
-
