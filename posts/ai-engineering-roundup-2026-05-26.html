@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI engineering roundup: Anthropic, Fujitsu, long-horizon agents | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Roundup | May 26, 2026</p>
+      <h1>What changed in AI engineering over May 24-25</h1>
+      <p class="hero-text">
+        The most useful signals from the last two days were not another chatbot launch. They were
+        about how to make agent systems safer, more adaptive, and less fragile over long runs:
+        Anthropic pushed AI-assisted vulnerability discovery into a coordinated security program,
+        Fujitsu showed a concrete self-evolving multi-agent loop for business-specific LLMs, and
+        two fresh papers tackled the hard reliability problems behind long-horizon agent execution.
+      </p>
+
+      <article class="article-body">
+        <p>
+          For an applied AI engineer, the question is simple: does this change how we operate real
+          systems? In this case, yes. The common thread is moving from one-shot prompt quality to
+          persistent system behavior: how agents improve from feedback, keep progress across long
+          tasks, and avoid breaking once context gets large.
+        </p>
+
+        <h2>1. Anthropic framed AI security as an applied systems problem, not just a model problem</h2>
+        <p>
+          Anthropic's new <a href="https://www.anthropic.com/glasswing" target="_blank" rel="noreferrer">Project Glasswing</a>
+          announcement is notable because it treats frontier coding capability as an operational
+          security issue. The program brings together AWS, Google, Microsoft, NVIDIA, the Linux
+          Foundation, and others to evaluate a preview model for defensive vulnerability discovery.
+          The engineering signal is that AI-assisted bug finding is moving toward coordinated
+          workflows, controlled access, and infrastructure-backed deployment rather than ad hoc red
+          teaming.
+        </p>
+        <p>
+          Practical takeaway: if you build agentic coding systems, assume vulnerability discovery
+          and patch generation will become standard internal capabilities. That means investing now
+          in sandboxing, auditable tool use, patch verification, and security review gates instead
+          of treating coding agents like ordinary chat interfaces.
+        </p>
+
+        <h2>2. Fujitsu published a concrete design for self-evolving business agents</h2>
+        <p>
+          On May 25, Fujitsu announced a
+          <a href="https://global.fujitsu/en-global/pr/news/2026/05/25-01" target="_blank" rel="noreferrer">self-evolving multi-AI agent technology</a>
+          for business operations. The part worth tracking is not the branding. It is the feedback
+          loop: multiple agents handle data selection, learning-condition adjustment, evaluation,
+          and improvement, then only verified improvements are carried forward. Fujitsu reports an
+          average accuracy gain of 28 points over pre-specialization performance for its Takane
+          business LLM across several domains.
+        </p>
+        <p>
+          Practical takeaway: this is a useful pattern for enterprise AI stacks. Treat prompt
+          tuning, retrieval configuration, eval updates, and search logic as runtime artifacts that
+          can be proposed by agents but promoted only through verification. That is a safer and
+          more scalable pattern than manually editing prompts every time business rules shift.
+        </p>
+
+        <h2>3. New research is getting more specific about why long-horizon agents fail</h2>
+        <p>
+          Two new arXiv papers from May 22 are especially relevant to production agent systems.
+          <a href="https://arxiv.org/abs/2605.23574" target="_blank" rel="noreferrer">Push Your Agent</a>
+          defines a failure mode called quantitative goal persistence: agents can look competent
+          locally yet still stop before the requested amount of verified work is actually done.
+          The paper shows that controllers with explicit state and backlog tracking outperform more
+          naive completion strategies. Meanwhile,
+          <a href="https://arxiv.org/abs/2605.23296" target="_blank" rel="noreferrer">Parallel Context Compaction for Long-Horizon LLM Agent Serving</a>
+          argues that context summarization should stop being a blocking, unpredictable side effect
+          inside the main loop and instead become a controlled parallel subsystem.
+        </p>
+        <p>
+          Practical takeaway: long-running agents need explicit progress accounting and memory
+          policies. If your workflow depends on "the model will remember what it has done," you
+          have a systems bug. Persist verified work units externally, track remaining backlog in
+          structured state, and treat summarization as an operator-managed service with measurable
+          latency and retention behavior.
+        </p>
+
+        <h2>What I would do with this as an engineer</h2>
+        <ul>
+          <li>Put coding agents behind patch review, test execution, and sandbox boundaries before letting them touch sensitive repos.</li>
+          <li>Move prompt updates, retrieval rules, and eval criteria into versioned config that agents can propose against but not silently rewrite.</li>
+          <li>Represent long tasks as verified work units with counters, dedupe checks, and stop conditions outside the model context.</li>
+          <li>Budget for context compaction as a serving primitive with its own latency, quality, and retention metrics.</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>
+          The May 24-25 pattern is clear: applied AI is becoming more about control loops than
+          prompts. Teams shipping useful agents will need security controls for code actions,
+          verification loops for self-improvement, and explicit state-management strategies for
+          long-horizon execution. The builders who operationalize those three layers will have a
+          real advantage over teams still optimizing only prompt phrasing.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://www.anthropic.com/glasswing" target="_blank" rel="noreferrer">Anthropic: Project Glasswing</a></li>
+          <li><a href="https://global.fujitsu/en-global/pr/news/2026/05/25-01" target="_blank" rel="noreferrer">Fujitsu: self-evolving multi-AI agent technology</a></li>
+          <li><a href="https://arxiv.org/abs/2605.23574" target="_blank" rel="noreferrer">Push Your Agent: Measuring and Enforcing Quantitative Goal Persistence in Long-Horizon LLM Agents</a></li>
+          <li><a href="https://arxiv.org/abs/2605.23296" target="_blank" rel="noreferrer">Parallel Context Compaction for Long-Horizon LLM Agent Serving</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
