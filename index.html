@@ -36,18 +36,56 @@
           </div>
         </div>
 
-        <div class="system-visual" aria-label="AI system architecture preview">
-          <div class="node input">Docs + Data</div>
-          <div class="node workflow">Workflow</div>
-          <div class="node retrieval">Retrieval</div>
-          <div class="node model">LLM</div>
-          <div class="node evals">Evals</div>
-          <div class="node app">AI App</div>
-          <div class="line l1"></div>
-          <div class="line l2"></div>
-          <div class="line l3"></div>
-          <div class="line l4"></div>
-          <div class="line l5"></div>
+        <div class="system-visual" aria-label="Animated AI system architecture preview">
+          <div class="scanline"></div>
+          <div class="circuit-ring ring-one"></div>
+          <div class="circuit-ring ring-two"></div>
+
+          <div class="node app">
+            <span>AI Control Plane</span>
+            <small>RAG + Agents + Evals</small>
+          </div>
+          <div class="node input">
+            <span>Docs + Data</span>
+            <small>S3 / Athena</small>
+          </div>
+          <div class="node retrieval">
+            <span>Retrieval</span>
+            <small>Chunks + citations</small>
+          </div>
+          <div class="node model">
+            <span>LLM</span>
+            <small>OpenAI / Bedrock</small>
+          </div>
+          <div class="node evals">
+            <span>Evals</span>
+            <small>Quality gates</small>
+          </div>
+          <div class="node workflow">
+            <span>Workflow</span>
+            <small>Trace + state</small>
+          </div>
+
+          <div class="path p1"><span></span></div>
+          <div class="path p2"><span></span></div>
+          <div class="path p3"><span></span></div>
+          <div class="path p4"><span></span></div>
+          <div class="path p5"><span></span></div>
+
+          <div class="telemetry">
+            <div>
+              <span>Latency</span>
+              <strong>184ms</strong>
+            </div>
+            <div>
+              <span>Grounded</span>
+              <strong>98%</strong>
+            </div>
+            <div>
+              <span>Cost</span>
+              <strong>$0.002</strong>
+            </div>
+          </div>
         </div>
       </section>
 
