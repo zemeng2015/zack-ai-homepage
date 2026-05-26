@@ -10,6 +10,7 @@
   --warm: #d86f45;
   --blue: #336f9e;
   --shadow: 0 20px 60px rgba(24, 32, 30, 0.10);
+  --glow: 0 0 0 1px rgba(31, 122, 104, 0.16), 0 20px 58px rgba(31, 122, 104, 0.13);
 }
 
 * {
@@ -22,7 +23,10 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    linear-gradient(120deg, rgba(31, 122, 104, 0.035), transparent 28%),
+    linear-gradient(240deg, rgba(51, 111, 158, 0.035), transparent 24%),
+    var(--bg);
   color: var(--text);
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -57,6 +61,16 @@ a {
   border: 1px solid var(--ink);
   border-radius: 50%;
   font-weight: 800;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.brand:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(31, 122, 104, 0.09);
+  transform: translateY(-1px);
 }
 
 .nav {
@@ -68,6 +82,28 @@ a {
 
 .nav a:hover {
   color: var(--text);
+}
+
+.nav a {
+  position: relative;
+}
+
+.nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 180ms ease;
+}
+
+.nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
 }
 
 .hero {
@@ -82,6 +118,7 @@ a {
 .hero-copy {
   width: 100%;
   max-width: 760px;
+  animation: rise-in 720ms ease both;
 }
 
 .eyebrow {
@@ -144,6 +181,11 @@ h3 {
   padding: 0 20px;
   border-radius: 6px;
   font-weight: 800;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
 }
 
 .button.primary {
@@ -154,6 +196,19 @@ h3 {
 .button.secondary {
   border: 1px solid var(--line);
   background: #fff;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button.primary:hover {
+  box-shadow: 0 14px 30px rgba(31, 122, 104, 0.22);
+}
+
+.button.secondary:hover {
+  border-color: rgba(31, 122, 104, 0.35);
+  box-shadow: 0 12px 26px rgba(24, 32, 30, 0.08);
 }
 
 .system-visual {
@@ -171,6 +226,7 @@ h3 {
   background-size: auto, 32px 32px, 32px 32px;
   box-shadow: var(--shadow);
   overflow: hidden;
+  animation: rise-in 860ms 120ms ease both;
 }
 
 .system-visual::before,
@@ -186,6 +242,14 @@ h3 {
 .system-visual::after {
   inset: 76px;
   border-color: rgba(51, 111, 158, 0.14);
+}
+
+.system-visual:hover .node {
+  transform: translateY(-2px);
+}
+
+.system-visual:hover .app {
+  transform: translate(-50%, -50%) scale(1.02);
 }
 
 .scanline {
@@ -240,6 +304,29 @@ h3 {
   color: var(--text);
   box-shadow: 0 16px 36px rgba(24, 32, 30, 0.10);
   backdrop-filter: blur(12px);
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms ease,
+    border-color 220ms ease;
+}
+
+.node::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 12%, rgba(31, 122, 104, 0.10), transparent 38%);
+  content: "";
+  opacity: 0;
+  transform: translateX(-45%);
+  transition:
+    opacity 200ms ease,
+    transform 420ms ease;
+  pointer-events: none;
+}
+
+.system-visual:hover .node::before {
+  opacity: 1;
+  transform: translateX(65%);
 }
 
 .node span {
@@ -258,24 +345,28 @@ h3 {
   left: 54px;
   top: 56px;
   border-color: rgba(51, 111, 158, 0.45);
+  animation: node-float 4.6s ease-in-out infinite;
 }
 
 .workflow {
   left: 68px;
   bottom: 130px;
   border-color: rgba(31, 122, 104, 0.40);
+  animation: node-float 5.1s ease-in-out infinite reverse;
 }
 
 .retrieval {
   right: 56px;
   top: 72px;
   border-color: rgba(31, 122, 104, 0.45);
+  animation: node-float 4.9s ease-in-out infinite;
 }
 
 .model {
   right: 70px;
   bottom: 138px;
   border-color: rgba(216, 111, 69, 0.45);
+  animation: node-float 5.3s ease-in-out infinite reverse;
 }
 
 .evals {
@@ -283,6 +374,7 @@ h3 {
   top: 44px;
   transform: translateX(-50%);
   border-color: rgba(51, 111, 158, 0.38);
+  animation: node-float 4.7s ease-in-out infinite;
 }
 
 .app {
@@ -299,6 +391,10 @@ h3 {
   box-shadow:
     0 22px 60px rgba(24, 32, 30, 0.24),
     0 0 0 8px rgba(31, 122, 104, 0.08);
+  transition:
+    box-shadow 220ms ease,
+    transform 220ms ease;
+  animation: app-pulse 3.5s ease-in-out infinite;
 }
 
 .app small {
@@ -385,6 +481,16 @@ h3 {
   border: 1px solid rgba(24, 32, 30, 0.10);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.78);
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.telemetry div:hover {
+  border-color: rgba(31, 122, 104, 0.30);
+  box-shadow: 0 12px 26px rgba(24, 32, 30, 0.08);
+  transform: translateY(-2px);
 }
 
 .telemetry span {
@@ -442,6 +548,42 @@ h3 {
   }
 }
 
+@keyframes app-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 22px 60px rgba(24, 32, 30, 0.24),
+      0 0 0 8px rgba(31, 122, 104, 0.08);
+  }
+
+  50% {
+    box-shadow:
+      0 24px 70px rgba(24, 32, 30, 0.26),
+      0 0 0 14px rgba(31, 122, 104, 0.05);
+  }
+}
+
+@keyframes node-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    transform: translateY(18px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
 .section {
   padding: 86px 7vw;
 }
@@ -454,10 +596,35 @@ h3 {
 }
 
 .metric {
+  position: relative;
   min-height: 168px;
   padding: 28px;
   border: 1px solid var(--line);
   background: #fff;
+  overflow: hidden;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.metric::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(31, 122, 104, 0.08), transparent);
+  content: "";
+  transform: translateX(-100%);
+  transition: transform 520ms ease;
+}
+
+.metric:hover {
+  border-color: rgba(31, 122, 104, 0.26);
+  box-shadow: var(--glow);
+  transform: translateY(-3px);
+}
+
+.metric:hover::before {
+  transform: translateX(100%);
 }
 
 .metric span {
@@ -488,6 +655,7 @@ h3 {
 }
 
 .project-card {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 28px;
@@ -495,6 +663,41 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
+  overflow: hidden;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.project-card::before,
+.post-card::before,
+.target-panel::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 20%, rgba(31, 122, 104, 0.08), transparent 46%);
+  content: "";
+  opacity: 0;
+  transform: translateX(-45%);
+  transition:
+    opacity 180ms ease,
+    transform 520ms ease;
+  pointer-events: none;
+}
+
+.project-card:hover,
+.post-card:hover,
+.target-panel:hover {
+  border-color: rgba(31, 122, 104, 0.28);
+  box-shadow: var(--glow);
+  transform: translateY(-3px);
+}
+
+.project-card:hover::before,
+.post-card:hover::before,
+.target-panel:hover::before {
+  opacity: 1;
+  transform: translateX(60%);
 }
 
 .project-card p {
@@ -540,6 +743,18 @@ h3 {
   color: var(--muted);
   font-size: 13px;
   font-weight: 700;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.tags li:hover {
+  border-color: rgba(31, 122, 104, 0.36);
+  background: rgba(31, 122, 104, 0.06);
+  color: var(--accent-dark);
+  transform: translateY(-1px);
 }
 
 .writing {
@@ -553,11 +768,17 @@ h3 {
 }
 
 .post-card {
+  position: relative;
   min-height: 250px;
   padding: 24px;
   border: 1px solid rgba(24, 32, 30, 0.12);
   border-radius: 8px;
   background: #fff;
+  overflow: hidden;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
 }
 
 .post-card span {
@@ -599,6 +820,7 @@ h3 {
 }
 
 .target-panel {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.7fr);
   gap: 42px;
@@ -607,6 +829,11 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
+  overflow: hidden;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
 }
 
 .target-panel > p {
@@ -621,10 +848,21 @@ h3 {
 }
 
 .focus-list span {
+  position: relative;
   padding: 14px 16px;
   border-left: 4px solid var(--accent);
   background: #fff;
   font-weight: 800;
+  transition:
+    background 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease;
+}
+
+.focus-list span:hover {
+  background: rgba(31, 122, 104, 0.06);
+  border-left-color: var(--blue);
+  transform: translateX(3px);
 }
 
 .contact {
@@ -651,6 +889,16 @@ h3 {
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 6px;
   font-weight: 800;
+  transition:
+    background 180ms ease,
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+.contact-links a:hover {
+  border-color: rgba(255, 255, 255, 0.44);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
 }
 
 .article {
@@ -863,7 +1111,23 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
   .scanline,
   .circuit-ring,
-  .path span {
+  .path span,
+  .app,
+  .node,
+  .hero-copy,
+  .system-visual {
     animation: none;
+  }
+
+  .button,
+  .brand,
+  .metric,
+  .project-card,
+  .post-card,
+  .target-panel,
+  .focus-list span,
+  .contact-links a,
+  .tags li {
+    transition: none;
   }
 }
