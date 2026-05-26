@@ -381,10 +381,19 @@ h3 {
 
 .post-card span {
   display: block;
-  margin-bottom: 38px;
+  margin-bottom: 10px;
   color: var(--blue);
   font-size: 13px;
   font-weight: 900;
+  text-transform: uppercase;
+}
+
+.post-date {
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 
@@ -400,6 +409,27 @@ h3 {
 }
 
 .about-grid > p {
+  color: var(--muted);
+  font-size: 21px;
+}
+
+.target {
+  padding-top: 42px;
+}
+
+.target-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.7fr);
+  gap: 42px;
+  align-items: start;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.target-panel > p {
+  margin-bottom: 0;
   color: var(--muted);
   font-size: 21px;
 }
@@ -509,6 +539,7 @@ h3 {
   .hero,
   .section-heading,
   .about-grid,
+  .target-panel,
   .project-card,
   .contact {
     grid-template-columns: 1fr;
