@@ -657,8 +657,12 @@ h3 {
 .project-card {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 28px;
+  grid-template-areas:
+    "copy media"
+    "tags media";
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+  gap: 22px 30px;
+  align-items: start;
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -700,6 +704,12 @@ h3 {
   transform: translateX(60%);
 }
 
+.project-copy {
+  position: relative;
+  z-index: 1;
+  grid-area: copy;
+}
+
 .project-card p {
   max-width: 880px;
   color: var(--muted);
@@ -724,13 +734,64 @@ h3 {
   text-transform: uppercase;
 }
 
+.project-media {
+  position: relative;
+  z-index: 1;
+  grid-area: media;
+  width: 100%;
+  margin: 0;
+  border: 1px solid rgba(24, 32, 30, 0.12);
+  border-radius: 8px;
+  background: #f3f5f2;
+  box-shadow: 0 18px 42px rgba(24, 32, 30, 0.11);
+  overflow: hidden;
+}
+
+.project-media::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.30), transparent),
+    linear-gradient(180deg, transparent 68%, rgba(24, 32, 30, 0.16));
+  content: "";
+  opacity: 0;
+  transform: translateX(-90%);
+  transition:
+    opacity 180ms ease,
+    transform 640ms ease;
+  pointer-events: none;
+}
+
+.project-card:hover .project-media::after {
+  opacity: 1;
+  transform: translateX(90%);
+}
+
+.project-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition:
+    filter 220ms ease,
+    transform 220ms ease;
+}
+
+.project-card:hover .project-media img {
+  filter: saturate(1.06) contrast(1.03);
+  transform: scale(1.018);
+}
+
 .tags {
+  position: relative;
+  z-index: 1;
+  grid-area: tags;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-content: start;
   gap: 8px;
-  max-width: 340px;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1000,6 +1061,14 @@ h3 {
 
   .tags {
     justify-content: flex-start;
+  }
+
+  .project-card {
+    grid-template-areas:
+      "media"
+      "copy"
+      "tags";
+    gap: 20px;
   }
 }
 
