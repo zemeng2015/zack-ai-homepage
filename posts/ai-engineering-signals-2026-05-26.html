@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI engineering signals: harnesses, MCP, serving systems | Zack Wang</title>
+    <title>Why I am betting on AI workflows instead of model hype | Zack Wang</title>
     <link rel="stylesheet" href="../assets/styles.css" />
   </head>
   <body>
@@ -17,103 +17,97 @@
       </nav>
     </header>
     <main class="section article">
-      <p class="eyebrow">AI Roundup | May 26, 2026</p>
-      <h1>Three AI engineering signals from May 25 that matter more than model hype</h1>
+      <p class="eyebrow">Career Strategy | May 26, 2026</p>
+      <h1>Why I am betting on AI workflows instead of chasing model hype</h1>
       <p class="hero-text">
-        The strongest engineering news on May 25 was not another benchmark headline. It was about
-        the operating layer around models: clearer agent runtime vocabulary, better context
-        boundaries through MCP and skills, and lower inference overhead from compiler-aware CUDA
-        Graph support.
+        I do not think my best opportunity in the AI era is to chase every new model release. My
+        advantage is more practical: ten years of Java, AWS, backend systems, data workflows, and
+        production constraints. The question I keep coming back to is how to turn that background
+        into AI systems that actually survive real engineering workflows.
       </p>
 
       <article class="article-body">
         <p>
-          None of these items is a flashy foundation-model launch. That is exactly why they are
-          useful. They point at where real applied AI work is moving: better agent runtime design,
-          better context discipline, and better serving efficiency. That matters more to enterprise
-          adoption than a small leaderboard gain, because most failures in deployed AI systems come
-          from integration, governance, latency, and unclear ownership of decisions.
+          I have spent most of my career inside enterprise software: financial systems, retail
+          order platforms, telecom workflows, backend APIs, cloud jobs, and data pipelines. That
+          kind of work teaches a simple lesson. A demo is easy. A system that can be reviewed,
+          traced, retried, secured, and maintained is much harder.
+        </p>
+        <p>
+          That is why I am more interested in AI workflows than AI headlines. The model matters,
+          but the durable value is usually around it: context selection, validation, test execution,
+          repair loops, artifacts, observability, and human review boundaries.
         </p>
 
-        <h2>1. Hugging Face made harness engineering vocabulary more operational</h2>
+        <h2>My edge is not being the earliest adopter</h2>
         <p>
-          Hugging Face's new
-          <a href="https://huggingface.co/blog/agent-glossary" target="_blank" rel="noreferrer">agent glossary</a>
-          is useful because it separates scaffolding from the harness. The model is just the text
-          predictor. The scaffold defines what the model sees. The harness runs the loop, handles
-          tools, and decides when to stop. That framing sounds simple, but it matters when you are
-          debugging agent failures or designing evals.
+          There will always be people who understand a new model, framework, or paper faster than
+          I do. Competing on pure novelty is a weak strategy for me. My stronger position is to
+          combine new AI capabilities with old engineering problems I understand well: legacy Java
+          systems, CI failures, coverage gaps, data processing, AWS orchestration, and business
+          teams that need something dependable instead of magical.
         </p>
         <p>
-          Engineering takeaway: when an agent fails, ask whether the problem is model capability,
-          bad context construction, or bad runtime control flow. Those are different bugs and they
-          need different fixes.
-        </p>
-
-        <h2>2. Red Hat gave a practical split between MCP servers and skills</h2>
-        <p>
-          Red Hat's May 25 article on
-          <a href="https://developers.redhat.com/articles/2026/05/25/mcp-servers-vs-skills-choosing-right-context-your-ai" target="_blank" rel="noreferrer">MCP servers versus skills</a>
-          is one of the cleaner context-engineering explanations I have seen recently. MCP is the
-          integration path when the model needs live, permissioned access to external systems.
-          Skills are the lightweight path when the model mainly needs reusable instructions,
-          examples, and task-specific operating knowledge.
-        </p>
-        <p>
-          Engineering takeaway: stop treating all context extension as one problem. Use MCP for
-          governed data and actions. Use skills for repeatable process knowledge. Mixing the two
-          carelessly makes systems harder to secure and harder to reason about.
+          In other words, I do not need to become a model researcher to avoid becoming a CRUD
+          engineer. I need to become the kind of engineer who can connect AI to real delivery
+          loops.
         </p>
 
-        <h2>3. Microsoft Research highlighted a serving win below the model layer</h2>
+        <h2>The pattern I keep seeing</h2>
         <p>
-          Microsoft Research surfaced
-          <a href="https://www.microsoft.com/en-us/research/publication/grace-unlocking-cuda-graphs-with-compiler-support-for-ml-workloads/" target="_blank" rel="noreferrer">GraCE</a>
-          on May 25, a CUDA Graph-aware compilation framework for ML workloads. The interesting
-          part is not just using CUDA Graphs, but making them easier to deploy through compiler
-          transforms, copy-overhead reduction, and cost-benefit guided selective use inside the
-          PyTorch 2 compilation path.
+          The most useful AI systems I can imagine are not one-shot chatbots. They behave more like
+          controlled workflows. They gather the right context, ask the model to perform a narrow
+          task, validate the result with deterministic tools, repair failures, and produce
+          artifacts that a human can inspect.
         </p>
         <p>
-          Engineering takeaway: inference optimization is increasingly about system software, not
-          only model architecture. If your agent workload is bottlenecked by launch overhead or
-          high call frequency, compiler and runtime choices can matter as much as prompt changes.
+          That pattern fits my background. I have worked with Step Functions, Lambda, S3, Athena,
+          CI/CD, Maven, Spring, Kafka, and enterprise data flows. These systems are not glamorous,
+          but they are exactly where AI needs to become reliable.
         </p>
 
-        <h2>Enterprise application lens</h2>
+        <h2>Why this points me toward JTestGen</h2>
         <p>
-          The shared signal is that enterprise AI value comes from controllable operating surfaces,
-          not from asking the model to absorb every responsibility. A bank, insurer, retailer, or
-          internal platform team does not only need a better answer. It needs a system where the
-          context source is auditable, the tool boundary is permissioned, the runtime behavior can
-          be traced, and the latency profile is predictable enough for repeated use.
+          JTestGen is a good personal bet because it sits at the intersection of my old strength
+          and my new direction. Java teams already have a painful workflow: low test coverage,
+          legacy classes, Maven failures, Mockito setup, and not enough time. AI can help, but only
+          if it is forced through validation.
         </p>
         <p>
-          My read is that the next practical improvement in many companies will come from splitting
-          responsibilities more cleanly. MCP-style integrations should own live data access and
-          actions. Skill-like packages should own reusable operating knowledge. Harnesses should own
-          loop control and stop conditions. Serving infrastructure should own throughput and tail
-          latency. When those responsibilities are mixed together inside one prompt, the system may
-          demo well but becomes hard to govern.
+          So the product idea is not "AI writes tests." The sharper idea is "AI helps create a
+          reviewable test improvement PR, with coverage before and after, Maven validation, repair
+          attempts, and clear artifacts." That is closer to a workflow a Tech Lead can trust.
         </p>
 
-        <h2>What I would watch next</h2>
+        <h2>What I am trying to build in myself</h2>
+        <p>
+          This is also a career strategy. I want to move from being someone who can implement
+          assigned tickets to someone who can identify a narrow pain point, design the workflow,
+          package the result, and make it valuable enough that a real team would pay for it.
+        </p>
+        <p>
+          That requires more than coding. It requires product judgment, writing, user feedback,
+          pricing, and the courage to show imperfect work to real engineers. But it still starts
+          from my engineering base, which makes it realistic.
+        </p>
+
+        <h2>My working principles</h2>
         <ul>
-          <li>Whether teams start reporting agent failures by layer: model, context, harness, tool, policy, or serving.</li>
-          <li>Whether MCP adoption produces clearer permission models, or just another integration surface.</li>
-          <li>Whether runtime and compiler improvements show up in everyday agent workloads with many short calls.</li>
-          <li>Whether enterprise AI platforms can make these boundaries understandable to product and risk owners, not only engineers.</li>
+          <li>Do not sell magic. Sell a workflow with evidence.</li>
+          <li>Do not promise arbitrary project support. Start with reproducible Maven, JaCoCo, and JUnit-style setups.</li>
+          <li>Do not hide failures. Turn Maven errors, repair attempts, and limitations into artifacts.</li>
+          <li>Do not build a platform first. Win one real coverage audit, then generalize.</li>
         </ul>
 
         <h2>Conclusion</h2>
         <p>
-          The May 25 pattern is clear: the engineering frontier is shifting from better answers per
-          call to better system behavior across many calls. Applied AI work now lives in the
-          harness, the context pipeline, the tool boundary, and the serving stack. For enterprise
-          use, that is where reliability and real productivity gains will be won.
+          My bet is that the AI era will reward engineers who can turn model capability into
+          trustworthy workflows. For me, that means building from the ground I already know: Java
+          systems, cloud workflows, validation, and delivery. JTestGen is not only a project. It is
+          a way to practice becoming a product-minded AI engineer.
         </p>
 
-        <h2>Sources</h2>
+        <h2>References that shaped this note</h2>
         <ul>
           <li><a href="https://huggingface.co/blog/agent-glossary" target="_blank" rel="noreferrer">Hugging Face: Harness, Scaffold, and the AI Agent Terms Worth Getting Right</a></li>
           <li><a href="https://developers.redhat.com/articles/2026/05/25/mcp-servers-vs-skills-choosing-right-context-your-ai" target="_blank" rel="noreferrer">Red Hat Developer: MCP servers vs. skills</a></li>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI engineering roundup: Anthropic, Fujitsu, long-horizon agents | Zack Wang</title>
+    <title>From CRUD engineer to AI workflow builder | Zack Wang</title>
     <link rel="stylesheet" href="../assets/styles.css" />
   </head>
   <body>
@@ -17,96 +17,84 @@
       </nav>
     </header>
     <main class="section article">
-      <p class="eyebrow">AI Roundup | May 26, 2026</p>
-      <h1>What changed in AI engineering over May 24-25</h1>
+      <p class="eyebrow">Builder Notes | May 26, 2026</p>
+      <h1>From CRUD engineer to AI workflow builder</h1>
       <p class="hero-text">
-        The most useful signals from the last two days were not another chatbot launch. They were
-        about how to make agent systems safer, more adaptive, and less fragile over long runs:
-        Anthropic pushed AI-assisted vulnerability discovery into a coordinated security program,
-        Fujitsu showed a concrete self-evolving multi-agent loop for business-specific LLMs, and
-        two fresh papers tackled the hard reliability problems behind long-horizon agent execution.
+        The part of AI that matters most to my career is not whether I can ask a model to produce
+        code. It is whether I can design a workflow where AI output is targeted, validated,
+        repaired, and packaged into something another engineer can review.
       </p>
 
       <article class="article-body">
         <p>
-          For an applied AI engineer, the question is simple: does this change how we operate real
-          systems? In this case, yes. The common thread is moving from one-shot prompt quality to
-          persistent system behavior: how agents improve from feedback, keep progress across long
-          tasks, and avoid breaking once context gets large.
+          I have been thinking about the fear behind the phrase "CRUD engineer." The fear is not
+          really about CRUD. CRUD is everywhere, and good business software still needs it. The
+          fear is becoming interchangeable: someone who only receives requirements, wires endpoints,
+          moves data, and has no leverage when tools make routine implementation cheaper.
+        </p>
+        <p>
+          My answer is not to abandon engineering. It is to move up one layer: from implementing
+          isolated tickets to designing repeatable workflows that combine code, data, AI, tests,
+          and human judgment.
         </p>
 
-        <h2>1. Anthropic framed AI security as an applied systems problem, not just a model problem</h2>
+        <h2>The old identity: reliable implementer</h2>
         <p>
-          Anthropic's new <a href="https://www.anthropic.com/glasswing" target="_blank" rel="noreferrer">Project Glasswing</a>
-          announcement is notable because it treats frontier coding capability as an operational
-          security issue. The program brings together AWS, Google, Microsoft, NVIDIA, the Linux
-          Foundation, and others to evaluate a preview model for defensive vulnerability discovery.
-          The engineering signal is that AI-assisted bug finding is moving toward coordinated
-          workflows, controlled access, and infrastructure-backed deployment rather than ad hoc red
-          teaming.
+          My background is strongest in execution. Java services, Spring Boot, AWS Lambda, S3,
+          Athena, Step Functions, GraphQL, Kafka, CI/CD, and enterprise integrations are familiar
+          territory. I know how to ship inside constraints, connect systems, and keep production
+          concerns in mind.
         </p>
         <p>
-          Practical takeaway: if you build agentic coding systems, assume vulnerability discovery
-          and patch generation will become standard internal capabilities. That means investing now
-          in sandboxing, auditable tool use, patch verification, and security review gates instead
-          of treating coding agents like ordinary chat interfaces.
+          That identity has value, but AI changes the slope. If implementation becomes faster, the
+          engineer's leverage shifts toward problem selection, workflow design, validation quality,
+          and the ability to turn technical output into a result a team trusts.
         </p>
 
-        <h2>2. Fujitsu published a concrete design for self-evolving business agents</h2>
+        <h2>The new identity: workflow owner</h2>
         <p>
-          On May 25, Fujitsu announced a
-          <a href="https://global.fujitsu/en-global/pr/news/2026/05/25-01" target="_blank" rel="noreferrer">self-evolving multi-AI agent technology</a>
-          for business operations. The part worth tracking is not the branding. It is the feedback
-          loop: multiple agents handle data selection, learning-condition adjustment, evaluation,
-          and improvement, then only verified improvements are carried forward. Fujitsu reports an
-          average accuracy gain of 28 points over pre-specialization performance for its Takane
-          business LLM across several domains.
+          A workflow owner asks different questions. What input is trustworthy? What context does
+          the model need? What deterministic tool can verify the answer? What happens when the
+          first attempt fails? What artifact should be left behind for review? Where does a human
+          need to approve the result?
         </p>
         <p>
-          Practical takeaway: this is a useful pattern for enterprise AI stacks. Treat prompt
-          tuning, retrieval configuration, eval updates, and search logic as runtime artifacts that
-          can be proposed by agents but promoted only through verification. That is a safer and
-          more scalable pattern than manually editing prompts every time business rules shift.
+          This is why I like the phrase "AI workflow builder." It is not a job title yet, but it
+          describes the kind of capability I want to build. The model is one component. The system
+          around the model is the craft.
         </p>
 
-        <h2>3. New research is getting more specific about why long-horizon agents fail</h2>
+        <h2>How this changes the way I build JTestGen</h2>
         <p>
-          Two new arXiv papers from May 22 are especially relevant to production agent systems.
-          <a href="https://arxiv.org/abs/2605.23574" target="_blank" rel="noreferrer">Push Your Agent</a>
-          defines a failure mode called quantitative goal persistence: agents can look competent
-          locally yet still stop before the requested amount of verified work is actually done.
-          The paper shows that controllers with explicit state and backlog tracking outperform more
-          naive completion strategies. Meanwhile,
-          <a href="https://arxiv.org/abs/2605.23296" target="_blank" rel="noreferrer">Parallel Context Compaction for Long-Horizon LLM Agent Serving</a>
-          argues that context summarization should stop being a blocking, unpredictable side effect
-          inside the main loop and instead become a controlled parallel subsystem.
+          If JTestGen is only a prompt wrapper that generates a test file, it is easy to dismiss.
+          If it targets low-coverage classes, builds useful prompt context, runs Maven, repairs
+          failures, records attempts, and produces a PR-ready summary, then it becomes a workflow.
+          That is a much stronger direction.
         </p>
         <p>
-          Practical takeaway: long-running agents need explicit progress accounting and memory
-          policies. If your workflow depends on "the model will remember what it has done," you
-          have a systems bug. Persist verified work units externally, track remaining backlog in
-          structured state, and treat summarization as an operator-managed service with measurable
-          latency and retention behavior.
+          The important constraint is honesty. I should not claim it works on every Maven project.
+          A better promise is narrower and more credible: reproducible Maven projects with JaCoCo
+          and JUnit-style test setups. Inside that boundary, the goal is a measurable coverage
+          improvement with all tests passing.
         </p>
 
-        <h2>What I would do with this as an engineer</h2>
+        <h2>What I need to practice next</h2>
         <ul>
-          <li>Put coding agents behind patch review, test execution, and sandbox boundaries before letting them touch sensitive repos.</li>
-          <li>Move prompt updates, retrieval rules, and eval criteria into versioned config that agents can propose against but not silently rewrite.</li>
-          <li>Represent long tasks as verified work units with counters, dedupe checks, and stop conditions outside the model context.</li>
-          <li>Budget for context compaction as a serving primitive with its own latency, quality, and retention metrics.</li>
+          <li>Benchmark on real Maven projects so the tool does not look like a toy.</li>
+          <li>Write better product documentation, not only implementation notes.</li>
+          <li>Package one coverage audit as a clear service with a before and after result.</li>
+          <li>Ask trusted engineers for feedback before trying to sell to strangers.</li>
         </ul>
 
         <h2>Conclusion</h2>
         <p>
-          The May 24-25 pattern is clear: applied AI is becoming more about control loops than
-          prompts. Teams shipping useful agents will need security controls for code actions,
-          verification loops for self-improvement, and explicit state-management strategies for
-          long-horizon execution. The builders who operationalize those three layers will have a
-          real advantage over teams still optimizing only prompt phrasing.
+          The transition I want is not from backend engineer to AI tourist. It is from backend
+          engineer to product-minded workflow builder. That is how I can use my existing experience
+          instead of starting over, and it is how I can build something useful enough for a real
+          team to try.
         </p>
 
-        <h2>Sources</h2>
+        <h2>References that shaped this note</h2>
         <ul>
           <li><a href="https://www.anthropic.com/glasswing" target="_blank" rel="noreferrer">Anthropic: Project Glasswing</a></li>
           <li><a href="https://global.fujitsu/en-global/pr/news/2026/05/25-01" target="_blank" rel="noreferrer">Fujitsu: self-evolving multi-AI agent technology</a></li>
