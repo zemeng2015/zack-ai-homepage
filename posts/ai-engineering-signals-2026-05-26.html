@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI engineering signals: harnesses, MCP, self-improving agents | Zack Wang</title>
+    <title>AI engineering signals: harnesses, MCP, serving systems | Zack Wang</title>
     <link rel="stylesheet" href="../assets/styles.css" />
   </head>
   <body>
@@ -18,11 +18,11 @@
     </header>
     <main class="section article">
       <p class="eyebrow">AI Roundup | May 26, 2026</p>
-      <h1>Four AI engineering signals from May 25 that matter more than model hype</h1>
+      <h1>Three AI engineering signals from May 25 that matter more than model hype</h1>
       <p class="hero-text">
-        The strongest engineering news in the last 24 to 48 hours was about control surfaces
-        around models: self-improving agent loops, clearer harness vocabulary, better context
-        packaging through MCP and skills, and lower inference overhead from compiler-aware CUDA
+        The strongest engineering news on May 25 was not another benchmark headline. It was about
+        the operating layer around models: clearer agent runtime vocabulary, better context
+        boundaries through MCP and skills, and lower inference overhead from compiler-aware CUDA
         Graph support.
       </p>
 
@@ -30,26 +30,12 @@
         <p>
           None of these items is a flashy foundation-model launch. That is exactly why they are
           useful. They point at where real applied AI work is moving: better agent runtime design,
-          better context discipline, and better serving efficiency.
+          better context discipline, and better serving efficiency. That matters more to enterprise
+          adoption than a small leaderboard gain, because most failures in deployed AI systems come
+          from integration, governance, latency, and unclear ownership of decisions.
         </p>
 
-        <h2>1. Fujitsu published a concrete self-improving multi-agent loop</h2>
-        <p>
-          Fujitsu's May 25
-          <a href="https://global.fujitsu/en-global/pr/news/2026/05/25-01" target="_blank" rel="noreferrer">self-evolving multi-AI agent announcement</a>
-          is worth reading because it is specific about the loop. Agents do data selection,
-          learning-condition adjustment, evaluation, and improvement proposal generation, but only
-          verified improvements get promoted. Fujitsu says the approach improved its Takane
-          business LLM by an average of 28 accuracy points after domain specialization and ongoing
-          operational learning.
-        </p>
-        <p>
-          Engineering takeaway: prompts, retrieval settings, and eval criteria should be treated
-          as controlled runtime artifacts. Let agents propose changes, but gate promotion through
-          replayable evaluation and human review.
-        </p>
-
-        <h2>2. Hugging Face made harness engineering vocabulary more operational</h2>
+        <h2>1. Hugging Face made harness engineering vocabulary more operational</h2>
         <p>
           Hugging Face's new
           <a href="https://huggingface.co/blog/agent-glossary" target="_blank" rel="noreferrer">agent glossary</a>
@@ -64,7 +50,7 @@
           need different fixes.
         </p>
 
-        <h2>3. Red Hat gave a practical split between MCP servers and skills</h2>
+        <h2>2. Red Hat gave a practical split between MCP servers and skills</h2>
         <p>
           Red Hat's May 25 article on
           <a href="https://developers.redhat.com/articles/2026/05/25/mcp-servers-vs-skills-choosing-right-context-your-ai" target="_blank" rel="noreferrer">MCP servers versus skills</a>
@@ -79,7 +65,7 @@
           carelessly makes systems harder to secure and harder to reason about.
         </p>
 
-        <h2>4. Microsoft Research highlighted a serving win below the model layer</h2>
+        <h2>3. Microsoft Research highlighted a serving win below the model layer</h2>
         <p>
           Microsoft Research surfaced
           <a href="https://www.microsoft.com/en-us/research/publication/grace-unlocking-cuda-graphs-with-compiler-support-for-ml-workloads/" target="_blank" rel="noreferrer">GraCE</a>
@@ -94,24 +80,41 @@
           high call frequency, compiler and runtime choices can matter as much as prompt changes.
         </p>
 
-        <h2>How this changes my projects</h2>
+        <h2>Enterprise application lens</h2>
+        <p>
+          The shared signal is that enterprise AI value comes from controllable operating surfaces,
+          not from asking the model to absorb every responsibility. A bank, insurer, retailer, or
+          internal platform team does not only need a better answer. It needs a system where the
+          context source is auditable, the tool boundary is permissioned, the runtime behavior can
+          be traced, and the latency profile is predictable enough for repeated use.
+        </p>
+        <p>
+          My read is that the next practical improvement in many companies will come from splitting
+          responsibilities more cleanly. MCP-style integrations should own live data access and
+          actions. Skill-like packages should own reusable operating knowledge. Harnesses should own
+          loop control and stop conditions. Serving infrastructure should own throughput and tail
+          latency. When those responsibilities are mixed together inside one prompt, the system may
+          demo well but becomes hard to govern.
+        </p>
+
+        <h2>What I would watch next</h2>
         <ul>
-          <li><strong>llm-eval-observability:</strong> add a clearer split between model error, retrieval/context error, and harness/runtime error in evaluation output, then track them as separate regression classes.</li>
-          <li><strong>mortgage-intelligence-copilot:</strong> move retrieval rules and answer-policy prompts into versioned config that can be tested independently, and design a promotion path for agent-suggested changes instead of direct edits.</li>
-          <li><strong>nl-to-athena-analyst:</strong> keep Athena and metadata access behind MCP-style tool boundaries while packaging SQL-generation heuristics and business-query patterns as skill-like reusable instructions.</li>
-          <li><strong>all three projects:</strong> measure where latency is really going before tuning prompts again; if orchestration or frequent short calls dominate, serving/runtime optimization may buy more than model swapping.</li>
+          <li>Whether teams start reporting agent failures by layer: model, context, harness, tool, policy, or serving.</li>
+          <li>Whether MCP adoption produces clearer permission models, or just another integration surface.</li>
+          <li>Whether runtime and compiler improvements show up in everyday agent workloads with many short calls.</li>
+          <li>Whether enterprise AI platforms can make these boundaries understandable to product and risk owners, not only engineers.</li>
         </ul>
 
         <h2>Conclusion</h2>
         <p>
           The May 25 pattern is clear: the engineering frontier is shifting from better answers per
           call to better system behavior across many calls. Applied AI work now lives in the
-          harness, the context pipeline, the improvement loop, and the serving stack.
+          harness, the context pipeline, the tool boundary, and the serving stack. For enterprise
+          use, that is where reliability and real productivity gains will be won.
         </p>
 
         <h2>Sources</h2>
         <ul>
-          <li><a href="https://global.fujitsu/en-global/pr/news/2026/05/25-01" target="_blank" rel="noreferrer">Fujitsu: self-evolving multi-AI agent technology</a></li>
           <li><a href="https://huggingface.co/blog/agent-glossary" target="_blank" rel="noreferrer">Hugging Face: Harness, Scaffold, and the AI Agent Terms Worth Getting Right</a></li>
           <li><a href="https://developers.redhat.com/articles/2026/05/25/mcp-servers-vs-skills-choosing-right-context-your-ai" target="_blank" rel="noreferrer">Red Hat Developer: MCP servers vs. skills</a></li>
           <li><a href="https://www.microsoft.com/en-us/research/publication/grace-unlocking-cuda-graphs-with-compiler-support-for-ml-workloads/" target="_blank" rel="noreferrer">Microsoft Research: GraCE</a></li>
