@@ -166,6 +166,24 @@ h3 {
   overflow-wrap: break-word;
 }
 
+.hero-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 680px;
+  margin-top: 24px;
+}
+
+.hero-proof span {
+  padding: 9px 12px;
+  border: 1px solid rgba(31, 122, 104, 0.20);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -649,6 +667,51 @@ h3 {
   margin-bottom: 34px;
 }
 
+.capabilities {
+  padding-top: 34px;
+}
+
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.capability-card {
+  position: relative;
+  min-height: 280px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), #fff),
+    radial-gradient(circle at top right, rgba(216, 111, 69, 0.12), transparent 38%);
+  overflow: hidden;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.capability-card:hover {
+  border-color: rgba(31, 122, 104, 0.28);
+  box-shadow: var(--glow);
+  transform: translateY(-3px);
+}
+
+.capability-card span {
+  display: inline-flex;
+  margin-bottom: 38px;
+  color: var(--warm);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.capability-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
 .project-list {
   display: grid;
   gap: 16px;
@@ -713,6 +776,23 @@ h3 {
 .project-card p {
   max-width: 880px;
   color: var(--muted);
+}
+
+.project-evidence {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 16px;
+}
+
+.project-evidence span {
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 10px;
+  border-left: 3px solid var(--accent);
+  background: rgba(31, 122, 104, 0.06);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .project-link {
@@ -1055,7 +1135,8 @@ h3 {
   }
 
   .strip,
-  .post-grid {
+  .post-grid,
+  .capability-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1103,7 +1184,8 @@ h3 {
   }
 
   .hero-copy,
-  .hero-text {
+  .hero-text,
+  .hero-proof {
     max-width: 100%;
   }
 
@@ -1194,6 +1276,7 @@ h3 {
   .project-card,
   .post-card,
   .target-panel,
+  .capability-card,
   .focus-list span,
   .contact-links a,
   .tags li {
