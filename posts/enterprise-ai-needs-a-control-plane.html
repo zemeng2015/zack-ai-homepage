@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enterprise AI needs a control plane, not just a better model | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Systems | June 8, 2026</p>
+      <h1>Enterprise AI needs a control plane, not just a better model</h1>
+      <p class="hero-text">
+        The most important AI signal this week was not a benchmark win or a clever demo. It was
+        how many vendors started packaging context, policy, state, cost controls, and tool
+        execution as first-class product surfaces. That is a better description of what enterprise
+        AI adoption actually needs.
+      </p>
+
+      <article class="article-body">
+        <p>
+          Over the last week, several announcements pointed in the same direction. OpenAI made its
+          frontier models and Codex generally available on AWS. Microsoft pushed Work IQ APIs
+          toward general availability and framed them as the layer agents use to work inside
+          Microsoft 365. Google published new results on agentic RAG for enterprise queries.
+          Hugging Face showed what it looks like to redesign a CLI around coding agents rather than
+          humans alone.
+        </p>
+        <p>
+          On the surface, these look like separate product updates. I think they are one technical
+          story: the model is becoming only one part of the stack, and the harder problem is now
+          the operating layer around it.
+        </p>
+
+        <h2>What actually changed this week</h2>
+        <p>
+          OpenAI on AWS matters less because it adds another place to buy tokens and more because
+          it reduces procurement, security review, and deployment friction for teams that already
+          live inside AWS. That is a control-plane decision. The same model becomes more usable
+          when it fits the company&apos;s existing billing, governance, and operational boundaries.
+        </p>
+        <p>
+          Microsoft made this even more explicit. Work IQ is not just another model endpoint. It
+          is an API surface for context, tools, workspaces, auditability, and cost management
+          inside the tenant boundary. Frontier Tuning pushes the same idea further: not merely
+          adapting prompts, but learning from enterprise workflows within the compliance boundary.
+        </p>
+        <p>
+          Google&apos;s new agentic RAG write-up points to the retrieval side of the same shift. The
+          interesting claim is not that one more framework uses multiple agents. It is that the
+          system tries to decide whether it has sufficient context before answering. That is much
+          closer to what dependable enterprise retrieval needs than a single retrieval pass plus a
+          confident paragraph.
+        </p>
+        <p>
+          Even the Hugging Face CLI post fits the pattern. If agent traffic is growing fast enough
+          that a major developer tool rewrites output formats, retry behavior, and command design
+          for agents, then agent consumption is no longer theoretical. Tooling is starting to
+          acknowledge that software now has two users: humans and machine operators.
+        </p>
+
+        <h2>What is genuinely important, and what is probably hype</h2>
+        <p>
+          The important part is not that everyone now says &quot;agent.&quot; The important part is that the
+          infrastructure around agents is becoming concrete: identity boundaries, intermediate
+          state, spend controls, audit logs, safe retries, structured tool access, and enterprise
+          distribution paths.
+        </p>
+        <p>
+          That is real progress, because most enterprise AI failures are not caused by the absence
+          of raw model intelligence. They are caused by weak context selection, fragile tool
+          integration, invisible costs, missing observability, and poor failure handling.
+        </p>
+        <p>
+          The hype is the implied leap from better packaging to reliable autonomy. The same week
+          produced a useful reality check: IBM and Artificial Analysis published ITBench-AA, where
+          all frontier models scored below 50% on Kubernetes incident root-cause tasks. That does
+          not mean the products announced this week are meaningless. It means the deployment layer
+          is improving faster than the underlying end-to-end reliability of unsupervised agents.
+        </p>
+        <p>
+          In other words, vendors are getting better at making agents governable before agents are
+          consistently good at doing the hard work alone. For enterprise buyers, that is not a
+          contradiction. It is the correct order.
+        </p>
+
+        <h2>Where this creates real enterprise value</h2>
+        <p>
+          The practical opportunity is not fully autonomous digital coworkers replacing teams. It
+          is supervised workflow acceleration in places where context access and review trails
+          matter more than flashy generation quality.
+        </p>
+        <p>
+          Good candidates are internal research assistants over fragmented documentation, governed
+          analytics copilots, code review and modernization helpers inside approved infrastructure,
+          support triage workflows, and operational investigation tools that gather evidence before
+          a human decides.
+        </p>
+        <p>
+          These are valuable because they improve speed and quality without requiring the system to
+          be correct in a fully open-ended sense. If the AI can cut investigation time, surface the
+          right artifacts, preserve citations, keep actions auditable, and stay inside policy, it
+          can already create measurable ROI.
+        </p>
+
+        <h2>What builders should do next</h2>
+        <ul>
+          <li>Design for governed execution, not raw autonomy. Treat identity, approvals, and audit logs as part of the product.</li>
+          <li>Make intermediate state explicit. Long-running agents need durable workspace, memory, and resumable steps.</li>
+          <li>Invest in retrieval quality and sufficiency checks before adding more agent roles.</li>
+          <li>Prefer tools and CLIs that are deterministic, retry-safe, and structured for machine use.</li>
+          <li>Evaluate agents on workflow tasks that resemble production, not only on synthetic reasoning benchmarks.</li>
+          <li>Target narrow operational wins where a human can review the output, especially in enterprise data and engineering workflows.</li>
+        </ul>
+
+        <h2>My view</h2>
+        <p>
+          I think this week&apos;s news was a sign of maturity, not of arrival. The industry is slowly
+          admitting that enterprise AI adoption is an integration and control problem as much as a
+          model problem. That is good news for applied AI engineers, because the hard work now
+          looks a lot like systems engineering again: context plumbing, policy boundaries,
+          validation loops, observability, and workflow design.
+        </p>
+        <p>
+          The developers who win from here will not be the ones who merely swap in the newest
+          model. They will be the ones who can make AI behave predictably inside real operating
+          environments.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/" target="_blank" rel="noreferrer">OpenAI: frontier models and Codex are now available on AWS</a></li>
+          <li><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/02/announcing-the-new-work-iq-apis/" target="_blank" rel="noreferrer">Microsoft 365 Blog: Announcing the new Work IQ APIs</a></li>
+          <li><a href="https://devblogs.microsoft.com/microsoft365dev/frontier-tuning-teaching-ai-to-work-the-way-you-do/" target="_blank" rel="noreferrer">Microsoft 365 Developer Blog: Frontier Tuning</a></li>
+          <li><a href="https://research.google/blog/unlocking-dependable-responses-with-gemini-enterprise-agent-platforms-agentic-rag/" target="_blank" rel="noreferrer">Google Research: Agentic RAG for Gemini Enterprise Agent Platform</a></li>
+          <li><a href="https://huggingface.co/blog/hf-cli-for-agents" target="_blank" rel="noreferrer">Hugging Face: Designing the hf CLI as an agent-optimized way to work with the Hub</a></li>
+          <li><a href="https://huggingface.co/blog/ibm-research/itbench-aa" target="_blank" rel="noreferrer">IBM Research and Artificial Analysis: ITBench-AA</a></li>
+          <li><a href="https://artificialanalysis.ai/evaluations/itbench-aa" target="_blank" rel="noreferrer">Artificial Analysis: ITBench-AA leaderboard and methodology</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
