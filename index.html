@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Zack Wang | Applied AI Engineer</title>
+    <meta name="theme-color" content="#0f1c19" />
     <meta
       name="description"
       content="Zack Wang builds production-grade AI systems with RAG, agents, evals, observability, AWS, Python, and enterprise workflow automation."
@@ -12,30 +13,37 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="Zack Wang homepage">ZW</a>
+      <a class="brand-lockup" href="#top" aria-label="Zack Wang homepage">
+        <span class="brand">ZW</span>
+        <span class="brand-text">
+          <strong>Zack Wang</strong>
+          <small>Applied AI Engineer</small>
+        </span>
+      </a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#pilot">Pilot</a>
         <a href="#projects">Projects</a>
         <a href="#writing">Writing</a>
         <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="#contact">Contact</a>
       </nav>
     </header>
 
     <main id="top">
       <section class="hero">
         <div class="hero-copy">
+          <p class="availability"><span aria-hidden="true"></span>Open to Applied AI / LLM Systems roles</p>
           <p class="eyebrow">Senior Software Engineer -> Applied AI Engineer</p>
-          <h1>Zack Wang builds reliable AI workflows for enterprise software teams.</h1>
+          <h1>I build AI systems that can be trusted in production.</h1>
           <p class="hero-text">
             I combine 10+ years of backend, AWS, and data platform experience with RAG,
             agent workflows, evaluation, and observability to turn AI prototypes into
             validated, reviewable systems.
           </p>
           <div class="hero-proof" aria-label="Professional proof points">
-            <span>Production backend experience</span>
-            <span>AI systems with evals and traces</span>
-            <span>Open-source portfolio projects</span>
+            <span><strong>10+ yrs</strong><small>Backend, AWS, data platforms</small></span>
+            <span><strong>5 projects</strong><small>RAG, evals, agents, automation</small></span>
+            <span><strong>CI evidence</strong><small>Tests, traces, gates, reports</small></span>
           </div>
           <div class="hero-actions" aria-label="Primary links">
             <a class="button primary" href="#projects">View Projects</a>
@@ -44,7 +52,14 @@
         </div>
 
         <div class="system-visual" aria-label="Animated AI system architecture preview">
+          <div class="visual-topbar" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <strong>production-ai-control-plane</strong>
+          </div>
           <div class="scanline"></div>
+          <i class="particle particle-one" aria-hidden="true"></i>
+          <i class="particle particle-two" aria-hidden="true"></i>
+          <i class="particle particle-three" aria-hidden="true"></i>
           <div class="circuit-ring ring-one"></div>
           <div class="circuit-ring ring-two"></div>
 
@@ -92,6 +107,10 @@
               <span>Cost</span>
               <strong>$0.002</strong>
             </div>
+          </div>
+          <div class="visual-log" aria-hidden="true">
+            <span>trace: grounded_answer.pass</span>
+            <span>eval: citation_coverage 0.98</span>
           </div>
         </div>
       </section>
@@ -192,6 +211,13 @@
         <div class="section-heading">
           <p class="eyebrow">Portfolio</p>
           <h2>Selected project case studies</h2>
+        </div>
+        <div class="project-summary">
+          <p>
+            Each project is built to show production judgment: real workflows, clear constraints,
+            testable behavior, evidence artifacts, and deployable infrastructure rather than a
+            thin demo page.
+          </p>
         </div>
 
         <div class="project-list">
