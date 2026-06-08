@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coding agents are becoming workflow software | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Workflow Design | June 8, 2026</p>
+      <h1>Coding agents are becoming workflow software</h1>
+      <p class="hero-text">
+        The most interesting AI development this week was not a new reasoning benchmark. It was
+        how quickly the tooling around coding agents started looking like a general operating model
+        for knowledge work: isolated execution, parallel tasks, artifacts, budgets, and reviewable
+        outputs.
+      </p>
+
+      <article class="article-body">
+        <p>
+          Several releases from the last week point in the same direction. OpenAI positioned Codex
+          for analysts, operators, researchers, and designers, not just engineers. GitHub expanded
+          the Copilot app, sandboxes, larger context windows, and usage-based controls. Microsoft
+          Build framed agent development around trusted execution environments, local and cloud
+          runtimes, and broader agent-native tooling. Anthropic published a trends report arguing
+          that development work is shifting toward orchestrating agents rather than typing every
+          line by hand.
+        </p>
+        <p>
+          On the surface, that can sound like routine product expansion. I think the deeper point
+          is more useful: software engineering is becoming the template for how enterprises will
+          structure AI-assisted work in general.
+        </p>
+
+        <h2>The real signal behind this week&apos;s releases</h2>
+        <p>
+          What made coding agents valuable was never just code generation. It was the surrounding
+          system: clean task boundaries, reproducible environments, visible diffs, validation
+          steps, and a human who could decide whether the output was safe to merge.
+        </p>
+        <p>
+          That pattern is now spreading. OpenAI&apos;s latest Codex release is explicit that internal
+          apps, dashboards, executive materials, and operational documents are now fair game.
+          GitHub&apos;s new app and sandbox model formalize the idea that agent work should happen in
+          contained sessions with traceable outputs. Microsoft is pushing similar primitives at the
+          platform layer with secure execution containers, agent identity, and hybrid local-cloud
+          runtimes.
+        </p>
+        <p>
+          The important interpretation is not &quot;everyone becomes a programmer.&quot; It is that more
+          business work is being reshaped into something that looks like development: specify a
+          task, give the agent bounded context, let it produce artifacts, inspect the result, and
+          decide whether it should advance to the next stage.
+        </p>
+
+        <h2>What matters technically, and what looks overstated</h2>
+        <p>
+          The meaningful progress is in the operating model. Parallel agent sessions, isolated
+          sandboxes, configurable reasoning depth, larger working context, explicit budgets, and
+          local execution options all reduce friction in real workflows. These are not cosmetic
+          features. They make it more realistic to let AI handle multi-step work without turning
+          the process into an opaque black box.
+        </p>
+        <p>
+          The overhyped part is the story that this erases the need for expertise. In practice, the
+          more capable the agent becomes, the more important review design becomes. Someone still
+          needs to define acceptable evidence, choose when the system can act automatically, set
+          cost boundaries, and distinguish a polished artifact from a correct one.
+        </p>
+        <p>
+          I also do not think larger context or more autonomous execution alone solves the hard
+          reliability problem. More context can help, but it can also encourage people to skip
+          retrieval discipline and validation design. Long-running agents can do more work, but
+          they can also create more expensive errors if the workflow lacks checkpoints.
+        </p>
+
+        <h2>Where enterprises can actually benefit</h2>
+        <p>
+          The strongest near-term use cases are not limited to shipping application code. They are
+          operational tasks that can be expressed as reviewable artifact pipelines.
+        </p>
+        <p>
+          Think incident postmortems assembled from logs and tickets, procurement or compliance
+          summaries grounded in internal policies, research digests with cited source packs,
+          analytics investigations that produce a notebook and recommendation draft, or internal
+          tool generation for narrow team workflows. These are all cases where the output can be
+          inspected, corrected, versioned, and approved before downstream action.
+        </p>
+        <p>
+          That matters because enterprise value usually comes from reducing coordination cost, not
+          from producing dazzling one-shot answers. If AI can remove the repetitive assembly work
+          around investigation, reporting, handoff, and documentation, teams can move faster
+          without pretending that human judgment has disappeared.
+        </p>
+
+        <h2>What builders should do with this signal</h2>
+        <ul>
+          <li>Design AI workflows around artifacts, not chat transcripts. A draft, diff, report, or ticket is easier to review than a long conversation.</li>
+          <li>Use sandboxed execution when the agent touches files, tools, browsers, or enterprise systems.</li>
+          <li>Separate planning, generation, and verification so failures can be caught before the final action.</li>
+          <li>Give non-engineering users strong defaults for context, templates, and approval steps instead of handing them raw autonomy.</li>
+          <li>Track cost and usage at the workflow level. Usage-based billing makes this an engineering concern, not just a finance concern.</li>
+          <li>Prefer workflows where the AI compresses tedious work and the human owns the final judgment.</li>
+        </ul>
+
+        <h2>My view</h2>
+        <p>
+          I think this week&apos;s news matters because it clarifies where applied AI is heading. The
+          big opportunity is not merely &quot;AI that writes code.&quot; It is AI that makes more kinds of
+          work behave like well-run software delivery: scoped, inspectable, replayable, and
+          governed.
+        </p>
+        <p>
+          For applied AI engineers, that means the job is expanding beyond prompts and model
+          selection. The harder and more valuable work is designing execution boundaries, review
+          loops, and artifact flows that let enterprises trust the output enough to use it.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://openai.com/index/codex-for-every-role-tool-workflow/" target="_blank" rel="noreferrer">OpenAI: Codex for every role, tool, and workflow</a></li>
+          <li><a href="https://openai.com/index/codex-for-knowledge-work/" target="_blank" rel="noreferrer">OpenAI: Codex is becoming a productivity tool for everyone</a></li>
+          <li><a href="https://github.blog/news-insights/product-news/github-copilot-app-the-agent-native-desktop-experience/" target="_blank" rel="noreferrer">GitHub Blog: GitHub Copilot app, the agent-native desktop experience</a></li>
+          <li><a href="https://github.blog/changelog/2026-06-02-cloud-and-local-sandboxes-for-github-copilot-now-in-public-preview/" target="_blank" rel="noreferrer">GitHub Changelog: Cloud and local sandboxes for GitHub Copilot</a></li>
+          <li><a href="https://github.blog/changelog/2026-06-04-larger-context-windows-and-configurable-reasoning-levels-for-github-copilot/" target="_blank" rel="noreferrer">GitHub Changelog: Larger context windows and configurable reasoning levels for GitHub Copilot</a></li>
+          <li><a href="https://blogs.microsoft.com/blog/2026/06/02/microsoft-build-2026-be-yourself-at-work/" target="_blank" rel="noreferrer">Microsoft Build 2026: Be yourself at work</a></li>
+          <li><a href="https://blogs.windows.com/windowsdeveloper/2026/06/02/build-2026-furthering-windows-as-the-trusted-platform-for-development/" target="_blank" rel="noreferrer">Windows Developer Blog: Furthering Windows as the trusted platform for development</a></li>
+          <li><a href="https://resources.anthropic.com/2026-agentic-coding-trends-report" target="_blank" rel="noreferrer">Anthropic: 2026 Agentic Coding Trends Report</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
