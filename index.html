@@ -1,394 +1,536 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN" data-lang="zh">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Zack Wang | AI Systems and Product Engineer</title>
-    <meta name="theme-color" content="#07110f" />
+    <title>Zack Wang | 企业 AI 落地工程师 / Enterprise AI Delivery</title>
+    <meta name="theme-color" content="#0a1714" />
     <meta
       name="description"
-      content="Zack Wang is a senior software engineer building production-grade AI systems and real business products across applied AI, AWS data workflows, e-commerce operations, travel lead generation, and developer tooling."
+      content="Zack Wang is a senior software engineer focused on enterprise AI delivery: LLM workflows, evaluation, governance, AWS data systems, product UX, and production-ready AI applications."
     />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307110f'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='%2363d98d'%3EZW%3C/text%3E%3C/svg%3E" />
+    <script>
+      (function () {
+        var storageKey = "zack-homepage-language";
+        var saved = "";
+        try {
+          saved = window.localStorage.getItem(storageKey) || "";
+        } catch (error) {
+          saved = "";
+        }
+
+        var languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+        var hasChinese = languages.some(function (language) {
+          return /^zh/i.test(language);
+        });
+        var hasEnglish = languages.some(function (language) {
+          return /^en/i.test(language);
+        });
+        var language = saved === "en" || saved === "zh" ? saved : hasEnglish && !hasChinese ? "en" : "zh";
+        document.documentElement.dataset.lang = language;
+        document.documentElement.lang = language === "en" ? "en" : "zh-CN";
+      })();
+    </script>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a1714'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='%235fd4a7'%3EZW%3C/text%3E%3C/svg%3E"
+    />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="portfolio-v3">
-    <header class="site-header v3-header">
-      <a class="brand-lockup" href="#top" aria-label="Zack Wang homepage">
-        <span class="brand">ZW</span>
-        <span class="brand-text">
+  <body class="portfolio-v4">
+    <a class="skip-link" href="#main">
+      <span data-lang="zh">跳到主要内容</span>
+      <span data-lang="en">Skip to main content</span>
+    </a>
+
+    <header class="v4-header">
+      <a class="v4-brand" href="#top" aria-label="Zack Wang homepage">
+        <span class="v4-brand-mark">ZW</span>
+        <span>
           <strong>Zack Wang</strong>
-          <small>AI Systems / Product Engineer</small>
+          <small>
+            <span data-lang="zh">企业 AI 落地工程师</span>
+            <span data-lang="en">Enterprise AI Delivery Engineer</span>
+          </small>
         </span>
       </a>
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#fit">Role Fit / 岗位</a>
-        <a href="#products">Products / 产品</a>
-        <a href="#ai-projects">AI Projects / AI 项目</a>
-        <a href="#writing">Writing / 文章</a>
-        <a class="nav-cta" href="#contact">Contact</a>
+
+      <nav class="v4-nav" aria-label="Primary navigation">
+        <a href="#problems">
+          <span data-lang="zh">解决问题</span>
+          <span data-lang="en">Problems</span>
+        </a>
+        <a href="#case-studies">
+          <span data-lang="zh">重点案例</span>
+          <span data-lang="en">Case Studies</span>
+        </a>
+        <a href="#capabilities">
+          <span data-lang="zh">能力模块</span>
+          <span data-lang="en">Capabilities</span>
+        </a>
+        <a href="#profile">
+          <span data-lang="zh">职业定位</span>
+          <span data-lang="en">Profile</span>
+        </a>
       </nav>
+
+      <div class="v4-header-actions">
+        <div class="language-switch" aria-label="Language switcher">
+          <button type="button" data-set-lang="zh">中文</button>
+          <button type="button" data-set-lang="en">EN</button>
+        </div>
+        <a class="v4-contact-link" href="#contact">
+          <span data-lang="zh">联系</span>
+          <span data-lang="en">Contact</span>
+        </a>
+      </div>
     </header>
 
-    <main id="top">
-      <section class="v3-hero">
-        <div class="v3-hero-copy">
-          <p class="v3-status"><span aria-hidden="true"></span>Open to Applied AI, AI Platform, and full-stack AI product roles</p>
-          <h1>I build production-grade AI systems and real business products.</h1>
-          <p class="v3-lead">
-            10+ years across backend, AWS, enterprise data workflows, frontend delivery, and CI/CD. My recent work turns AI into usable products:
-            e-commerce operations, travel lead generation, developer productivity, RAG, evaluation, and LLMOps.
+    <main id="main">
+      <section class="v4-hero" id="top">
+        <div class="v4-hero-copy">
+          <h1>
+            <span data-lang="zh">把 AI 做成企业能上线、能治理、能交付的系统。</span>
+            <span data-lang="en">I turn AI into enterprise systems that can be shipped, governed, and operated.</span>
+          </h1>
+          <p class="v4-lead">
+            <span data-lang="zh">
+              我有 10+ 年 Java、TypeScript、AWS、数据平台和企业系统经验。近期项目聚焦把 LLM、业务数据、审批、评测、部署和产品 UI 串成真正可运行的 AI 应用。
+            </span>
+            <span data-lang="en">
+              I bring 10+ years across Java, TypeScript, AWS, data workflows, and enterprise systems. My recent work connects LLMs, business data, approvals, evaluation, deployment, and product UX into usable AI applications.
+            </span>
           </p>
-          <p class="v3-lead cn">
-            我不是只做 prompt demo。我把 Java / TypeScript / AWS / 数据平台经验，用到 AI 产品工程里：
-            有业务流程、有安全边界、有评测、有部署路径，也有真实用户能理解的界面。
-          </p>
-
-          <div class="hero-actions" aria-label="Primary actions">
-            <a class="button primary" href="#products">View Products</a>
-            <a class="button secondary" href="mailto:zackwang.job@gmail.com?subject=AI%20Engineering%20Conversation">Contact Me</a>
+          <div class="v4-actions" aria-label="Primary actions">
+            <a class="v4-button primary" href="#case-studies">
+              <span data-lang="zh">查看重点案例</span>
+              <span data-lang="en">View Case Studies</span>
+            </a>
+            <a class="v4-button secondary" href="mailto:zackwang.job@gmail.com?subject=AI%20Engineering%20Conversation">
+              <span data-lang="zh">约一次沟通</span>
+              <span data-lang="en">Start a Conversation</span>
+            </a>
           </div>
-
-          <div class="v3-tech-strip" aria-label="Core skills">
+          <div class="v4-skill-rail" aria-label="Core technical strengths">
             <span>Java / Spring Boot</span>
             <span>TypeScript / Angular / React</span>
-            <span>Python / FastAPI</span>
             <span>AWS Data Workflows</span>
             <span>RAG / Agents / LLMOps</span>
-            <span>Docker / CI / Release Gates</span>
+            <span>CI/CD / Docker / Release Gates</span>
           </div>
         </div>
 
-        <aside class="v3-command-center" aria-label="Portfolio command center">
-          <div class="v3-console-bar">
-            <span></span><span></span><span></span>
-            <strong>portfolio-command-center</strong>
-            <em>system online</em>
+        <aside class="delivery-console" aria-label="Enterprise AI delivery system map">
+          <div class="console-topbar">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <strong>AI Delivery Control Plane</strong>
           </div>
-          <div class="v3-console-grid" aria-hidden="true"></div>
-          <div class="v3-system-map">
-            <p>System Map</p>
-            <div class="v3-layer">
-              <strong>Data + Domain</strong>
-              <small>CSV, docs, S3/Athena, business records</small>
+          <div class="console-canvas">
+            <div class="scan-line" aria-hidden="true"></div>
+            <div class="console-node main-node">
+              <strong>AI Product</strong>
+              <small>
+                <span data-lang="zh">业务可用</span>
+                <span data-lang="en">Usable workflow</span>
+              </small>
             </div>
-            <div class="v3-layer">
-              <strong>AI Workflow</strong>
-              <small>RAG, agents, scoring, generation</small>
+            <div class="console-node node-a">
+              <strong>
+                <span data-lang="zh">业务数据</span>
+                <span data-lang="en">Domain Data</span>
+              </strong>
+              <small>CSV / Docs / S3 / SQL</small>
             </div>
-            <div class="v3-layer">
-              <strong>Reliability</strong>
-              <small>evals, audit logs, approval gates</small>
+            <div class="console-node node-b">
+              <strong>
+                <span data-lang="zh">AI 编排</span>
+                <span data-lang="en">AI Orchestration</span>
+              </strong>
+              <small>RAG / Agents / Scoring</small>
             </div>
-            <div class="v3-layer">
-              <strong>Delivery</strong>
-              <small>web apps, desktop apps, cloud-ready ops</small>
+            <div class="console-node node-c">
+              <strong>
+                <span data-lang="zh">评测治理</span>
+                <span data-lang="en">Evaluation</span>
+              </strong>
+              <small>Traces / Gates / Audit</small>
             </div>
+            <div class="console-node node-d">
+              <strong>
+                <span data-lang="zh">部署运维</span>
+                <span data-lang="en">Delivery Ops</span>
+              </strong>
+              <small>AWS / Docker / CI</small>
+            </div>
+            <svg class="console-lines" viewBox="0 0 760 430" aria-hidden="true">
+              <path d="M375 205 L180 116" />
+              <path d="M375 205 L542 112" />
+              <path d="M375 205 L565 318" />
+              <path d="M375 205 L170 320" />
+              <path class="pulse-path" d="M180 116 L375 205 L565 318" />
+            </svg>
           </div>
-          <div class="v3-timeline">
-            <p>Recent Project Timeline</p>
-            <div><span>2026.06</span><strong>Temu AI Commerce Copilot</strong><small>desktop private pilot RC</small></div>
-            <div><span>2026.06</span><strong>China Local Journey</strong><small>travel lead-gen + planner</small></div>
-            <div><span>2026.06</span><strong>JTestGen</strong><small>AI Java test generation</small></div>
-            <div><span>2026.06</span><strong>AI ContentOps Studio</strong><small>workflow automation + review gates</small></div>
-            <div><span>2026.05</span><strong>LLM Eval / Athena / RAG</strong><small>enterprise AI reliability</small></div>
-          </div>
-          <div class="v3-metrics">
-            <div><span>Experience</span><strong>10+ yrs</strong></div>
-            <div><span>Portfolio</span><strong>8 projects</strong></div>
-            <div><span>Direction</span><strong>AI + Product</strong></div>
+          <div class="console-layers">
+            <div>
+              <span>01</span>
+              <strong>
+                <span data-lang="zh">业务工作流</span>
+                <span data-lang="en">Business workflow</span>
+              </strong>
+            </div>
+            <div>
+              <span>02</span>
+              <strong>
+                <span data-lang="zh">AI 安全边界</span>
+                <span data-lang="en">AI safety boundary</span>
+              </strong>
+            </div>
+            <div>
+              <span>03</span>
+              <strong>
+                <span data-lang="zh">上线证据链</span>
+                <span data-lang="en">Release evidence</span>
+              </strong>
+            </div>
           </div>
         </aside>
       </section>
 
-      <section class="v3-section v3-fit" id="fit">
-        <div class="v3-section-heading">
-          <p>Role Fit / 目标岗位</p>
-          <h2>Positioning for big-tech AI roles without losing the senior engineering story.</h2>
+      <section class="v4-section v4-problems" id="problems">
+        <div class="v4-section-heading">
+          <p>
+            <span data-lang="zh">我解决的问题</span>
+            <span data-lang="en">Problems I Solve</span>
+          </p>
+          <h2>
+            <span data-lang="zh">企业 AI 真正缺的不是聊天窗口，而是能接住业务、风险和交付的工程系统。</span>
+            <span data-lang="en">Enterprise AI needs more than a chat box. It needs systems that carry workflow, risk, and delivery.</span>
+          </h2>
         </div>
-        <div class="v3-fit-grid">
+        <div class="problem-grid">
           <article>
-            <span>Applied AI Engineer</span>
-            <h3>Ship AI features that survive real workflows</h3>
-            <p>RAG, generation, scoring, review gates, stateful workflows, and APIs that business users can operate.</p>
-            <small>对应：应用 AI、GenAI Backend、企业 AI 产品工程</small>
+            <span>01</span>
+            <h3>
+              <span data-lang="zh">把业务数据接入 AI 工作流</span>
+              <span data-lang="en">Connect business data to AI workflows</span>
+            </h3>
+            <p>
+              <span data-lang="zh">CSV、文档、数据库、对象存储、运营记录，都要转成可检索、可追踪、可验证的上下文。</span>
+              <span data-lang="en">CSV, documents, databases, object storage, and operating records become searchable, traceable, and verifiable context.</span>
+            </p>
           </article>
           <article>
-            <span>AI Platform / LLMOps</span>
-            <h3>Build the control layer around model output</h3>
-            <p>Evaluation sets, trace history, audit logs, cost and quality gates, release evidence, and safe defaults.</p>
-            <small>对应：AI Platform、LLM Systems、模型应用可靠性</small>
+            <span>02</span>
+            <h3>
+              <span data-lang="zh">让模型输出可审批、可回放</span>
+              <span data-lang="en">Make model output reviewable</span>
+            </h3>
+            <p>
+              <span data-lang="zh">不是默认让 AI 自动执行，而是设计审批、审计日志、质量门禁和人机协同路径。</span>
+              <span data-lang="en">AI should not mutate production by default. It needs approvals, audit logs, quality gates, and human-in-the-loop flow.</span>
+            </p>
           </article>
           <article>
-            <span>Full-stack Product Engineer</span>
-            <h3>Turn business problems into credible tools</h3>
-            <p>Travel lead generation, e-commerce operations, desktop packaging, buyer-facing UX, and deployment paths.</p>
-            <small>对应：AI 产品工程、全栈平台、业务系统产品化</small>
+            <span>03</span>
+            <h3>
+              <span data-lang="zh">把内部工具做成可用产品</span>
+              <span data-lang="en">Turn internal tools into products</span>
+            </h3>
+            <p>
+              <span data-lang="zh">从 API、前端、桌面端、表单、报告到部署路径，让非技术用户知道怎么使用、怎么信任。</span>
+              <span data-lang="en">APIs, frontend UX, desktop packaging, forms, reports, and deployment paths make tools usable by non-technical operators.</span>
+            </p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>
+              <span data-lang="zh">把实验项目推进到可交付状态</span>
+              <span data-lang="en">Move experiments toward delivery</span>
+            </h3>
+            <p>
+              <span data-lang="zh">用测试、Docker、CI、评测集、运行记录、错误恢复和安全默认值，把 demo 推到工程化阶段。</span>
+              <span data-lang="en">Tests, Docker, CI, evaluation sets, run records, recovery paths, and safe defaults move demos toward production shape.</span>
+            </p>
           </article>
         </div>
       </section>
 
-      <section class="v3-section v3-products" id="products">
-        <div class="v3-section-heading">
-          <p>Featured Business Products / 真实业务产品</p>
-          <h2>Recent local projects that show product judgment, not only algorithm demos.</h2>
+      <section class="v4-section" id="case-studies">
+        <div class="v4-section-heading wide">
+          <p>
+            <span data-lang="zh">重点案例</span>
+            <span data-lang="en">Flagship Case Studies</span>
+          </p>
+          <h2>
+            <span data-lang="zh">只展示能说明“AI 企业落地能力”的项目。</span>
+            <span data-lang="en">Only the projects that prove enterprise AI delivery capability are featured.</span>
+          </h2>
         </div>
-        <div class="v3-product-grid">
-          <article class="v3-product-card">
-            <figure>
-              <img src="assets/project-travel-studio.png" alt="China Local Journey travel website homepage screenshot" loading="lazy" />
-            </figure>
-            <div class="v3-card-body">
-              <p class="v3-kicker">Business Product / Lead Generation</p>
-              <h3>China Inbound Travel Website Studio</h3>
-              <h4>中国入境游旅行网站工作室</h4>
-              <p>
-                A Next.js productized website system for Chinese inbound travel agencies and DMCs: Chinese service site, English demo site,
-                trip package pages, drag-and-drop itinerary planner, quote/contact forms, validated APIs, and email lead delivery.
-              </p>
-              <p class="cn">
-                这个项目展示的是“能卖给小企业的获客系统”：不是单页模板，而是线路展示、行程组合、询价表单、邮件通知和部署规则的一整套产品。
-              </p>
-              <div class="v3-tags">
-                <span>Next.js App Router</span>
-                <span>TypeScript</span>
-                <span>Tailwind CSS</span>
-                <span>React Hook Form</span>
-                <span>Zod</span>
-                <span>dnd-kit Planner</span>
-                <span>Resend Email</span>
-                <span>Netlify Ready</span>
-              </div>
-              <div class="v3-project-note">Private local case study / 本地项目展示</div>
-            </div>
-          </article>
 
-          <article class="v3-product-card">
+        <div class="case-grid">
+          <article class="case-card case-featured">
             <figure>
-              <img src="assets/project-temu-commerce-cover.png" alt="Temu AI Commerce Copilot boss dashboard and AI product selection screenshot" loading="lazy" />
+              <img src="assets/project-temu-commerce-cover.png" alt="Temu AI Commerce Copilot product dashboard" loading="lazy" />
             </figure>
-            <div class="v3-card-body">
-              <p class="v3-kicker">AI Product / E-commerce Operations</p>
-              <h3>Temu AI Commerce Copilot</h3>
-              <h4>跨境电商 AI 助手（桌面私有试点版）</h4>
+            <div class="case-body">
+              <div class="case-meta">AI Product / E-commerce Operations</div>
+              <h3>
+                <span data-lang="zh">跨境电商 AI 决策与运营助手</span>
+                <span data-lang="en">AI Commerce Copilot for Cross-Border Operations</span>
+              </h3>
               <p>
-                A Chinese-first boss decision center for cross-border e-commerce: CSV/XLSX import, evidence-backed product scoring,
-                supplier quote loop, content package drafts, approvals, audit logs, desktop packaging, and local/private deployment.
+                <span data-lang="zh">
+                  面向跨境电商老板和运营团队：导入 CSV/XLSX 数据，AI 做选品评分、供应商询价优先级、内容包草稿、审批任务和试点报告。真实平台变更默认禁用，重点展示本地私有部署、审计、备份和数据安全边界。
+                </span>
+                <span data-lang="en">
+                  A Chinese-first decision center for e-commerce operators: CSV/XLSX import, evidence-backed product scoring, supplier quote priorities, content package drafts, approval tasks, and pilot reports. External platform mutation is disabled by default, with local/private deployment and auditability as core design constraints.
+                </span>
               </p>
-              <p class="cn">
-                重点不是“自动操作平台”，而是安全的 AI 决策层：外部平台变更默认禁用，老板审批、人机协同、证据链、备份和脱敏支持包都被纳入产品设计。
-              </p>
-              <div class="v3-tags">
+              <div class="case-proof">
                 <span>Spring Boot</span>
                 <span>Angular</span>
-                <span>Electron Desktop</span>
+                <span>Electron</span>
                 <span>SQLite / Postgres</span>
-                <span>Docker</span>
-                <span>Approval Gates</span>
+                <span>Human Approval</span>
                 <span>Audit Logs</span>
-                <span>Private Pilot RC</span>
               </div>
-              <div class="v3-project-note">Private product case study / 私有项目展示</div>
+              <div class="case-status">
+                <span data-lang="zh">私有产品案例，可线下展示架构与代码</span>
+                <span data-lang="en">Private product case study, architecture and code available offline</span>
+              </div>
             </div>
           </article>
-        </div>
-      </section>
 
-      <section class="v3-section v3-ai-projects" id="ai-projects">
-        <div class="v3-section-heading">
-          <p>AI Engineering Projects / AI 工程项目</p>
-          <h2>Public systems that demonstrate applied AI engineering depth.</h2>
-        </div>
-        <p class="v3-section-intro">
-          These projects cover developer tooling, content operations, LLM evaluation, governed data analytics, and citation-grounded RAG.
-          Together they show the engineering surface needed for production AI: context, workflows, tests, traces, and deployment.
-        </p>
-
-        <div class="v3-ai-grid">
-          <article class="v3-ai-card featured">
+          <article class="case-card">
             <figure>
-              <img src="assets/project-jtestgen.png" alt="JTestGen AI Java unit test generation workflow" loading="lazy" />
+              <img src="assets/project-jtestgen.png" alt="JTestGen AI unit test generation workflow visual" loading="lazy" />
             </figure>
-            <div class="v3-card-body">
-              <p class="v3-kicker">Flagship AI Developer Tool</p>
-              <h3>JTestGen</h3>
+            <div class="case-body">
+              <div class="case-meta">Developer Productivity / Enterprise Java</div>
+              <h3>
+                <span data-lang="zh">AI Java 单测生成与覆盖率修复系统</span>
+                <span data-lang="en">AI Java Unit Test Generation System</span>
+              </h3>
               <p>
-                AI-assisted Java unit test generation system. It reads JaCoCo reports, targets low-coverage Maven classes,
-                builds project-aware prompts, generates JUnit/Mockito tests, runs Maven validation, repairs failures, and writes run artifacts.
+                <span data-lang="zh">读取 JaCoCo 覆盖率报告，定位低覆盖 Maven 类，生成 JUnit/Mockito 测试，运行 Maven 校验，失败后进入修复循环，并输出可审计运行产物。</span>
+                <span data-lang="en">Reads JaCoCo reports, targets low-coverage Maven classes, generates JUnit/Mockito tests, runs Maven validation, repairs failures, and writes auditable run artifacts.</span>
               </p>
-              <p class="cn">展示你最贴近大厂工程效率的方向：把 AI 用到真实 Java/Spring 代码库、覆盖率、测试修复和 CI 流程里。</p>
-              <div class="v3-tags">
-                <span>Java</span><span>Maven</span><span>JUnit 5</span><span>Mockito</span><span>JaCoCo</span><span>Repair Loop</span>
+              <div class="case-proof">
+                <span>Java</span>
+                <span>Maven</span>
+                <span>JUnit 5</span>
+                <span>Mockito</span>
+                <span>JaCoCo</span>
               </div>
-              <a class="v3-link" href="https://github.com/zemeng2015/JTestGen" target="_blank" rel="noreferrer">View GitHub</a>
+              <a class="case-link" href="https://github.com/zemeng2015/JTestGen" target="_blank" rel="noreferrer">GitHub</a>
             </div>
           </article>
 
-          <article class="v3-ai-card">
+          <article class="case-card">
             <figure>
-              <img src="assets/project-contentops-studio.png" alt="AI ContentOps Studio workflow and review dashboard" loading="lazy" />
+              <img src="assets/project-contentops-studio.png" alt="AI ContentOps Studio review workflow dashboard" loading="lazy" />
             </figure>
-            <div class="v3-card-body">
-              <p class="v3-kicker">LLMOps Workflow</p>
-              <h3>AI ContentOps Studio</h3>
-              <p>Source-backed AI content operations with research providers, generation, evaluation, review queues, release evidence, workers, Docker, and AWS-ready Terraform.</p>
-              <div class="v3-tags"><span>FastAPI</span><span>Workers</span><span>Review Gates</span><span>Terraform</span></div>
-              <a class="v3-link" href="https://github.com/zemeng2015/ai-contentops-studio" target="_blank" rel="noreferrer">View GitHub</a>
+            <div class="case-body">
+              <div class="case-meta">LLMOps / Content Workflow</div>
+              <h3>
+                <span data-lang="zh">AI 内容生产治理与发布流水线</span>
+                <span data-lang="en">AI ContentOps Studio</span>
+              </h3>
+              <p>
+                <span data-lang="zh">把研究、生成、质量评分、人工审核、发布证据、worker 和部署配置串成内容生产控制台，强调可追踪和可治理。</span>
+                <span data-lang="en">A source-backed content operations platform connecting research, generation, quality scoring, human review, release evidence, workers, and deployment configuration.</span>
+              </p>
+              <div class="case-proof">
+                <span>FastAPI</span>
+                <span>Workers</span>
+                <span>Review Gates</span>
+                <span>Docker</span>
+                <span>Terraform</span>
+              </div>
+              <a class="case-link" href="https://github.com/zemeng2015/ai-contentops-studio" target="_blank" rel="noreferrer">GitHub</a>
             </div>
           </article>
 
-          <article class="v3-ai-card">
+          <article class="case-card">
             <figure>
-              <img src="assets/project-llm-evals.png" alt="LLM evaluation and observability dashboard" loading="lazy" />
+              <img src="assets/project-travel-studio.png" alt="China inbound travel website and itinerary planner" loading="lazy" />
             </figure>
-            <div class="v3-card-body">
-              <p class="v3-kicker">Reliability Layer</p>
-              <h3>LLM Evaluation & Observability</h3>
-              <p>Regression framework for RAG and agent workflows with golden datasets, groundedness/citation scorers, run history, cost/latency tracking, and CI quality gates.</p>
-              <div class="v3-tags"><span>Evals</span><span>Traces</span><span>SQLite</span><span>CI Gate</span></div>
-              <a class="v3-link" href="https://github.com/zemeng2015/llm-eval-observability" target="_blank" rel="noreferrer">View GitHub</a>
-            </div>
-          </article>
-
-          <article class="v3-ai-card">
-            <figure>
-              <img src="assets/project-athena-analyst.png" alt="Natural language to Athena analyst SQL workflow" loading="lazy" />
-            </figure>
-            <div class="v3-card-body">
-              <p class="v3-kicker">AWS Data + AI</p>
-              <h3>Natural Language to Athena Analyst</h3>
-              <p>Governed analytics assistant that turns business questions into Athena-style SQL with schema retrieval, validation, cost controls, local mock execution, and traceable results.</p>
-              <div class="v3-tags"><span>Athena</span><span>SQL Safety</span><span>Schema Retrieval</span><span>AWS</span></div>
-              <a class="v3-link" href="https://github.com/zemeng2015/nl-to-athena-analyst" target="_blank" rel="noreferrer">View GitHub</a>
-            </div>
-          </article>
-
-          <article class="v3-ai-card">
-            <figure>
-              <img src="assets/project-mortgage-copilot.png" alt="Mortgage RAG copilot document retrieval workflow" loading="lazy" />
-            </figure>
-            <div class="v3-card-body">
-              <p class="v3-kicker">Domain RAG</p>
-              <h3>Mortgage Intelligence Copilot</h3>
-              <p>Citation-grounded mortgage research API with ingestion, chunking, metadata filters, local retrieval, optional OpenAI generation, confidence signals, and run traces.</p>
-              <div class="v3-tags"><span>RAG</span><span>Citations</span><span>Metadata Filters</span><span>FastAPI</span></div>
-              <a class="v3-link" href="https://github.com/zemeng2015/mortgage-intelligence-copilot" target="_blank" rel="noreferrer">View GitHub</a>
+            <div class="case-body">
+              <div class="case-meta">Productized Business Website / Lead Gen</div>
+              <h3>
+                <span data-lang="zh">入境游英文获客网站与行程 Planner</span>
+                <span data-lang="en">China Inbound Travel Website Studio</span>
+              </h3>
+              <p>
+                <span data-lang="zh">为中国入境游地接社设计的产品化网站系统：中文服务页、英文展示站、线路详情、拖拽行程规划、询价表单、校验 API 和邮件线索交付。</span>
+                <span data-lang="en">A productized website system for inbound travel agencies: Chinese service pages, English demo site, trip detail pages, drag-and-drop itinerary planner, quote forms, validated APIs, and email lead delivery.</span>
+              </p>
+              <div class="case-proof">
+                <span>Next.js</span>
+                <span>TypeScript</span>
+                <span>Tailwind</span>
+                <span>Zod</span>
+                <span>dnd-kit</span>
+                <span>Netlify</span>
+              </div>
+              <div class="case-status">
+                <span data-lang="zh">本地业务产品案例</span>
+                <span data-lang="en">Local business product case study</span>
+              </div>
             </div>
           </article>
         </div>
       </section>
 
-      <section class="v3-section v3-system-stack">
-        <div class="v3-section-heading">
-          <p>Engineering Stack / 能力结构</p>
-          <h2>The consistent pattern behind these projects.</h2>
-        </div>
-        <div class="v3-stack-lanes">
-          <div>
-            <span>Product Layer</span>
-            <strong>Business workflows, buyer-facing UX, lead capture, private pilot packaging</strong>
-            <small>产品不是包装，而是让用户知道下一步怎么用、怎么信任、怎么交付。</small>
-          </div>
-          <div>
-            <span>AI Layer</span>
-            <strong>RAG, scoring, generation, agents, SQL generation, test generation</strong>
-            <small>围绕任务链设计 AI，不把聊天窗口当成产品终点。</small>
-          </div>
-          <div>
-            <span>Trust Layer</span>
-            <strong>Human approval, data truth rules, evals, traces, audit logs</strong>
-            <small>让 AI 输出能被审查、复现、回归和安全使用。</small>
-          </div>
-          <div>
-            <span>Delivery Layer</span>
-            <strong>Spring Boot, Angular, Next.js, FastAPI, Docker, AWS-ready infra</strong>
-            <small>用成熟工程方式交付，而不是只停在本地演示。</small>
-          </div>
-        </div>
-      </section>
-
-      <section class="v3-section v3-writing" id="writing">
-        <div class="v3-section-heading">
-          <p>Writing / 技术文章</p>
-          <h2>Notes on enterprise AI systems, evaluation, and workflow design.</h2>
-        </div>
-        <div class="post-grid">
-          <a class="post-card" href="posts/a-model-name-is-not-a-stable-architecture.html">
-            <span>AI Platform Strategy</span>
-            <p class="post-date">June 15, 2026</p>
-            <h3>A model name is not a stable architecture</h3>
-            <p>Why upstream volatility in model access, permissions, and spend controls matters for enterprise AI architecture.</p>
-          </a>
-          <a class="post-card" href="posts/coding-agents-are-becoming-workflow-software.html">
-            <span>AI Workflow Design</span>
-            <p class="post-date">June 8, 2026</p>
-            <h3>Coding agents are becoming workflow software</h3>
-            <p>Why software delivery patterns are spreading into broader enterprise AI work.</p>
-          </a>
-          <a class="post-card" href="posts/enterprise-ai-needs-a-control-plane.html">
-            <span>AI Systems</span>
-            <p class="post-date">June 8, 2026</p>
-            <h3>Enterprise AI needs a control plane</h3>
-            <p>Why governance, context, state, and reliability matter around agents.</p>
-          </a>
-          <a class="post-card" href="posts/rag-evals.html">
-            <span>RAG Evaluation</span>
-            <p class="post-date">May 23, 2026</p>
-            <h3>How I evaluate citation-grounded RAG systems</h3>
-            <p>Retrieval recall, groundedness, citation correctness, and regression datasets.</p>
-          </a>
-          <a class="post-card" href="posts/agent-workflows.html">
-            <span>Agents</span>
-            <p class="post-date">May 23, 2026</p>
-            <h3>Designing agent workflows that do not fall apart</h3>
-            <p>Tool contracts, retries, state, guardrails, and human review points.</p>
-          </a>
-          <a class="post-card" href="posts/nl-to-sql-safety.html">
-            <span>Data + AI</span>
-            <p class="post-date">May 23, 2026</p>
-            <h3>Making natural-language-to-SQL safe for enterprise data</h3>
-            <p>Schema retrieval, SQL validation, cost control, and result verification.</p>
-          </a>
-        </div>
-      </section>
-
-      <section class="v3-section v3-about" id="about">
-        <div class="v3-section-heading">
-          <p>About / 关于我</p>
-          <h2>Senior engineer, now focused on AI systems that can be operated and trusted.</h2>
-        </div>
-        <div class="v3-about-grid">
+      <section class="v4-section capability-section" id="capabilities">
+        <div class="v4-section-heading">
           <p>
-            I have worked across enterprise frontend/backend systems, cloud data workflows, Java services, TypeScript applications,
-            production support, and CI/CD. My current portfolio shows how I connect that background to applied AI systems.
+            <span data-lang="zh">能力模块</span>
+            <span data-lang="en">Capability Modules</span>
           </p>
-          <p class="cn">
-            我的职业叙事不是“转行做 AI”，而是“把已有的企业工程经验升级到 AI 产品与 AI 平台方向”：
-            从业务建模、后端、前端、云部署，到评测、追踪、审批和安全边界。
+          <h2>
+            <span data-lang="zh">不再把所有项目都铺满首页；把低层项目沉淀成可复用能力。</span>
+            <span data-lang="en">Not every repository needs a hero card. Smaller projects become reusable capability evidence.</span>
+          </h2>
+        </div>
+        <div class="capability-list">
+          <article>
+            <span>LLM Reliability</span>
+            <h3>
+              <span data-lang="zh">评测与可观测性</span>
+              <span data-lang="en">Evaluation and Observability</span>
+            </h3>
+            <p>
+              <span data-lang="zh">Golden dataset、groundedness、citation correctness、运行历史、成本/延迟追踪和 CI 质量门禁。</span>
+              <span data-lang="en">Golden datasets, groundedness, citation correctness, run history, cost/latency tracking, and CI quality gates.</span>
+            </p>
+            <a href="https://github.com/zemeng2015/llm-eval-observability" target="_blank" rel="noreferrer">GitHub</a>
+          </article>
+          <article>
+            <span>AWS Data Intelligence</span>
+            <h3>
+              <span data-lang="zh">自然语言到 Athena 分析</span>
+              <span data-lang="en">Natural Language to Athena Analyst</span>
+            </h3>
+            <p>
+              <span data-lang="zh">Schema 检索、SQL 安全校验、成本控制、本地 mock 执行和可追踪结果，证明 AWS 数据智能能力。</span>
+              <span data-lang="en">Schema retrieval, SQL safety checks, cost controls, local mock execution, and traceable results for AWS analytics workflows.</span>
+            </p>
+            <a href="https://github.com/zemeng2015/nl-to-athena-analyst" target="_blank" rel="noreferrer">GitHub</a>
+          </article>
+          <article>
+            <span>Domain RAG</span>
+            <h3>
+              <span data-lang="zh">行业文档 RAG 与引用回答</span>
+              <span data-lang="en">Domain RAG with Citations</span>
+            </h3>
+            <p>
+              <span data-lang="zh">文档摄取、chunking、metadata filters、local retrieval、可选生成、confidence signal 和 run traces。</span>
+              <span data-lang="en">Document ingestion, chunking, metadata filters, local retrieval, optional generation, confidence signals, and run traces.</span>
+            </p>
+            <a href="https://github.com/zemeng2015/mortgage-intelligence-copilot" target="_blank" rel="noreferrer">GitHub</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="v4-section profile-section" id="profile">
+        <div class="v4-section-heading">
+          <p>
+            <span data-lang="zh">职业定位</span>
+            <span data-lang="en">Professional Profile</span>
           </p>
-          <div class="focus-list">
-            <span>Java / Spring Boot enterprise systems</span>
-            <span>TypeScript frontend and product UX</span>
-            <span>AWS data and cloud workflows</span>
-            <span>RAG, agents, evaluation, observability</span>
-            <span>AI productization and private deployment</span>
-            <span>CI/CD, tests, release evidence</span>
+          <h2>
+            <span data-lang="zh">我适合的不是“只会调模型”的角色，而是 AI 应用、平台、数据和产品交付之间的连接层。</span>
+            <span data-lang="en">My best fit is the connective layer between AI applications, platform reliability, data systems, and product delivery.</span>
+          </h2>
+        </div>
+        <div class="profile-board">
+          <div>
+            <h3>
+              <span data-lang="zh">工程底盘</span>
+              <span data-lang="en">Engineering Base</span>
+            </h3>
+            <p>Java / Spring Boot, TypeScript, Angular, React, Python, FastAPI, SQL, Redis, Kafka, Docker, CI/CD.</p>
+          </div>
+          <div>
+            <h3>
+              <span data-lang="zh">云与数据</span>
+              <span data-lang="en">Cloud and Data</span>
+            </h3>
+            <p>AWS S3, Lambda, ECS/Fargate, CloudWatch, DynamoDB, SQS/SNS, API Gateway, RDS, Athena-style workflows.</p>
+          </div>
+          <div>
+            <h3>
+              <span data-lang="zh">AI 落地</span>
+              <span data-lang="en">AI Delivery</span>
+            </h3>
+            <p>RAG, agent workflows, test generation, LLM evaluation, content automation, SQL generation, human review, audit trails.</p>
+          </div>
+          <div>
+            <h3>
+              <span data-lang="zh">产品判断</span>
+              <span data-lang="en">Product Judgment</span>
+            </h3>
+            <p>
+              <span data-lang="zh">能把“技术能力”翻译成客户看得懂、业务用得上、团队能维护的系统。</span>
+              <span data-lang="en">I translate technical capability into systems customers understand, operators use, and teams can maintain.</span>
+            </p>
           </div>
         </div>
       </section>
 
-      <section class="v3-section contact" id="contact">
+      <section class="v4-contact" id="contact">
         <div>
-          <p class="eyebrow">Contact / 联系</p>
-          <h2>Open to Applied AI, LLM Systems, AI Platform, and full-stack AI product opportunities.</h2>
-          <p>中文沟通也可以。欢迎交流大厂 AI 岗位、AI 产品工程、RAG / Agent / LLMOps、AWS 数据智能相关机会。</p>
+          <h2>
+            <span data-lang="zh">正在寻找 Applied AI、AI Platform、LLM Systems、全栈 AI 产品工程相关机会。</span>
+            <span data-lang="en">Open to Applied AI, AI Platform, LLM Systems, and full-stack AI product roles.</span>
+          </h2>
+          <p>
+            <span data-lang="zh">欢迎用中文或英文交流。重点方向：企业 AI 落地、RAG / Agent / LLMOps、AWS 数据智能、开发者效率、业务系统 AI 化。</span>
+            <span data-lang="en">Happy to talk in English or Chinese about enterprise AI delivery, RAG / agents / LLMOps, AWS data intelligence, developer productivity, and AI-enabled business systems.</span>
+          </p>
         </div>
-        <div class="contact-links">
+        <div class="contact-actions">
           <a href="mailto:zackwang.job@gmail.com">Email</a>
           <a href="https://www.linkedin.com/in/zack-wang-profile/" target="_blank" rel="noreferrer">LinkedIn</a>
           <a href="https://github.com/zemeng2015" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </section>
     </main>
+
+    <script>
+      (function () {
+        var storageKey = "zack-homepage-language";
+        var root = document.documentElement;
+        var languageButtons = Array.prototype.slice.call(document.querySelectorAll("[data-set-lang]"));
+
+        function setLanguage(language, persist) {
+          var normalized = language === "en" ? "en" : "zh";
+          root.dataset.lang = normalized;
+          root.lang = normalized === "en" ? "en" : "zh-CN";
+          languageButtons.forEach(function (button) {
+            var active = button.dataset.setLang === normalized;
+            button.classList.toggle("active", active);
+            button.setAttribute("aria-pressed", String(active));
+          });
+          if (persist) {
+            try {
+              window.localStorage.setItem(storageKey, normalized);
+            } catch (error) {
+              return;
+            }
+          }
+        }
+
+        languageButtons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            setLanguage(button.dataset.setLang, true);
+          });
+        });
+        setLanguage(root.dataset.lang || "zh", false);
+      })();
+    </script>
   </body>
 </html>
