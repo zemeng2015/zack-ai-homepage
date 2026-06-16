@@ -3,321 +3,332 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Zack Wang | Applied AI Engineer</title>
-    <meta name="theme-color" content="#0f1c19" />
+    <title>Zack Wang | AI Systems and Product Engineer</title>
+    <meta name="theme-color" content="#07110f" />
     <meta
       name="description"
-      content="Zack Wang is a senior software engineer moving into Applied AI and LLM Systems roles, with portfolio projects across RAG, agents, evals, observability, AWS data workflows, and AI developer tools."
+      content="Zack Wang is a senior software engineer building production-grade AI systems and real business products across applied AI, AWS data workflows, e-commerce operations, travel lead generation, and developer tooling."
     />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307110f'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='%2363d98d'%3EZW%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="portfolio-v2">
-    <header class="site-header">
+  <body class="portfolio-v3">
+    <header class="site-header v3-header">
       <a class="brand-lockup" href="#top" aria-label="Zack Wang homepage">
         <span class="brand">ZW</span>
         <span class="brand-text">
           <strong>Zack Wang</strong>
-          <small>Applied AI Engineer</small>
+          <small>AI Systems / Product Engineer</small>
         </span>
       </a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#fit">Role Fit / 岗位</a>
-        <a href="#projects">Projects / 项目</a>
+        <a href="#products">Products / 产品</a>
+        <a href="#ai-projects">AI Projects / AI 项目</a>
         <a href="#writing">Writing / 文章</a>
-        <a href="#about">About / 关于</a>
         <a class="nav-cta" href="#contact">Contact</a>
       </nav>
     </header>
 
     <main id="top">
-      <section class="home-hero">
-        <div class="hero-copy">
-          <p class="availability"><span aria-hidden="true"></span>Open to big-tech Applied AI / LLM Systems roles</p>
-          <p class="eyebrow">Senior Backend Engineer -> Applied AI / LLM Systems Engineer</p>
-          <h1>Reliable AI systems for enterprise data and workflows.</h1>
-          <p class="hero-text">
-            I bring 10+ years of backend, AWS, and data-platform experience into applied AI:
-            RAG systems, agent workflows, LLM evaluation, observability, and production review gates.
+      <section class="v3-hero">
+        <div class="v3-hero-copy">
+          <p class="v3-status"><span aria-hidden="true"></span>Open to Applied AI, AI Platform, and full-stack AI product roles</p>
+          <h1>I build production-grade AI systems and real business products.</h1>
+          <p class="v3-lead">
+            10+ years across backend, AWS, enterprise data workflows, frontend delivery, and CI/CD. My recent work turns AI into usable products:
+            e-commerce operations, travel lead generation, developer productivity, RAG, evaluation, and LLMOps.
           </p>
-          <p class="hero-text cn">
-            我正在把多年后端、AWS、数据平台经验迁移到 AI 工程方向：做可评估、可追踪、可上线的
-            RAG / Agent / LLMOps 系统，而不是只停留在 prompt demo。
+          <p class="v3-lead cn">
+            我不是只做 prompt demo。我把 Java / TypeScript / AWS / 数据平台经验，用到 AI 产品工程里：
+            有业务流程、有安全边界、有评测、有部署路径，也有真实用户能理解的界面。
           </p>
 
-          <div class="hero-proof" aria-label="Professional proof points">
-            <span><strong>10+ yrs</strong><small>Backend, AWS, distributed systems</small></span>
-            <span><strong>5 public AI systems</strong><small>RAG, evals, agents, SQL, dev tools</small></span>
-            <span><strong>Production signals</strong><small>CI, traces, tests, receipts, gates</small></span>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="#products">View Products</a>
+            <a class="button secondary" href="mailto:zackwang.job@gmail.com?subject=AI%20Engineering%20Conversation">Contact Me</a>
           </div>
 
-          <div class="hero-actions" aria-label="Primary links">
-            <a class="button primary" href="#projects">View AI Projects</a>
-            <a class="button secondary" href="mailto:zackwang.job@gmail.com?subject=Applied%20AI%20Engineering%20Conversation">Contact Me</a>
+          <div class="v3-tech-strip" aria-label="Core skills">
+            <span>Java / Spring Boot</span>
+            <span>TypeScript / Angular / React</span>
+            <span>Python / FastAPI</span>
+            <span>AWS Data Workflows</span>
+            <span>RAG / Agents / LLMOps</span>
+            <span>Docker / CI / Release Gates</span>
           </div>
         </div>
 
-        <aside class="career-console" aria-label="Applied AI engineering portfolio summary">
-          <div class="console-bar" aria-hidden="true">
+        <aside class="v3-command-center" aria-label="Portfolio command center">
+          <div class="v3-console-bar">
             <span></span><span></span><span></span>
-            <strong>ai-engineering-signal.map</strong>
+            <strong>portfolio-command-center</strong>
+            <em>system online</em>
           </div>
-          <div class="console-grid" aria-hidden="true"></div>
-          <div class="console-core">
-            <p>Portfolio Theme</p>
-            <strong>Production AI Systems</strong>
-            <small>可靠 AI 系统工程</small>
+          <div class="v3-console-grid" aria-hidden="true"></div>
+          <div class="v3-system-map">
+            <p>System Map</p>
+            <div class="v3-layer">
+              <strong>Data + Domain</strong>
+              <small>CSV, docs, S3/Athena, business records</small>
+            </div>
+            <div class="v3-layer">
+              <strong>AI Workflow</strong>
+              <small>RAG, agents, scoring, generation</small>
+            </div>
+            <div class="v3-layer">
+              <strong>Reliability</strong>
+              <small>evals, audit logs, approval gates</small>
+            </div>
+            <div class="v3-layer">
+              <strong>Delivery</strong>
+              <small>web apps, desktop apps, cloud-ready ops</small>
+            </div>
           </div>
-          <div class="signal-card signal-data">
-            <span>01</span>
-            <strong>Enterprise Data</strong>
-            <small>S3 / Athena / domain docs</small>
+          <div class="v3-timeline">
+            <p>Recent Project Timeline</p>
+            <div><span>2026.06</span><strong>Temu AI Commerce Copilot</strong><small>desktop private pilot RC</small></div>
+            <div><span>2026.06</span><strong>China Local Journey</strong><small>travel lead-gen + planner</small></div>
+            <div><span>2026.06</span><strong>JTestGen</strong><small>AI Java test generation</small></div>
+            <div><span>2026.06</span><strong>AI ContentOps Studio</strong><small>workflow automation + review gates</small></div>
+            <div><span>2026.05</span><strong>LLM Eval / Athena / RAG</strong><small>enterprise AI reliability</small></div>
           </div>
-          <div class="signal-card signal-app">
-            <span>02</span>
-            <strong>AI Applications</strong>
-            <small>RAG / agents / NL-to-SQL</small>
-          </div>
-          <div class="signal-card signal-eval">
-            <span>03</span>
-            <strong>Reliability Layer</strong>
-            <small>evals / traces / quality gates</small>
-          </div>
-          <div class="signal-card signal-ops">
-            <span>04</span>
-            <strong>Cloud Operations</strong>
-            <small>Docker / CI / AWS-ready infra</small>
-          </div>
-          <div class="console-line line-a"></div>
-          <div class="console-line line-b"></div>
-          <div class="console-line line-c"></div>
-          <div class="console-line line-d"></div>
-          <div class="console-metrics">
-            <div><span>Repos</span><strong>5+</strong></div>
-            <div><span>Focus</span><strong>LLMOps</strong></div>
-            <div><span>Mode</span><strong>Ship + Verify</strong></div>
+          <div class="v3-metrics">
+            <div><span>Experience</span><strong>10+ yrs</strong></div>
+            <div><span>Portfolio</span><strong>8 projects</strong></div>
+            <div><span>Direction</span><strong>AI + Product</strong></div>
           </div>
         </aside>
       </section>
 
-      <section class="section role-fit" id="fit">
-        <div class="section-heading">
-          <p class="eyebrow">Role Fit / 目标岗位</p>
-          <h2>Where my recent AI work maps to big-tech engineering roles</h2>
+      <section class="v3-section v3-fit" id="fit">
+        <div class="v3-section-heading">
+          <p>Role Fit / 目标岗位</p>
+          <h2>Positioning for big-tech AI roles without losing the senior engineering story.</h2>
         </div>
-        <div class="fit-grid">
+        <div class="v3-fit-grid">
           <article>
             <span>Applied AI Engineer</span>
-            <h3>Ship AI features with measurable behavior</h3>
-            <p>RAG, agents, citations, workflow state, human review, and product-facing APIs.</p>
-            <small>对应：应用 AI、企业 AI 产品工程、GenAI Backend</small>
+            <h3>Ship AI features that survive real workflows</h3>
+            <p>RAG, generation, scoring, review gates, stateful workflows, and APIs that business users can operate.</p>
+            <small>对应：应用 AI、GenAI Backend、企业 AI 产品工程</small>
           </article>
           <article>
-            <span>LLM Systems / Platform</span>
-            <h3>Build the reliability layer around models</h3>
-            <p>Eval datasets, quality gates, trace history, cost/latency metrics, CI regression checks.</p>
-            <small>对应：LLM 平台、AI Infra、模型应用可靠性</small>
+            <span>AI Platform / LLMOps</span>
+            <h3>Build the control layer around model output</h3>
+            <p>Evaluation sets, trace history, audit logs, cost and quality gates, release evidence, and safe defaults.</p>
+            <small>对应：AI Platform、LLM Systems、模型应用可靠性</small>
           </article>
           <article>
-            <span>AI + Data Engineering</span>
-            <h3>Connect governed data to AI workflows</h3>
-            <p>Athena-style analytics, schema retrieval, SQL safety, S3 workflows, and AWS-ready deployment.</p>
-            <small>对应：数据智能、AI Analytics、云数据平台 AI 化</small>
+            <span>Full-stack Product Engineer</span>
+            <h3>Turn business problems into credible tools</h3>
+            <p>Travel lead generation, e-commerce operations, desktop packaging, buyer-facing UX, and deployment paths.</p>
+            <small>对应：AI 产品工程、全栈平台、业务系统产品化</small>
           </article>
         </div>
       </section>
 
-      <section class="section project-showcase" id="projects">
-        <div class="section-heading">
-          <p class="eyebrow">Recent AI Projects / 近期 AI 项目</p>
-          <h2>Public portfolio systems built to demonstrate production judgment</h2>
+      <section class="v3-section v3-products" id="products">
+        <div class="v3-section-heading">
+          <p>Featured Business Products / 真实业务产品</p>
+          <h2>Recent local projects that show product judgment, not only algorithm demos.</h2>
         </div>
-        <p class="section-intro">
-          These projects are intentionally connected: one app layer, one data-agent layer, one eval layer,
-          one content-ops automation layer, and one developer-productivity agent. Together they show the
-          engineering surface needed for real enterprise AI systems.
-        </p>
-
-        <div class="project-grid">
-          <article class="ai-project featured">
+        <div class="v3-product-grid">
+          <article class="v3-product-card">
             <figure>
-              <img src="assets/project-jtestgen.png" alt="AI-assisted Java test generation pipeline with coverage and repair loop" loading="lazy" />
+              <img src="assets/project-travel-studio.png" alt="China Local Journey travel website homepage screenshot" loading="lazy" />
             </figure>
-            <div class="project-body">
-              <p class="project-kicker">Flagship / AI Developer Tool</p>
-              <h3>JTestGen</h3>
+            <div class="v3-card-body">
+              <p class="v3-kicker">Business Product / Lead Generation</p>
+              <h3>China Inbound Travel Website Studio</h3>
+              <h4>中国入境游旅行网站工作室</h4>
               <p>
-                AI coverage remediation agent for Java teams. It selects low-coverage Maven classes from
-                JaCoCo data, builds project-aware prompts, generates JUnit tests, runs Maven validation,
-                repairs failures, and writes auditable run artifacts.
+                A Next.js productized website system for Chinese inbound travel agencies and DMCs: Chinese service site, English demo site,
+                trip package pages, drag-and-drop itinerary planner, quote/contact forms, validated APIs, and email lead delivery.
               </p>
               <p class="cn">
-                面向 Java/Spring 团队的 AI 测试生成工具：不是简单补全代码，而是围绕覆盖率缺口、
-                Maven 验证、失败修复和审计报告形成完整工作流。
+                这个项目展示的是“能卖给小企业的获客系统”：不是单页模板，而是线路展示、行程组合、询价表单、邮件通知和部署规则的一整套产品。
               </p>
-              <div class="project-proof">
-                <span>JaCoCo target selection</span>
-                <span>Maven-passing tests</span>
-                <span>Repair loop</span>
-                <span>PR-ready artifacts</span>
+              <div class="v3-tags">
+                <span>Next.js App Router</span>
+                <span>TypeScript</span>
+                <span>Tailwind CSS</span>
+                <span>React Hook Form</span>
+                <span>Zod</span>
+                <span>dnd-kit Planner</span>
+                <span>Resend Email</span>
+                <span>Netlify Ready</span>
               </div>
-              <div class="project-actions">
-                <a href="https://github.com/zemeng2015/JTestGen" target="_blank" rel="noreferrer">GitHub</a>
-                <a href="#contact">Coverage pilot</a>
-              </div>
+              <div class="v3-project-note">Private local case study / 本地项目展示</div>
             </div>
           </article>
 
-          <article class="ai-project">
+          <article class="v3-product-card">
             <figure>
-              <img src="assets/project-contentops-studio.png" alt="AI ContentOps Studio dashboard with review status, quality metrics, and publishing workflow" loading="lazy" />
+              <img src="assets/project-temu-commerce-cover.png" alt="Temu AI Commerce Copilot boss dashboard and AI product selection screenshot" loading="lazy" />
             </figure>
-            <div class="project-body">
-              <p class="project-kicker">LLMOps / Workflow Automation</p>
-              <h3>AI ContentOps Studio</h3>
+            <div class="v3-card-body">
+              <p class="v3-kicker">AI Product / E-commerce Operations</p>
+              <h3>Temu AI Commerce Copilot</h3>
+              <h4>跨境电商 AI 助手（桌面私有试点版）</h4>
               <p>
-                Source-backed AI content operations platform with research providers, draft generation,
-                evaluation, review queue, publishing receipts, scheduled workers, release gates, Docker,
-                and AWS-ready Terraform.
+                A Chinese-first boss decision center for cross-border e-commerce: CSV/XLSX import, evidence-backed product scoring,
+                supplier quote loop, content package drafts, approvals, audit logs, desktop packaging, and local/private deployment.
               </p>
-              <p class="cn">把 AI 生成内容变成可审核、可回滚、可部署的生产流程，重点展示治理、证据链和自动化运维能力。</p>
-              <div class="project-proof">
-                <span>Human review gates</span>
-                <span>Quality scorecards</span>
-                <span>Release evidence</span>
-                <span>AWS-ready ops</span>
-              </div>
-              <div class="project-actions">
-                <a href="https://github.com/zemeng2015/ai-contentops-studio" target="_blank" rel="noreferrer">GitHub</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="ai-project">
-            <figure>
-              <img src="assets/project-llm-evals.png" alt="AI evaluation dashboard with traces, scorecards, and quality gates" loading="lazy" />
-            </figure>
-            <div class="project-body">
-              <p class="project-kicker">Reliability / Evaluation</p>
-              <h3>LLM Evaluation & Observability</h3>
-              <p>
-                Regression framework for RAG and agent workflows with golden datasets, scorers for
-                groundedness/citations/JSON validity, provider adapters, SQLite run history, and CI quality gates.
+              <p class="cn">
+                重点不是“自动操作平台”，而是安全的 AI 决策层：外部平台变更默认禁用，老板审批、人机协同、证据链、备份和脱敏支持包都被纳入产品设计。
               </p>
-              <p class="cn">展示“模型回答能不能上线”的判断系统：评测集、质量门禁、运行历史、成本和延迟指标。</p>
-              <div class="project-proof">
-                <span>Golden datasets</span>
-                <span>Groundedness scoring</span>
-                <span>CI quality gate</span>
-                <span>Run history</span>
+              <div class="v3-tags">
+                <span>Spring Boot</span>
+                <span>Angular</span>
+                <span>Electron Desktop</span>
+                <span>SQLite / Postgres</span>
+                <span>Docker</span>
+                <span>Approval Gates</span>
+                <span>Audit Logs</span>
+                <span>Private Pilot RC</span>
               </div>
-              <div class="project-actions">
-                <a href="https://github.com/zemeng2015/llm-eval-observability" target="_blank" rel="noreferrer">GitHub</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="ai-project">
-            <figure>
-              <img src="assets/project-athena-analyst.png" alt="Natural language question transformed into governed SQL and analytics results" loading="lazy" />
-            </figure>
-            <div class="project-body">
-              <p class="project-kicker">Data Agent / AWS Analytics</p>
-              <h3>Natural Language to Athena Analyst</h3>
-              <p>
-                Enterprise analytics assistant that turns business questions into governed Athena SQL with
-                schema retrieval, SQL validation, cost controls, local Athena mock execution, and traceable results.
-              </p>
-              <p class="cn">把自然语言分析做成受治理的数据工作流：先找 schema，再生成 SQL，再做安全校验和执行追踪。</p>
-              <div class="project-proof">
-                <span>Athena-style SQL</span>
-                <span>Schema retrieval</span>
-                <span>SQL safety</span>
-                <span>Cost limits</span>
-              </div>
-              <div class="project-actions">
-                <a href="https://github.com/zemeng2015/nl-to-athena-analyst" target="_blank" rel="noreferrer">GitHub</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="ai-project">
-            <figure>
-              <img src="assets/project-mortgage-copilot.png" alt="Mortgage documents flowing through a citation-grounded AI assistant pipeline" loading="lazy" />
-            </figure>
-            <div class="project-body">
-              <p class="project-kicker">RAG Application / Domain Copilot</p>
-              <h3>Mortgage Intelligence Copilot</h3>
-              <p>
-                Citation-grounded mortgage research API with document ingestion, chunking, metadata filters,
-                local retrieval, optional OpenAI generation, confidence signals, and run traces.
-              </p>
-              <p class="cn">一个金融/房贷领域 RAG Copilot，重点是引用、过滤、可追踪回答，而不是无来源聊天。</p>
-              <div class="project-proof">
-                <span>Document ingestion</span>
-                <span>Citations</span>
-                <span>Metadata filters</span>
-                <span>Run traces</span>
-              </div>
-              <div class="project-actions">
-                <a href="https://github.com/zemeng2015/mortgage-intelligence-copilot" target="_blank" rel="noreferrer">GitHub</a>
-              </div>
+              <div class="v3-project-note">Private product case study / 私有项目展示</div>
             </div>
           </article>
         </div>
       </section>
 
-      <section class="section system-stack">
-        <div class="section-heading">
-          <p class="eyebrow">Engineering Stack / 能力栈</p>
-          <h2>The systems pattern behind these projects</h2>
+      <section class="v3-section v3-ai-projects" id="ai-projects">
+        <div class="v3-section-heading">
+          <p>AI Engineering Projects / AI 工程项目</p>
+          <h2>Public systems that demonstrate applied AI engineering depth.</h2>
         </div>
-        <div class="stack-lanes">
+        <p class="v3-section-intro">
+          These projects cover developer tooling, content operations, LLM evaluation, governed data analytics, and citation-grounded RAG.
+          Together they show the engineering surface needed for production AI: context, workflows, tests, traces, and deployment.
+        </p>
+
+        <div class="v3-ai-grid">
+          <article class="v3-ai-card featured">
+            <figure>
+              <img src="assets/project-jtestgen.png" alt="JTestGen AI Java unit test generation workflow" loading="lazy" />
+            </figure>
+            <div class="v3-card-body">
+              <p class="v3-kicker">Flagship AI Developer Tool</p>
+              <h3>JTestGen</h3>
+              <p>
+                AI-assisted Java unit test generation system. It reads JaCoCo reports, targets low-coverage Maven classes,
+                builds project-aware prompts, generates JUnit/Mockito tests, runs Maven validation, repairs failures, and writes run artifacts.
+              </p>
+              <p class="cn">展示你最贴近大厂工程效率的方向：把 AI 用到真实 Java/Spring 代码库、覆盖率、测试修复和 CI 流程里。</p>
+              <div class="v3-tags">
+                <span>Java</span><span>Maven</span><span>JUnit 5</span><span>Mockito</span><span>JaCoCo</span><span>Repair Loop</span>
+              </div>
+              <a class="v3-link" href="https://github.com/zemeng2015/JTestGen" target="_blank" rel="noreferrer">View GitHub</a>
+            </div>
+          </article>
+
+          <article class="v3-ai-card">
+            <figure>
+              <img src="assets/project-contentops-studio.png" alt="AI ContentOps Studio workflow and review dashboard" loading="lazy" />
+            </figure>
+            <div class="v3-card-body">
+              <p class="v3-kicker">LLMOps Workflow</p>
+              <h3>AI ContentOps Studio</h3>
+              <p>Source-backed AI content operations with research providers, generation, evaluation, review queues, release evidence, workers, Docker, and AWS-ready Terraform.</p>
+              <div class="v3-tags"><span>FastAPI</span><span>Workers</span><span>Review Gates</span><span>Terraform</span></div>
+              <a class="v3-link" href="https://github.com/zemeng2015/ai-contentops-studio" target="_blank" rel="noreferrer">View GitHub</a>
+            </div>
+          </article>
+
+          <article class="v3-ai-card">
+            <figure>
+              <img src="assets/project-llm-evals.png" alt="LLM evaluation and observability dashboard" loading="lazy" />
+            </figure>
+            <div class="v3-card-body">
+              <p class="v3-kicker">Reliability Layer</p>
+              <h3>LLM Evaluation & Observability</h3>
+              <p>Regression framework for RAG and agent workflows with golden datasets, groundedness/citation scorers, run history, cost/latency tracking, and CI quality gates.</p>
+              <div class="v3-tags"><span>Evals</span><span>Traces</span><span>SQLite</span><span>CI Gate</span></div>
+              <a class="v3-link" href="https://github.com/zemeng2015/llm-eval-observability" target="_blank" rel="noreferrer">View GitHub</a>
+            </div>
+          </article>
+
+          <article class="v3-ai-card">
+            <figure>
+              <img src="assets/project-athena-analyst.png" alt="Natural language to Athena analyst SQL workflow" loading="lazy" />
+            </figure>
+            <div class="v3-card-body">
+              <p class="v3-kicker">AWS Data + AI</p>
+              <h3>Natural Language to Athena Analyst</h3>
+              <p>Governed analytics assistant that turns business questions into Athena-style SQL with schema retrieval, validation, cost controls, local mock execution, and traceable results.</p>
+              <div class="v3-tags"><span>Athena</span><span>SQL Safety</span><span>Schema Retrieval</span><span>AWS</span></div>
+              <a class="v3-link" href="https://github.com/zemeng2015/nl-to-athena-analyst" target="_blank" rel="noreferrer">View GitHub</a>
+            </div>
+          </article>
+
+          <article class="v3-ai-card">
+            <figure>
+              <img src="assets/project-mortgage-copilot.png" alt="Mortgage RAG copilot document retrieval workflow" loading="lazy" />
+            </figure>
+            <div class="v3-card-body">
+              <p class="v3-kicker">Domain RAG</p>
+              <h3>Mortgage Intelligence Copilot</h3>
+              <p>Citation-grounded mortgage research API with ingestion, chunking, metadata filters, local retrieval, optional OpenAI generation, confidence signals, and run traces.</p>
+              <div class="v3-tags"><span>RAG</span><span>Citations</span><span>Metadata Filters</span><span>FastAPI</span></div>
+              <a class="v3-link" href="https://github.com/zemeng2015/mortgage-intelligence-copilot" target="_blank" rel="noreferrer">View GitHub</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="v3-section v3-system-stack">
+        <div class="v3-section-heading">
+          <p>Engineering Stack / 能力结构</p>
+          <h2>The consistent pattern behind these projects.</h2>
+        </div>
+        <div class="v3-stack-lanes">
           <div>
-            <span>Data Layer</span>
-            <strong>Docs, schemas, S3/Athena-style data, metadata filters</strong>
-            <small>数据接入、schema 检索、权限和范围控制</small>
+            <span>Product Layer</span>
+            <strong>Business workflows, buyer-facing UX, lead capture, private pilot packaging</strong>
+            <small>产品不是包装，而是让用户知道下一步怎么用、怎么信任、怎么交付。</small>
           </div>
           <div>
             <span>AI Layer</span>
-            <strong>RAG, agent workflow, test generation, SQL generation</strong>
-            <small>围绕真实任务而不是聊天窗口设计 AI 能力</small>
+            <strong>RAG, scoring, generation, agents, SQL generation, test generation</strong>
+            <small>围绕任务链设计 AI，不把聊天窗口当成产品终点。</small>
           </div>
           <div>
-            <span>Reliability Layer</span>
-            <strong>Evals, traces, scorecards, CI gates, review artifacts</strong>
-            <small>让 AI 输出可测试、可回归、可审计</small>
+            <span>Trust Layer</span>
+            <strong>Human approval, data truth rules, evals, traces, audit logs</strong>
+            <small>让 AI 输出能被审查、复现、回归和安全使用。</small>
           </div>
           <div>
             <span>Delivery Layer</span>
-            <strong>FastAPI, CLI, Docker, GitHub Actions, AWS-ready infra</strong>
-            <small>用工程化方式交付，而不是只做演示</small>
+            <strong>Spring Boot, Angular, Next.js, FastAPI, Docker, AWS-ready infra</strong>
+            <small>用成熟工程方式交付，而不是只停在本地演示。</small>
           </div>
         </div>
       </section>
 
-      <section class="section writing" id="writing">
-        <div class="section-heading">
-          <p class="eyebrow">Writing / 技术文章</p>
-          <h2>Notes on enterprise AI systems, evaluation, and career leverage</h2>
+      <section class="v3-section v3-writing" id="writing">
+        <div class="v3-section-heading">
+          <p>Writing / 技术文章</p>
+          <h2>Notes on enterprise AI systems, evaluation, and workflow design.</h2>
         </div>
-
         <div class="post-grid">
           <a class="post-card" href="posts/a-model-name-is-not-a-stable-architecture.html">
             <span>AI Platform Strategy</span>
             <p class="post-date">June 15, 2026</p>
             <h3>A model name is not a stable architecture</h3>
-            <p>Why this week&apos;s real signal was upstream volatility in model access, permissions, and spend controls.</p>
+            <p>Why upstream volatility in model access, permissions, and spend controls matters for enterprise AI architecture.</p>
           </a>
           <a class="post-card" href="posts/coding-agents-are-becoming-workflow-software.html">
             <span>AI Workflow Design</span>
             <p class="post-date">June 8, 2026</p>
             <h3>Coding agents are becoming workflow software</h3>
-            <p>Why the better signal this week is that software delivery patterns are spreading into broader enterprise AI work.</p>
+            <p>Why software delivery patterns are spreading into broader enterprise AI work.</p>
           </a>
           <a class="post-card" href="posts/enterprise-ai-needs-a-control-plane.html">
             <span>AI Systems</span>
             <p class="post-date">June 8, 2026</p>
-            <h3>Enterprise AI needs a control plane, not just a better model</h3>
+            <h3>Enterprise AI needs a control plane</h3>
             <p>Why governance, context, state, and reliability matter around agents.</p>
           </a>
           <a class="post-card" href="posts/rag-evals.html">
@@ -341,37 +352,36 @@
         </div>
       </section>
 
-      <section class="section about" id="about">
-        <div class="section-heading">
-          <p class="eyebrow">About / 关于我</p>
-          <h2>Senior software engineer focused on applied AI systems</h2>
+      <section class="v3-section v3-about" id="about">
+        <div class="v3-section-heading">
+          <p>About / 关于我</p>
+          <h2>Senior engineer, now focused on AI systems that can be operated and trusted.</h2>
         </div>
-        <div class="about-grid">
+        <div class="v3-about-grid">
           <p>
-            I have worked across backend systems, cloud data workflows, and enterprise software.
-            My current direction is applied AI engineering: building systems that connect LLMs with
-            real data, workflow state, quality evaluation, and production operations.
+            I have worked across enterprise frontend/backend systems, cloud data workflows, Java services, TypeScript applications,
+            production support, and CI/CD. My current portfolio shows how I connect that background to applied AI systems.
           </p>
           <p class="cn">
-            我的优势不是只会调用模型，而是能把模型能力接到后端系统、数据平台、评测机制、CI/CD
-            和云基础设施里，形成可以被团队维护和交付的 AI 产品。
+            我的职业叙事不是“转行做 AI”，而是“把已有的企业工程经验升级到 AI 产品与 AI 平台方向”：
+            从业务建模、后端、前端、云部署，到评测、追踪、审批和安全边界。
           </p>
           <div class="focus-list">
-            <span>Python / FastAPI backends</span>
-            <span>Java enterprise experience</span>
-            <span>AWS data workflows</span>
-            <span>RAG and agent orchestration</span>
-            <span>LLM evals and observability</span>
-            <span>CI/CD and release evidence</span>
+            <span>Java / Spring Boot enterprise systems</span>
+            <span>TypeScript frontend and product UX</span>
+            <span>AWS data and cloud workflows</span>
+            <span>RAG, agents, evaluation, observability</span>
+            <span>AI productization and private deployment</span>
+            <span>CI/CD, tests, release evidence</span>
           </div>
         </div>
       </section>
 
-      <section class="section contact" id="contact">
+      <section class="v3-section contact" id="contact">
         <div>
           <p class="eyebrow">Contact / 联系</p>
-          <h2>Looking for Applied AI, LLM Systems, or AI Platform opportunities.</h2>
-          <p>中文沟通也可以。欢迎交流 AI 工程、大厂 AI 岗位、RAG/Agent/LLMOps 相关机会。</p>
+          <h2>Open to Applied AI, LLM Systems, AI Platform, and full-stack AI product opportunities.</h2>
+          <p>中文沟通也可以。欢迎交流大厂 AI 岗位、AI 产品工程、RAG / Agent / LLMOps、AWS 数据智能相关机会。</p>
         </div>
         <div class="contact-links">
           <a href="mailto:zackwang.job@gmail.com">Email</a>
