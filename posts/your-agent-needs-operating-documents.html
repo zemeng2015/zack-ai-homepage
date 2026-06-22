@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your agent needs operating documents | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Practice | June 21, 2026</p>
+      <h1>Your agent needs operating documents</h1>
+      <p class="hero-text">
+        The most useful AI engineering signal this week was not a smarter demo. It was the growing
+        number of places where vendors turned instructions, discovery, evaluation, and usage into
+        explicit machine-readable artifacts. That is a sign that applied AI is moving from prompt
+        experiments toward systems that can actually be governed and improved.
+      </p>
+
+      <article class="article-body">
+        <p>
+          Three updates from the week of June 15 to June 21 point in the same direction. GitHub
+          Copilot code review now reads repository-level <code>AGENTS.md</code> files. Google
+          announced Agentic Resource Discovery, an open specification for publishing and verifying
+          tools, skills, and agents across the web. AWS published Agent-EvalKit, which turns agent
+          evaluation into a sequence of artifacts and traces inside the developer workflow. OpenAI
+          added more granular enterprise analytics and spend controls for ChatGPT and Codex.
+        </p>
+        <p>
+          On the surface, those look like separate product updates. I think the deeper signal is
+          more important: AI systems are starting to depend on operational metadata the way modern
+          software systems depend on configuration, schemas, logs, and tests. The model still
+          matters, but the surrounding documents increasingly decide whether an AI workflow is
+          reviewable, trustworthy, and economically usable.
+        </p>
+
+        <h2>What is genuinely important, and what is mostly hype</h2>
+        <p>
+          The real progress is not that agents can do more things. The real progress is that the
+          operating assumptions are being pulled out of vague human memory and placed into explicit
+          artifacts.
+        </p>
+        <p>
+          GitHub&apos;s <code>AGENTS.md</code> support matters for exactly that reason. Instead of
+          hoping a coding assistant absorbs team norms from scattered examples, repositories can
+          now place review instructions at the root and let the review system consume them as part
+          of its workflow. Google&apos;s ARD specification makes the same move at the ecosystem level:
+          capabilities are published in catalogs under an organization&apos;s own domain, indexed by
+          registries, and paired with trust metadata before runtime connection. AWS Agent-EvalKit
+          does it for quality: plan files, test cases, traces, and reports become durable evidence
+          for why an agent failed and what code should change next.
+        </p>
+        <p>
+          The hype is the recurring story that stronger models alone will make agent systems
+          reliable. They will not. A more capable model without explicit instructions, discovery
+          boundaries, or evaluation artifacts can still misuse a tool, drift from team conventions,
+          or generate expensive noise that nobody can diagnose afterward. If anything, better model
+          capability increases the need for stronger operating documents because the blast radius of
+          a subtle mistake gets larger.
+        </p>
+
+        <h2>Why enterprises should care</h2>
+        <p>
+          Enterprise adoption usually fails in the gap between a promising demo and a workflow that
+          managers can actually run repeatedly. That gap is full of ordinary operational questions:
+          Which tools is the agent allowed to discover? Which repository conventions should a code
+          reviewer follow? How do we know whether bad output came from tool selection, prompt
+          design, missing context, or poor evaluation data? Which users are driving cost, and which
+          usage is creating real value?
+        </p>
+        <p>
+          This week&apos;s releases are useful because they attack that middle layer. A support
+          operations team could publish approved internal capabilities through a trusted catalog
+          instead of hardwiring every endpoint into a single agent. A software platform team could
+          encode review expectations in <code>AGENTS.md</code> so AI review becomes closer to local
+          engineering standards. An internal research or compliance agent could be evaluated with
+          trace-based test cases rather than judged only by anecdotal demos. Finance and platform
+          leads could finally connect enterprise AI usage to specific teams and behaviors instead of
+          treating model spend as an opaque monthly surprise.
+        </p>
+        <p>
+          That is where AI can produce operational improvement: fewer hidden failure modes, faster
+          debugging, clearer governance, and more predictable scaling. The value is not maximum
+          autonomy. The value is that the workflow becomes inspectable enough to trust.
+        </p>
+
+        <h2>What builders should do next</h2>
+        <ul>
+          <li>Treat instruction files, tool schemas, and capability catalogs as production assets, not side notes.</li>
+          <li>Keep agent discovery explicit. A directory of approved tools is safer than broad hidden connectivity.</li>
+          <li>Make evaluation artifact-based: test sets, traces, failure labels, and fix recommendations should live near the code.</li>
+          <li>Measure AI usage at the workflow and user level so spend can be tied to business value, not just invoice totals.</li>
+          <li>Separate raw model quality from system quality. A strong model inside a weak operating layer is still a weak product.</li>
+          <li>Design for reviewability first. If you cannot explain why the agent acted, you do not yet have an enterprise-ready workflow.</li>
+        </ul>
+
+        <h2>My view</h2>
+        <p>
+          My takeaway from this week is that applied AI engineering is becoming more document- and
+          artifact-driven than many people expected. That is a healthy shift. Serious AI systems
+          need explicit operating instructions, trusted discovery paths, evaluation evidence, and
+          visible usage signals.
+        </p>
+        <p>
+          I do not think the winning teams will be the ones with the most dramatic agent demo. I
+          think they will be the teams that make their AI workflows legible enough to review, tune,
+          and govern like real software.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://github.blog/changelog/2026-06-18-copilot-code-review-agents-md-support-and-ui-improvements/" target="_blank" rel="noreferrer">GitHub Changelog: Copilot code review: AGENTS.md support and UI improvements</a></li>
+          <li><a href="https://developers.googleblog.com/announcing-the-agentic-resource-discovery-specification/" target="_blank" rel="noreferrer">Google Developers Blog: Announcing the Agentic Resource Discovery specification</a></li>
+          <li><a href="https://aws.amazon.com/blogs/machine-learning/evaluate-ai-agents-systematically-with-agent-evalkit/" target="_blank" rel="noreferrer">AWS Machine Learning Blog: Evaluate AI agents systematically with Agent-EvalKit</a></li>
+          <li><a href="https://openai.com/index/chatgpt-enterprise-spend-controls/" target="_blank" rel="noreferrer">OpenAI: New usage analytics and updated spend controls for enterprises</a></li>
+          <li><a href="https://github.blog/changelog/2026-06-19-ai-credits-consumed-per-user-now-in-the-copilot-usage-metrics-api/" target="_blank" rel="noreferrer">GitHub Changelog: AI credits consumed per user now in the Copilot usage metrics API</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
