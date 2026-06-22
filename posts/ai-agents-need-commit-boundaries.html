@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI agents need commit boundaries | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Runtime Design | June 22, 2026</p>
+      <h1>AI agents need commit boundaries</h1>
+      <p class="hero-text">
+        This week made one weakness in agent systems hard to ignore: we still let too many
+        multi-step AI workflows act on the world as if a chain of tool calls were safe just
+        because each call looked reasonable in isolation.
+      </p>
+
+      <article class="article-body">
+        <p>
+          Several technical releases from the past week point to the same underlying problem.
+          AWS published Agent-EvalKit for structured agent evaluation and a Strands Evals workflow
+          for automated failure detection plus root-cause analysis. OpenAI added more granular
+          enterprise spend controls and cross-product usage analytics for ChatGPT and Codex.
+          GitHub added per-user AI credit reporting in the Copilot usage metrics API. A new paper,
+          <em>Cordon: Semantic Transactions for Tool-Using LLM Agents</em>, argued that tool-using
+          agents need a task-level runtime boundary for commit, rollback, recovery, and audit.
+        </p>
+        <p>
+          I do not see these as disconnected admin or research updates. I see them as evidence
+          that the next real bottleneck in applied AI is not only model intelligence. It is
+          whether an agent runtime can tell you what happened, what it cost, which effects should
+          be allowed to commit, and what to fix when a long tool chain goes wrong.
+        </p>
+
+        <h2>What actually changed this week</h2>
+        <p>
+          The useful shift is from judging agents one step at a time to judging them as stateful
+          workflows with consequences. Cordon makes that argument explicitly. The paper&apos;s core
+          claim is that tool runtimes still treat actions like isolated RPC calls, even though the
+          real risk usually appears across the full trajectory: a bad retrieval feeds a bad plan,
+          which produces a bad external action. The proposed fix is a semantic transaction that
+          stages effects before commit and keeps lineage and audit metadata attached to the task.
+        </p>
+        <p>
+          The AWS releases matter for the same reason from a production angle. Agent-EvalKit turns
+          evaluation into durable inputs and reports rather than anecdotal demos. Strands Evals
+          goes one step further by tracing causal chains between failures and categorizing the fix
+          location, for example whether the problem belongs in the tool description or the system
+          prompt. That is a much more operational way to improve agents than simply saying a run
+          failed.
+        </p>
+        <p>
+          OpenAI and GitHub are addressing a different part of the same runtime problem: economic
+          effects. Once teams can see usage by user, product, and model, or per-user AI credits,
+          AI execution stops being a fuzzy productivity story and becomes an inspectable operating
+          system cost. That is not boring admin work. It is the budget counterpart to traceability.
+        </p>
+
+        <h2>What matters technically, and what I think is overhyped</h2>
+        <p>
+          The important signal is not &quot;agents are more autonomous.&quot; The important signal is that
+          the surrounding systems are finally acknowledging that autonomy without transaction
+          semantics is fragile. An enterprise workflow does not just need a correct answer. It
+          needs effect control, failure lineage, and cost accountability across a full task.
+        </p>
+        <p>
+          The overhyped story is that stronger reasoning models will solve most of this by
+          themselves. They will not. A better model can still call the wrong tool, retry the same
+          bad path, leak the wrong derived artifact into an external system, or quietly generate
+          expensive activity that no one can map back to business value. Higher capability
+          increases the value of better runtime controls; it does not replace them.
+        </p>
+
+        <h2>Where enterprises can get real value</h2>
+        <p>
+          The practical opportunity is in workflows where side effects matter more than text
+          quality. Think procurement assistants that draft supplier outreach, internal research
+          agents that gather evidence for policy decisions, code assistants that open pull requests,
+          or operations copilots that write tickets and trigger follow-up actions.
+        </p>
+        <p>
+          In those settings, the highest-value improvement is often not a smarter paragraph. It is
+          a safer execution model: stage the draft, attach the evidence, expose the cost, preserve
+          the trace, and only then let a human or policy engine approve the commit. That can reduce
+          review time, cut wasteful retries, improve failure diagnosis, and make AI adoption easier
+          for teams that care about auditability more than demo quality.
+        </p>
+
+        <h2>What builders should do next</h2>
+        <ul>
+          <li>Design agent tasks with explicit pre-commit and post-commit phases instead of letting every tool call act immediately.</li>
+          <li>Store lineage across retrieval, reasoning, tool inputs, tool outputs, and external effects so failures can be diagnosed at the task level.</li>
+          <li>Treat spend telemetry as part of runtime observability. Cost without workflow context is not actionable.</li>
+          <li>Classify failures by fix location: prompt, tool schema, retrieval layer, policy layer, or approval rule.</li>
+          <li>Prefer workflows where irreversible actions can be staged, reviewed, and released deliberately.</li>
+          <li>Evaluate agent systems on recoverability, not only success rate.</li>
+        </ul>
+
+        <h2>My view</h2>
+        <p>
+          My takeaway from the week of June 16 to June 22 is that agent engineering is becoming
+          less like prompt craftsmanship and more like transaction design. The teams that build
+          durable enterprise AI will not be the ones that only maximize task completion. They will
+          be the ones that know when an agent is ready to commit, when it should stop, and how to
+          explain the difference.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://arxiv.org/abs/2606.17573" target="_blank" rel="noreferrer">arXiv: Cordon: Semantic Transactions for Tool-Using LLM Agents</a></li>
+          <li><a href="https://aws.amazon.com/blogs/machine-learning/evaluate-ai-agents-systematically-with-agent-evalkit/" target="_blank" rel="noreferrer">AWS: Evaluate AI agents systematically with Agent-EvalKit</a></li>
+          <li><a href="https://aws.amazon.com/blogs/machine-learning/ai-agent-failure-detection-and-root-cause-analysis-with-strands-evals/" target="_blank" rel="noreferrer">AWS: AI Agent Failure Detection and Root Cause Analysis with Strands Evals</a></li>
+          <li><a href="https://openai.com/index/chatgpt-enterprise-spend-controls/" target="_blank" rel="noreferrer">OpenAI: New usage analytics and updated spend controls for enterprises</a></li>
+          <li><a href="https://github.blog/changelog/2026-06-19-ai-credits-consumed-per-user-now-in-the-copilot-usage-metrics-api/" target="_blank" rel="noreferrer">GitHub Changelog: AI credits consumed per user now in the Copilot usage metrics API</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
