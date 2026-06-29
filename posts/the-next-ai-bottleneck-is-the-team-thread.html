@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The next AI bottleneck is the team thread | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Collaboration Systems | June 29, 2026</p>
+      <h1>The next AI bottleneck is the team thread</h1>
+      <p class="hero-text">
+        This week's more important AI signal was not a benchmark jump. It was that more vendors
+        started placing agents inside shared work surfaces where multiple people can watch,
+        redirect, and inherit the same task instead of starting over in a private chat.
+      </p>
+
+      <article class="article-body">
+        <p>
+          That sounds like a product UX detail, but I think it changes the engineering problem.
+          Anthropic introduced Claude Tag in Slack, where one channel-level agent can be tagged by
+          anyone on the team, keep context over time, and even follow up on quiet threads. GitHub
+          added organization-level agents, queued steering for long-running sessions, agent debug
+          summaries, and real-time coding-agent progress inside Jira. Google published new work on
+          evaluating proactive coding agents based on whether they surface the right insight at the
+          right moment. OpenAI published two strong enterprise signals: internal data showing that
+          agent usage is spreading quickly beyond developers, and a large Samsung deployment that
+          puts ChatGPT Enterprise and Codex into technical and non-technical workflows across the
+          company.
+        </p>
+        <p>
+          I do not read those as separate announcements. I read them as evidence that AI is moving
+          out of the one-user prompt box and into the shared queue of everyday work. Once that
+          happens, the hard problems become continuity, interruption policy, permissions, review,
+          and handoff quality.
+        </p>
+
+        <h2>What changed that actually matters</h2>
+        <p>
+          The biggest shift is that the unit of interaction is becoming the thread, ticket, or
+          channel rather than the individual prompt. Claude Tag is explicit about this: within a
+          Slack channel there is one Claude that everyone can see and continue working with. GitHub
+          is making the same move from the software-delivery side. A team can publish curated
+          organization or enterprise agents, steer a running session instead of restarting it, and
+          stream progress back into Jira where the work already lives.
+        </p>
+        <p>
+          Google's Jules evaluation work matters because it acknowledges the next failure mode. A
+          shared agent is not only judged by whether it can solve a task after being asked. It also
+          has to decide when to notify, when to ask, when to draft, and when to stay silent. That
+          is a more realistic enterprise problem than another isolated benchmark on one-shot
+          completion.
+        </p>
+        <p>
+          OpenAI's adoption data reinforces that this is no longer only a developer-tools story.
+          Their write-up shows rapid growth in non-developer agent use, while the Samsung rollout
+          shows how fast this pattern can become company-wide once the platform is considered safe
+          enough to use across R&amp;D, manufacturing, marketing, and corporate functions.
+        </p>
+
+        <h2>What is real progress, and what still sounds like hype</h2>
+        <p>
+          The real progress is shared context with visible state. If an agent lives in the same
+          thread as the people who depend on it, the team can inspect what it is doing, redirect
+          it before it drifts too far, and reuse the context already accumulated in the workflow.
+          That is materially better than ten people running ten isolated chats and manually copying
+          results back into Slack, Jira, or email.
+        </p>
+        <p>
+          The hype is the idea that putting an agent in Slack or Jira automatically creates a
+          digital coworker. Shared presence alone is not a workflow design. Without scoped tool
+          access, clear completion conditions, useful progress reporting, and noise controls, the
+          agent just becomes another source of interruptions. A team-visible agent can fail more
+          publicly than a private copilot, and that makes bad interaction design more expensive.
+        </p>
+
+        <h2>Where the enterprise value is likely to appear first</h2>
+        <p>
+          The strongest near-term use cases are not fully autonomous workers. They are shared
+          operational loops where an agent can gather context, maintain continuity, and hand back a
+          reviewable artifact. Good examples are support escalation triage in Slack, engineering
+          tasks tracked through Jira, incident investigation threads, policy or vendor-review work
+          that spans documents and conversations, and internal automation requests where a
+          non-technical team needs software help without opening a long ticket chain.
+        </p>
+        <p>
+          In those settings, real value comes from reducing coordination loss. The agent can keep
+          the task attached to its evidence, summarize progress without making people switch tools,
+          and preserve the work product for the next human in the chain. That improves speed, but
+          more importantly it improves continuity and reviewability. Those are the qualities that
+          let AI survive contact with actual enterprise process.
+        </p>
+
+        <h2>What builders should pay attention to now</h2>
+        <ul>
+          <li>Design around a shared work object such as a thread, ticket, case, or request, not around isolated prompts.</li>
+          <li>Make agent status legible: queued, investigating, waiting on input, draft ready, blocked, done.</li>
+          <li>Separate ambient insight from interruption. A proactive agent needs a policy for when silence is the correct action.</li>
+          <li>Keep permissions and tool scopes specific to the surface where the agent is operating.</li>
+          <li>Return durable artifacts such as diffs, summaries, evidence bundles, or draft actions, not just polished chat text.</li>
+          <li>Measure reopened work, redirects, and handoff quality, not only first-pass task completion.</li>
+        </ul>
+
+        <h2>Where I land</h2>
+        <p>
+          My takeaway from this week is that useful enterprise AI is starting to look less like a
+          smarter answer box and more like a participant in a managed work queue. That is a better
+          direction, but it also raises the engineering bar.
+        </p>
+        <p>
+          The teams that benefit most will not be the ones that simply drop a model into a
+          collaboration surface. They will be the ones that define how shared context is carried,
+          how interruption is controlled, and what a good handoff looks like when AI becomes part
+          of the thread.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://www.anthropic.com/news/introducing-claude-tag" target="_blank" rel="noreferrer">Anthropic: Introducing Claude Tag</a></li>
+          <li><a href="https://github.blog/changelog/2026-06-22-new-features-and-claude-as-agent-provider-preview-in-jetbrains-ides/" target="_blank" rel="noreferrer">GitHub Changelog: New features and Claude as agent provider preview in JetBrains IDEs</a></li>
+          <li><a href="https://github.blog/changelog/2026-06-25-github-copilot-for-jira-is-now-generally-available/" target="_blank" rel="noreferrer">GitHub Changelog: GitHub Copilot for Jira is now generally available</a></li>
+          <li><a href="https://developers.googleblog.com/measuring-what-matters-with-jules/" target="_blank" rel="noreferrer">Google Developers Blog: Measuring What Matters with Jules</a></li>
+          <li><a href="https://openai.com/index/how-agents-are-transforming-work/" target="_blank" rel="noreferrer">OpenAI: How agents are transforming work</a></li>
+          <li><a href="https://openai.com/index/samsung-electronics-chatgpt-codex-deployment/" target="_blank" rel="noreferrer">OpenAI: Samsung Electronics brings ChatGPT and Codex to employees</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
