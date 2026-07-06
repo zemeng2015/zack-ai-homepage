@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The AI workbench is becoming the product | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Product Architecture | July 6, 2026</p>
+      <h1>The AI workbench is becoming the product</h1>
+      <p class="hero-text">
+        The strongest AI signal this week was not a benchmark chart. It was that more of the real
+        product work is moving into domain-specific environments where model quality, context,
+        artifacts, and compute are packaged together for one kind of professional job.
+      </p>
+
+      <article class="article-body">
+        <p>
+          I think several releases from the past week point to the same shift. Anthropic launched
+          Claude Sonnet 5 as a cheaper, more capable execution model for multi-step work, and in
+          the same week launched Claude Science, a full scientific workbench with curated skills,
+          reviewer agents, reproducible outputs, and access to local or remote compute. AWS
+          published an open-source Model Profiler for Amazon Bedrock that turns model choice into a
+          daily operational decision rather than a static spreadsheet exercise. Google Cloud pushed
+          the Open Knowledge Format and kept emphasizing secure, controlled enterprise AI surfaces
+          rather than generic chat.
+        </p>
+        <p>
+          These are not isolated product updates. They suggest that the industry is learning a more
+          practical lesson: enterprises do not buy a model in the abstract. They buy a system that
+          can operate inside a specific knowledge environment, produce reviewable artifacts, and
+          make cost and reliability legible enough to trust.
+        </p>
+
+        <h2>The real change is packaging, not just capability</h2>
+        <p>
+          Better models still matter. Sonnet 5 is important because it pushes stronger tool use and
+          longer-horizon task completion down to a more scalable price tier. That is useful, and it
+          will change what teams can afford to automate. But the more interesting move is what
+          happens around the model.
+        </p>
+        <p>
+          Claude Science makes that explicit. Anthropic did not just ship a smarter chat window for
+          researchers. It shipped a workbench that bundles domain tools, persistent skills,
+          reviewer agents, artifact rendering, and compute orchestration into one operating surface.
+          The key claim is not that scientists need another model. It is that they need a system
+          that can work across literature, code, figures, citations, and cluster jobs without
+          losing traceability.
+        </p>
+        <p>
+          Google&apos;s Open Knowledge Format points in the same direction from the data side. The
+          useful idea is almost boring: put operational knowledge into portable markdown files with
+          lightweight structure so both humans and agents can consume it. That matters because a lot
+          of enterprise AI failure still comes from context fragmentation, not from a model being
+          one benchmark generation behind.
+        </p>
+        <p>
+          AWS&apos;s Model Profiler completes the picture from the runtime side. Once you have dozens of
+          candidate models with different region coverage, price, quotas, lifecycle status, and
+          context windows, &ldquo;pick the best model&rdquo; stops being a one-time architecture choice. It
+          becomes part of day-to-day operations.
+        </p>
+
+        <h2>What is genuinely important, and what I think is overhyped</h2>
+        <p>
+          The important signal is that applied AI is getting closer to role-specific software. A
+          useful AI product now needs at least four things working together: a capable execution
+          model, a curated context layer, an artifact model that makes outputs inspectable, and an
+          operational layer for compute, routing, and governance.
+        </p>
+        <p>
+          That is a more defensible direction than generic &ldquo;AI for everything&rdquo; interfaces. In
+          practice, a scientist, analyst, security engineer, or operations team does not want raw
+          intelligence. They want a work surface that already knows their tools, files, review
+          expectations, and failure modes.
+        </p>
+        <p>
+          The overhyped part is the idea that a domain workbench automatically means deep workflow
+          transformation. Many of these products still risk becoming polished wrappers around a
+          brittle context pipeline. If the knowledge layer is stale, the artifact lineage is weak,
+          or the review policy is hand-wavy, the workbench can still produce confident junk more
+          efficiently.
+        </p>
+        <p>
+          I also think people are still too quick to treat model upgrades as self-contained value.
+          Sonnet 5 may make more workflows economically viable, but stronger instruction following
+          and longer autonomous runs can just expose prompt debt, weak tool schemas, and missing
+          stop conditions faster. A cheaper capable model is only a win if the surrounding system is
+          ready for it.
+        </p>
+
+        <h2>Where the enterprise value should appear first</h2>
+        <p>
+          The strongest early use cases are jobs with fragmented tools, expensive coordination, and
+          outputs that can be audited before action. Scientific research is one clear example, but
+          it is not the only one.
+        </p>
+        <p>
+          Internal analytics is another. A good workbench for enterprise analysts should be able to
+          traverse schema knowledge, join logic, metric definitions, notebooks, warehouse compute,
+          and presentation artifacts in one flow. Security operations is similar: context from
+          detections, tickets, threat intel, logs, and response playbooks has to stay connected if
+          the AI is going to reduce cycle time instead of creating extra review load.
+        </p>
+        <p>
+          Legal, compliance, and procurement workflows also fit this pattern. The valuable outcome
+          is usually not &ldquo;a smart answer.&rdquo; It is a draft with evidence, a calculation with lineage,
+          a recommendation with source grounding, or a package that a human reviewer can approve
+          quickly. That is where AI can improve quality and speed at the same time.
+        </p>
+
+        <h2>What builders should do next</h2>
+        <ul>
+          <li>Design the product around a role and its artifacts, not around a general chat box.</li>
+          <li>Treat context as a maintained asset. Portable knowledge bundles, curated runbooks, and versioned domain notes are part of the system.</li>
+          <li>Make model routing explicit. Cost, quotas, latency, region constraints, and context window size now affect product behavior directly.</li>
+          <li>Build reviewer flows into the default path. The best workbenches produce inspectable drafts, figures, diffs, or evidence packs before final action.</li>
+          <li>Separate domain-specific trust from model branding. A strong benchmark score does not remove the need for task-specific validation.</li>
+          <li>Watch for prompt debt and schema debt after model upgrades. Better follow-through often reveals hidden workflow flaws.</li>
+        </ul>
+
+        <h2>My view</h2>
+        <p>
+          My takeaway from the week of June 30 to July 6 is that the frontier AI product is
+          starting to look less like a universal assistant and more like a well-instrumented
+          workbench for a specific professional domain.
+        </p>
+        <p>
+          I think that is the healthier direction for enterprise AI. The companies that create real
+          value will not just ship stronger models into generic interfaces. They will package model
+          capability, domain knowledge, artifact traceability, and operational control into a
+          product that fits how a team already works, but removes a meaningful amount of friction
+          from it.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://www.anthropic.com/news/claude-sonnet-5" target="_blank" rel="noreferrer">Anthropic: Introducing Claude Sonnet 5</a></li>
+          <li><a href="https://www.anthropic.com/news/claude-science-ai-workbench" target="_blank" rel="noreferrer">Anthropic: Claude Science, an AI workbench for scientists</a></li>
+          <li><a href="https://aws.amazon.com/blogs/machine-learning/simplify-model-selection-in-amazon-bedrock-with-the-open-source-model-profiler/" target="_blank" rel="noreferrer">AWS: Simplify model selection in Amazon Bedrock with the open source Model Profiler</a></li>
+          <li><a href="https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing" target="_blank" rel="noreferrer">Google Cloud: Introducing the Open Knowledge Format</a></li>
+          <li><a href="https://cloud.google.com/blog/products/ai-machine-learning/what-google-cloud-announced-in-ai-this-month" target="_blank" rel="noreferrer">Google Cloud: What Google Cloud announced in AI this month</a></li>
+          <li><a href="https://openai.com/index/how-agents-are-transforming-work/" target="_blank" rel="noreferrer">OpenAI: How agents are transforming work</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
