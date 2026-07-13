@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Longer agent runs need shorter feedback loops | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Practice | July 13, 2026</p>
+      <h1>Longer agent runs need shorter feedback loops</h1>
+      <p class="hero-text">
+        The practical lesson I took from this week is simple: as AI agents get better at running
+        longer tasks, I trust them more only when the evaluation, approval, and review loop gets
+        tighter around them.
+      </p>
+
+      <article class="article-body">
+        <p>
+          I have noticed a pattern in my own work. Whenever a model or coding agent gets better,
+          my first temptation is to widen the task: let it inspect more files, generate more code,
+          run more steps, maybe even chain a few tools together and see how far it can go. That is
+          fun in a demo. It is less useful when I have limited time after work, a real codebase,
+          and a standard that the result still needs to be clean, explainable, and safe to reuse.
+        </p>
+        <p>
+          This week&apos;s product signals pushed me further toward a stricter opinion. The winning
+          move for most builders is not to maximize autonomous runtime. It is to shorten the
+          feedback loop around each meaningful action so the system can be trusted, corrected, and
+          measured before drift becomes expensive.
+        </p>
+
+        <h2>Why this week changed the framing for me</h2>
+        <p>
+          OpenAI&apos;s July 9 releases leaned hard into longer-horizon execution: GPT-5.6 adds
+          multi-agent support in the API, stronger computer use, and higher-capability settings for
+          more demanding tasks. GitHub&apos;s July 7 Copilot updates moved in the same direction from
+          the tooling layer, adding approval modes for CLI sessions, agent-provider flexibility in
+          JetBrains, and new usage metrics for review latency and review cycles. Google&apos;s recent
+          quality-flywheel post was the sharpest counterweight. Instead of celebrating raw
+          autonomy, it showed a coding agent reading the repo first, proposing an evaluation plan,
+          grading behavior with custom rubrics, and clustering failures before touching the system.
+        </p>
+        <p>
+          I do not read those as separate stories. I read them as the stack becoming more honest.
+          Models are getting stronger, but the surrounding products are also admitting that
+          stronger execution only matters if teams can approve actions, inspect failures, and track
+          whether work actually lands with less friction.
+        </p>
+
+        <h2>Why this matters to me as a builder</h2>
+        <p>
+          I am not building AI systems in an empty lab. My background is in Java, AWS, data-heavy
+          enterprise delivery, and test-driven release pressure. I also care about productizing AI
+          work into something a team can adopt, not just something that looks clever in one run.
+          That changes the optimization target.
+        </p>
+        <p>
+          In projects like JTestGen or other workflow-oriented AI tools, the expensive mistake is
+          usually not that the model fails immediately. The expensive mistake is that it appears to
+          work for several steps, leaves behind a plausible artifact, and only later reveals that
+          it misunderstood a boundary, skipped an edge case, or introduced noisy output that a
+          human now has to unwind. In that situation, longer autonomy without tighter review is not
+          leverage. It is delayed cleanup.
+        </p>
+        <p>
+          That is why I increasingly prefer small loops with explicit checkpoints: read the code,
+          propose the plan, run the narrow change, execute the validation, summarize the failure,
+          then continue. This is less dramatic than the "let the agent cook" story, but it fits
+          real engineering constraints better.
+        </p>
+
+        <h2>What feels real, and what still feels overhyped</h2>
+        <p>
+          The real progress is that vendors are finally exposing the control surfaces that matter.
+          Approval modes, debug logs, repo-aware evaluation skills, and review-cycle metrics are
+          not glamorous features, but they are exactly what turns a capable model into an
+          improvable system.
+        </p>
+        <p>
+          The overhyped part is the idea that more agent runtime is automatically more value. In
+          many enterprise workflows, a long autonomous run is only good if it produces a reviewable
+          intermediate artifact and if the next correction is cheap. Otherwise the team simply gets
+          a bigger bundle of uncertain output at the end.
+        </p>
+        <p>
+          I also think builders should be careful with benchmark theater here. A model winning a
+          longer-horizon benchmark is useful information, but it does not answer the operational
+          question that matters most in practice: when the agent is wrong, how quickly can I see
+          it, measure it, and rerun the fix?
+        </p>
+
+        <h2>Where I think the enterprise implication is</h2>
+        <p>
+          Enterprises do not just need agents that can do more. They need workflows that fail in
+          smaller pieces. That means approval boundaries before side effects, evaluation rubrics for
+          the behaviors that actually matter, and outcome metrics that connect AI usage to delivery
+          quality rather than novelty.
+        </p>
+        <p>
+          GitHub&apos;s new review-latency and review-cycle metrics are a good example of the right
+          direction. Those are downstream workflow outcomes, not vanity numbers. Google&apos;s
+          evaluation-flywheel framing points to the same discipline: define the behavior, grade it,
+          cluster failures, then optimize deliberately. Even the push toward stronger agents from
+          OpenAI makes more sense to me when paired with that operational mindset. More capability
+          is valuable, but only if the surrounding loop is designed to absorb it.
+        </p>
+        <p>
+          For internal tools, test generation, analyst copilots, release workflows, and other
+          enterprise AI surfaces, I expect the most durable products to be the ones that make each
+          step legible: what the agent saw, what it planned, what it changed, what it could not
+          verify, and what needs human signoff next.
+        </p>
+
+        <h2>What I would do next</h2>
+        <ul>
+          <li>Use stronger agents to widen search and draft quality, not to remove checkpoints by default.</li>
+          <li>Put evaluation close to the task. A custom rubric for one risky behavior is often more useful than a generic scorecard.</li>
+          <li>Measure workflow outcomes such as review latency, rework, reruns, and approval load, not just token usage or completion rate.</li>
+          <li>Keep side effects staged. Plans, diffs, tests, and summaries should usually appear before commits, writes, or external actions.</li>
+          <li>Design systems so a wrong run is easy to inspect and cheap to replay.</li>
+        </ul>
+
+        <h2>Where I land</h2>
+        <p>
+          My current view is that better AI agents are raising the value of engineering discipline,
+          not replacing it. The more capable the agent becomes, the more important it is to shorten
+          the loop between action, evidence, review, and correction.
+        </p>
+        <p>
+          That is the design stance I trust most right now. If the run gets longer, the feedback
+          loop should get shorter.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://developers.googleblog.com/driving-the-agent-quality-flywheel-from-your-coding-agent/" target="_blank" rel="noreferrer">Google Developers Blog: Driving the Agent Quality Flywheel from Your Coding Agent</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-07-add-review-cycles-and-time-to-adoption-phases-in-the-usage-api/" target="_blank" rel="noreferrer">GitHub Changelog: Add review cycles and time to adoption phases in the usage API</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-07-codex-as-agent-provider-and-agentic-enhancements-in-jetbrains-ides/" target="_blank" rel="noreferrer">GitHub Changelog: Codex as agent provider and agentic enhancements in JetBrains IDEs</a></li>
+          <li><a href="https://openai.com/index/chatgpt-for-your-most-ambitious-work/" target="_blank" rel="noreferrer">OpenAI: ChatGPT is now a partner for your most ambitious work</a></li>
+          <li><a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer">OpenAI: GPT-5.6</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
