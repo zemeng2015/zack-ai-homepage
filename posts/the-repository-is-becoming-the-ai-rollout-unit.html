@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The repository is becoming the AI rollout unit | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Delivery Strategy | July 20, 2026</p>
+      <h1>The repository is becoming the AI rollout unit</h1>
+      <p class="hero-text">
+        The AI signal that mattered most to me this week was not a new model claim. It was that
+        more of the serious rollout surface is moving down to the repository, where instructions,
+        setup, network policy, security review, and usage evidence can be managed close to the
+        actual work.
+      </p>
+
+      <article class="article-body">
+        <p>
+          One reason this stands out to me is that I do not think about AI adoption as an abstract
+          platform decision anymore. My engineering background is in Java services, AWS-heavy
+          enterprise workflows, frontend delivery, and test pressure. In that world, the question
+          is rarely whether a company has bought access to an AI tool. The harder question is which
+          codebases are actually ready for that tool to do useful work without creating a review,
+          security, or debugging mess.
+        </p>
+        <p>
+          Several product updates from the week of July 14 to July 20 point in the same direction.
+          GitHub shipped repository-level Copilot usage metrics, so teams can now see per-repo pull
+          request activity created or reviewed by AI. GitHub also expanded Copilot code review so
+          it can read branch-level instructions, run custom setup steps, and use an independent
+          firewall and runner configuration. On July 14, GitHub added a lightweight
+          <code>/security-review</code> command inside the Copilot app for in-flight changes.
+          Google Cloud published a set of Gemini Enterprise Agent Platform demos that are much more
+          revealing than a polished keynote because they show the expected lifecycle directly:
+          approval flows, agent gateway controls, long-running state, trace wiring, and evaluation.
+        </p>
+        <p>
+          Put together, those are not just feature releases. They suggest that enterprise AI
+          rollout is becoming much more repository- and application-specific than many teams
+          expected.
+        </p>
+
+        <h2>Why this matters more than another adoption headline</h2>
+        <p>
+          Seat counts are easy to announce. Real deployment is harder. One repository has reliable
+          tests, clear ownership, review conventions, and a narrow blast radius. Another has
+          hidden dependencies, missing setup steps, broad network assumptions, and no good signal
+          for whether AI output is helping or just producing noise. Treating both repos as equally
+          ready because the same company license covers them is bad engineering.
+        </p>
+        <p>
+          GitHub&apos;s latest changes are useful because they acknowledge this directly. Repository-level
+          metrics move measurement closer to where engineering work actually happens. Reading
+          instructions from the head branch means teams can test AI guidance before merging it.
+          Custom setup files admit that code review quality depends on repository context, not just
+          model quality. Firewall controls for code review make the execution boundary explicit
+          instead of implicit. The <code>/security-review</code> command adds a cheap security pass
+          earlier in the workflow, before code becomes somebody else&apos;s cleanup task.
+        </p>
+        <p>
+          Google&apos;s demos reinforce the same lesson from the platform side. The interesting part is
+          not that they showed 13 demos. The interesting part is what the demos assume by default:
+          secure coding gates, human approval paths, runtime identity, agent registry, traces,
+          analytics, and evaluation loops are all part of the normal build path. That is closer to
+          an implementation blueprint than a generic &ldquo;AI can help developers&rdquo; story.
+        </p>
+
+        <h2>What feels real, and what still feels overhyped</h2>
+        <p>
+          The real progress is that vendors are finally making AI rollout inspectable at the level
+          where teams can act. A repository owner can ask practical questions now: Which repos show
+          real merged PR activity from the coding agent? Which repo needs better setup before AI
+          review is trustworthy? Which code path should always run behind a firewall? Which branch
+          instructions actually improved review quality? That is operationally useful.
+        </p>
+        <p>
+          The overhyped part is the recurring assumption that enterprise adoption mainly depends on
+          picking the strongest model or buying more seats. In practice, a company usually has a
+          mixed portfolio of codebases and workflows. Some are AI-ready. Some are recoverable with
+          better instructions and setup. Some should not be exposed to broad agent autonomy yet.
+          If rollout policy stays at the organization level only, teams lose the precision they
+          need.
+        </p>
+
+        <h2>Where I see the enterprise implication</h2>
+        <p>
+          I think this changes how platform teams should scale AI internally. The job is not only to
+          approve one tool for the company. The job is to classify repositories and workflows by
+          readiness, then attach the right controls and expectations to each one.
+        </p>
+        <p>
+          For example, a mature internal Java service with stable Maven builds, clear test
+          boundaries, and decent ownership can probably support AI-assisted refactoring, code
+          review, test generation, and lightweight security review much earlier than a legacy
+          shared utility repo with weak verification. A frontend application with strong preview and
+          visual test workflows may benefit from AI review in a different way than a data pipeline
+          repo that needs strict cost, schema, and query safety checks. The rollout unit is not
+          &ldquo;engineering&rdquo; in general. It is the repo plus its runtime constraints, evidence, and
+          team norms.
+        </p>
+        <p>
+          That framing also fits how I think about building smaller AI products. Even outside a big
+          company, a useful AI workflow usually gets better when its local rules are explicit:
+          setup commands, validation paths, approval boundaries, and task-specific review criteria
+          should live next to the work, not only in somebody&apos;s memory.
+        </p>
+
+        <h2>What I would do next</h2>
+        <ul>
+          <li>Stop using license count as the main adoption metric. Measure AI activity and outcomes per repository or workflow.</li>
+          <li>Classify repos by readiness: safe for drafting only, safe for review, safe for agent execution with setup, or not ready yet.</li>
+          <li>Keep repository-local instructions current and testable in branches before rolling them out broadly.</li>
+          <li>Treat environment setup, firewall policy, and security review as part of the AI product surface, not admin afterthoughts.</li>
+          <li>Use repository-level evidence to decide where to deepen rollout, where to tighten controls, and where to pause.</li>
+        </ul>
+
+        <h2>Where I land</h2>
+        <p>
+          My takeaway this week is that enterprise AI is becoming less about a company saying
+          &ldquo;we have an agent platform&rdquo; and more about whether a specific repository is prepared to
+          let AI participate safely and usefully in its workflow.
+        </p>
+        <p>
+          That is a healthier direction. It raises the implementation bar, but it also creates a
+          more honest path to value: start where the codebase is ready, measure at the repository
+          level, and let rollout follow evidence instead of hype.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://github.blog/changelog/2026-07-17-repository-level-github-copilot-usage-metrics-generally-available/" target="_blank" rel="noreferrer">GitHub Changelog: Repository-level GitHub Copilot usage metrics generally available</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-17-copilot-code-review-customization-and-configurability-improvements/" target="_blank" rel="noreferrer">GitHub Changelog: Copilot code review customization and configurability improvements</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-14-security-reviews-now-available-in-the-github-copilot-app/" target="_blank" rel="noreferrer">GitHub Changelog: Security reviews now available in the GitHub Copilot app</a></li>
+          <li><a href="https://cloud.google.com/blog/products/ai-machine-learning/13-demos-on-gemini-enterprise-agent-platform" target="_blank" rel="noreferrer">Google Cloud Blog: 13 hands-on demos to build on Gemini Enterprise Agent Platform</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
