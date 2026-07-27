@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>One reviewable path beats a very smart agent | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Product Delivery | July 27, 2026</p>
+      <h1>One reviewable path beats a very smart agent</h1>
+      <p class="hero-text">
+        The lesson I keep coming back to is not that AI agents are getting weak. It is that the
+        more capable they become, the less interested I am in giving them a wide-open workflow. I
+        would rather build one narrow path that is easy to inspect, approve, and reuse.
+      </p>
+
+      <article class="article-body">
+        <p>
+          This matters to me because I am not approaching AI from a greenfield lab. My background
+          is Java services, AWS-heavy delivery, frontend systems, testing pressure, and enterprise
+          release work. I am also trying to turn more of that experience into Applied AI products
+          without pretending I have unlimited time every evening. Those constraints have changed
+          what I count as progress.
+        </p>
+        <p>
+          A year ago, the exciting question was how much work an agent could do in one run. This
+          week pushed me further toward a different question: what is the smallest reviewable path
+          that still creates real value?
+        </p>
+
+        <h2>Why this week sharpened the question</h2>
+        <p>
+          Several releases from July 20 through July 24 point in the same direction. GitHub made
+          its Copilot cloud agent generally available in Linear, which means issues can now be
+          handed to an asynchronous background agent directly from a real team queue. GitHub also
+          added public-preview controls in Issues so teams can see why automations want to relabel,
+          assign, or close work before accepting the change. On the platform side, Google published
+          Agents CLI for Agent Platform, explicitly positioning the interface between coding agents
+          and deployment infrastructure as a machine-readable command path instead of a pile of
+          manual glue. Anthropic then launched Claude Opus 5 with stronger long-running agent
+          performance at the same price tier as its predecessor.
+        </p>
+        <p>
+          Those are different products, but I do not think the common signal is "agents can do
+          more now." The stronger signal is that useful agent work is being packaged into narrower
+          lanes: a ticket queue, an automation review step, a deployment CLI, a cost-aware model
+          tier. Capability is still rising, but the winning surfaces are becoming more structured.
+        </p>
+
+        <h2>Why this changes how I want to build</h2>
+        <p>
+          In my own projects, the most dangerous failure mode is rarely an obvious crash. It is a
+          plausible run that crosses too many boundaries before I can judge it. A test-generation
+          workflow drafts several files, a coding assistant touches the wrong class before the test
+          plan is stable, or a product pipeline produces output that looks polished but is hard to
+          verify. The cleanup cost shows up later.
+        </p>
+        <p>
+          That is why I trust a narrower design more. I would rather define one boring but
+          dependable path such as: gather the context, propose the change, run the local
+          validation, surface the artifact, ask for approval, then continue. If that path is solid,
+          I can expand it carefully. If it is vague, adding a stronger model mostly increases the
+          speed of mistakes.
+        </p>
+        <p>
+          This is especially relevant for something like JTestGen or any enterprise-facing AI
+          workflow. The product does not win because the model felt smart for fifteen minutes. It
+          wins because the system repeatedly produces a reviewable output, within known boundaries,
+          with a cheap path to correction when the result is wrong.
+        </p>
+
+        <h2>What feels real, and what still feels overhyped</h2>
+        <p>
+          The real progress is that vendors are finally meeting the workflow where it actually
+          lives. Assigning an issue to an agent in Linear is useful because the task already has an
+          owner, status, and context. Showing the reason behind an automated issue change is useful
+          because it turns hidden background behavior into a reviewable action. A CLI that exposes
+          deployment and agent infrastructure as a stable interface is useful because builders can
+          script around it instead of rebuilding the same handoff each time.
+        </p>
+        <p>
+          The overhyped part is the recurring idea that the main product decision is which frontier
+          model looks best this week. Better models matter, and Opus 5 is another sign that
+          long-running agent performance is improving. But most builders and enterprise teams are
+          not blocked first by raw intelligence. They are blocked by unclear task boundaries,
+          missing approval steps, weak validation, and too many places where the workflow can drift
+          without leaving good evidence behind.
+        </p>
+
+        <h2>Where I see the enterprise implication</h2>
+        <p>
+          I think more teams should stop asking whether they are "doing agents" and start asking
+          which work queue deserves one clean automation lane. That could be a defect triage loop,
+          a Java test-generation workflow, a governed content-review path, an internal release-risk
+          check, or a data-analysis request surface. The right first move is usually not full
+          autonomy. It is one scoped path with explicit entry conditions, validation, approval, and
+          outcome tracking.
+        </p>
+        <p>
+          That framing fits enterprise reality better. Different workflows deserve different
+          boundaries. A stable internal service might allow AI to draft code and run tests before
+          review. A higher-risk workflow might stop at plan generation and evidence collection. In
+          both cases, the important unit is not "the agent." It is the path the organization can
+          trust.
+        </p>
+
+        <h2>What I would do next</h2>
+        <ul>
+          <li>Pick one queue or repeated workflow, not a broad autonomy story, as the product surface.</li>
+          <li>Make every step reviewable: context in, plan out, validation result, artifact, human decision.</li>
+          <li>Use stronger models where ambiguity is real, but keep approval and side effects staged.</li>
+          <li>Measure whether the path reduces rework, waiting time, or review effort, not just whether the agent completed a run.</li>
+          <li>Expand only after the first narrow lane becomes dependable enough to reuse.</li>
+        </ul>
+
+        <h2>Where I land</h2>
+        <p>
+          My takeaway this week is that I do not need an agent that can theoretically do
+          everything. I need a system that can do one important path cleanly enough that I would
+          trust it again next week.
+        </p>
+        <p>
+          That is a less theatrical goal, but it is much closer to how real AI products become
+          useful. One reviewable path beats a very smart agent with nowhere safe to land.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://github.blog/changelog/2026-07-23-copilot-cloud-agent-for-linear-is-now-generally-available/" target="_blank" rel="noreferrer">GitHub Changelog: Copilot cloud agent for Linear is now generally available</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-23-agent-automation-controls-in-github-issues-in-public-preview/" target="_blank" rel="noreferrer">GitHub Changelog: Agent automation controls in GitHub Issues in public preview</a></li>
+          <li><a href="https://developers.googleblog.com/agents-cli-in-agent-platform-create-to-production-in-one-cli/" target="_blank" rel="noreferrer">Google Developers Blog: Agents CLI in Agent Platform: create to production in one CLI</a></li>
+          <li><a href="https://www.anthropic.com/news/claude-opus-5" target="_blank" rel="noreferrer">Anthropic: Introducing Claude Opus 5</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
