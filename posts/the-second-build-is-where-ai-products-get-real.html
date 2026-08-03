@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The second build is where AI products get real | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Reflection | August 3, 2026</p>
+      <h1>The second build is where AI products get real</h1>
+      <p class="hero-text">
+        The first AI build is usually about proving the workflow can work once. The second build is
+        where the serious engineering starts: telemetry, model policy, eval coverage, approval
+        boundaries, and enough operational structure that I would trust the system again next week.
+      </p>
+
+      <article class="article-body">
+        <p>
+          This question feels practical to me, not theoretical. My background is in Java services,
+          AWS delivery, frontend systems, testing, and enterprise release work. I am also trying to
+          turn that experience into more Applied AI product building without pretending I have
+          unlimited time. Under that constraint, a flashy first run is not very valuable by itself.
+          What matters is whether a workflow survives the second round of engineering.
+        </p>
+        <p>
+          The first round is easy to understand. You get the agent to draft the test, summarize the
+          ticket, call the tool, or produce the artifact. It feels like progress. The second round
+          is less exciting but more revealing. Now you need to decide which model is allowed for
+          which team, how to inspect live behavior, which failures deserve their own eval case, and
+          where a human must approve the next step. That is the round where many AI products stop
+          being demos and start becoming systems.
+        </p>
+
+        <h2>Why this week sharpened the distinction</h2>
+        <p>
+          Several releases from July 27 through July 31 point in the same direction. GitHub added a
+          dedicated policy for the Copilot app instead of tying it to one broader client setting.
+          It also added OpenTelemetry export controls and model-management options in JetBrains,
+          expanded Copilot app activity into user- and feature-level usage metrics, made agent
+          skills and read-only MCP context generally available in code review, and introduced
+          team-level model targeting in public preview. Google then made agent and model evaluations
+          generally available in Gemini Enterprise Agent Platform with one evaluation engine for
+          local experiments and live production traces. Google also published a concrete write-up on
+          progressive-disclosure skills, which is a useful reminder that context loading itself is
+          now an engineering decision instead of prompt decoration.
+        </p>
+        <p>
+          I do not read that as a news cycle about smarter assistants. I read it as a market signal
+          that the scarce work is shifting into the control layer around the agent. Vendors are
+          spending their effort on trace export, policy targeting, usage attribution, skills
+          packaging, read-only external context, and evaluation continuity because that is where
+          production friction actually lives.
+        </p>
+
+        <h2>What this changes in how I want to build</h2>
+        <p>
+          If I think about a workflow like JTestGen, the first successful run is not the hard part.
+          Drafting a JUnit file against a low-coverage Java class is useful, but it does not answer
+          the operational questions. Which model should be used by default for a repair loop? Which
+          classes are safe for autonomous edits and which should stop at a plan? Which failures are
+          recurring enough to deserve a reusable eval dataset? When latency rises or a repair loop
+          gets noisy, where does the trace live and who can inspect it?
+        </p>
+        <p>
+          The same pattern shows up in smaller builder projects. Once an AI workflow can produce an
+          output, the temptation is to widen the scope and give it more jobs. I think that is
+          usually the wrong second move. The better second move is to harden the loop: reduce
+          context waste, separate roles by policy, measure real usage, add drift checks, and define
+          the approval gate before any costly or risky side effect.
+        </p>
+        <p>
+          That may sound less ambitious than chasing broader autonomy, but I think it is closer to
+          how useful AI products are actually built. The second build is where the product proves it
+          can be debugged, governed, and paid for.
+        </p>
+
+        <h2>What feels real, and what still feels overhyped</h2>
+        <p>
+          The real progress is that more of the AI stack is becoming explicit and composable. Skills
+          are no longer just hidden prompt tricks; they are packaged operating knowledge. External
+          context is no longer an opaque integration; in GitHub code review it is now constrained to
+          read-only MCP calls. Model choice is no longer only a user preference; it is becoming a
+          policy surface that can be targeted by team and governed over time. Evaluation is no
+          longer just an offline benchmark ritual; it is being wired into both local iteration and
+          production traces.
+        </p>
+        <p>
+          The overhyped part is the assumption that once the agent completes a task end to end, the
+          product problem is mostly solved. In practice, that is often the handoff point to the
+          harder work. A successful run without policy, telemetry, or failure taxonomy still leaves
+          you exposed to slow degradation, unclear cost growth, and review debt. The system works,
+          but nobody can confidently operate it.
+        </p>
+
+        <h2>Where I see the enterprise implication</h2>
+        <p>
+          I think enterprise AI programs should separate first-build metrics from second-build
+          metrics. The first build asks whether a workflow can create visible value. The second
+          build asks whether the workflow can survive ordinary organizational reality: role-based
+          model access, auditability, drift, budget pressure, and inconsistent upstream systems.
+        </p>
+        <p>
+          That matters because most organizations do not fail from lack of raw model intelligence.
+          They fail when a useful pilot has no policy story, no stable evidence path, no production
+          monitor, and no clear answer to who owns bad output. This week's product signals suggest
+          the better vendors understand that. They are shipping the missing operating layer now,
+          because that is what decides whether AI actually becomes part of delivery.
+        </p>
+
+        <h2>What I would do next</h2>
+        <ul>
+          <li>After the first successful workflow, pause feature expansion and design the second build deliberately.</li>
+          <li>Decide model policy by role or workflow, not only by individual preference.</li>
+          <li>Keep evaluation continuous from local experiments into production traces so regressions are comparable.</li>
+          <li>Package reusable operating knowledge as skills, scripts, and references instead of repeating long prompts.</li>
+          <li>Make external context narrow by default and side effects staged behind approval.</li>
+          <li>Measure adoption, cost, latency, and failure patterns together; none of those numbers mean much in isolation.</li>
+        </ul>
+
+        <h2>Where I land</h2>
+        <p>
+          My takeaway this week is that the first version of an AI workflow proves possibility, but
+          the second version proves seriousness.
+        </p>
+        <p>
+          That is the work I want to get better at: not just making an agent succeed once, but
+          turning a useful AI path into something a team can inspect, budget, govern, and keep
+          running without drama.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://github.blog/changelog/2026-07-27-manage-github-copilot-app-access-with-a-dedicated-policy/" target="_blank" rel="noreferrer">GitHub Changelog: Manage GitHub Copilot app access with a dedicated policy</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-27-github-copilot-for-jetbrains-adds-improvved-opentelemetry-configuration-and-model-management/" target="_blank" rel="noreferrer">GitHub Changelog: GitHub Copilot for JetBrains adds improved OpenTelemetry configuration and model management</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-28-github-copilot-app-usage-metrics-now-expand-across-report-rollups/" target="_blank" rel="noreferrer">GitHub Changelog: GitHub Copilot app usage metrics now expand across report rollups</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-29-copilot-code-review-agent-skills-and-mcp-now-generally-available/" target="_blank" rel="noreferrer">GitHub Changelog: Copilot code review: Agent skills and MCP now generally available</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-31-enterprise-teams-model-policy-targeting-in-public-preview/" target="_blank" rel="noreferrer">GitHub Changelog: Enterprise teams model policy targeting in public preview</a></li>
+          <li><a href="https://developers.googleblog.com/agent-and-model-evaluations-in-gemini-enterprise-agent-platform-are-now-ga/" target="_blank" rel="noreferrer">Google Developers Blog: Agent and Model Evaluations in Gemini Enterprise Agent Platform are now GA</a></li>
+          <li><a href="https://developers.googleblog.com/enable-on-demand-expertise-with-agent-skills-in-genkit-go/" target="_blank" rel="noreferrer">Google Developers Blog: Enable on-demand expertise with Agent Skills in Genkit Go</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
