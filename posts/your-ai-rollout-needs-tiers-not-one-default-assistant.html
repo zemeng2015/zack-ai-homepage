@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your AI rollout needs tiers, not one default assistant | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Rollout Strategy | August 11, 2026</p>
+      <h1>Your AI rollout needs tiers, not one default assistant</h1>
+      <p class="hero-text">
+        The strongest AI engineering signal from the week of August 4 to August 10 was not a new
+        model. It was vendors shipping more ways to vary AI access, review depth, tool access, and
+        spend by role. That matters because most enterprise AI programs are no longer deciding
+        whether to adopt assistants. They are deciding how to assign different levels of autonomy
+        and cost to different kinds of work.
+      </p>
+
+      <article class="article-body">
+        <p>
+          I keep thinking about this from a practical builder angle. My background is in Java,
+          AWS, frontend systems, testing, and enterprise release work. I am also trying to build
+          more Applied AI workflows without pretending I have infinite time or budget. Under that
+          constraint, the question is not “which model is smartest?” The better question is “which
+          people and workflows deserve the expensive, flexible path, and which ones need a narrower
+          default?”
+        </p>
+        <p>
+          This week sharpened that question. OpenAI introduced Premium seats for ChatGPT Business,
+          explicitly separating heavier users from standard users inside one workspace. GitHub
+          expanded the same idea across engineering workflows: team-level model targeting, default
+          model enablement with an opt-out policy, MCP allowlists, review effort levels, ROI
+          dashboards, and agent-specific usage reporting. AWS made a related point from the control
+          side by arguing that single-call guardrails are not enough when agents can overspend or
+          misbehave across a whole run.
+        </p>
+
+        <h2>What is actually changing</h2>
+        <p>
+          Last year, many AI rollouts were still shaped like a software license purchase: pick a
+          vendor, turn it on, and let teams figure out how to use it. That model is breaking down.
+          The new operating assumption is that one company will run multiple AI usage modes at the
+          same time.
+        </p>
+        <p>
+          Some users need broad model choice because they are prototyping, debugging, or building
+          new internal workflows. Some need a stable default because they are in regulated or
+          production-sensitive paths. Some need higher usage ceilings because they are running
+          larger code or analysis sessions. Others only need lightweight assistance in chat or code
+          completion. The platform surface is now reflecting that organizational reality.
+        </p>
+
+        <h2>Why this matters more than another model launch</h2>
+        <p>
+          I think this is a more important enterprise signal than another benchmark win, because
+          budgets and trust usually fail at the role boundary. A platform team may want a stronger
+          model for CI remediation or test generation. A finance or compliance lead may want a much
+          tighter default. A manager may want evidence that higher-cost agent users are producing
+          more reviewable output. A security team may want only approved MCP servers, not whatever a
+          developer found last week.
+        </p>
+        <p>
+          The releases this week move those decisions out of informal team habits and into
+          configuration surfaces. That is the real maturity signal. Once seat type, model access,
+          review effort, tool allowlists, and usage attribution become policy objects, AI adoption
+          starts to look less like a trial and more like normal platform engineering.
+        </p>
+
+        <h2>How I would apply this to real engineering workflows</h2>
+        <p>
+          Take a workflow like JTestGen or any internal engineering agent that drafts tests, repairs
+          failures, or prepares pull requests. I would not give every user the same model menu, the
+          same tool freedom, and the same budget. The developer running repair loops may need a
+          higher-usage seat, approved repository tools, and deeper AI review on risky changes. The
+          broader team may only need a constrained default for routine work.
+        </p>
+        <p>
+          That same pattern applies outside coding. An analyst exploring a new data workflow may
+          deserve more flexibility than a steady-state operations user. A product-minded builder may
+          need premium capacity during prototype weeks, then drop back to a cheaper baseline after
+          the workflow is operational. If the platform cannot express those differences, teams end
+          up governing AI through meetings and exceptions instead of engineering controls.
+        </p>
+
+        <h2>What still feels overhyped</h2>
+        <p>
+          The hype is the idea that tiering alone solves adoption. It does not. More policy knobs
+          can easily become more administrative noise if there is no clear operating model behind
+          them. “Premium” is not a strategy. “Optional model” is not a strategy. An ROI dashboard is
+          not proof of value by itself.
+        </p>
+        <p>
+          The useful version is simpler: define a few workflow classes, map them to clear budgets
+          and trust levels, and review the data monthly. If a team cannot explain why one group has
+          broader access or higher spend, then the policy is decorative. If they can explain it in
+          terms of output, risk, and reviewability, then the controls are doing real work.
+        </p>
+
+        <h2>What enterprises and builders should do next</h2>
+        <ul>
+          <li>Stop assuming one default AI configuration should fit every engineer or every team.</li>
+          <li>Define a small number of AI usage tiers by workflow risk, expected output, and spend.</li>
+          <li>Gate external tool access with allowlists before broad agent rollout.</li>
+          <li>Measure usage by agent and by cohort so licensing decisions follow actual behavior.</li>
+          <li>Match review depth to change risk; do not spend the same reasoning budget on every pull request.</li>
+          <li>Track cost across a whole agent run, not only per action, especially where retries or chained steps can hide waste.</li>
+        </ul>
+
+        <h2>Where I land</h2>
+        <p>
+          My takeaway this week is that enterprise AI is becoming a tiering problem before it
+          becomes an autonomy problem.
+        </p>
+        <p>
+          The teams that scale this well will not be the ones that hand everyone the same powerful
+          assistant. They will be the teams that design a few credible usage tiers, connect them to
+          real workflows, and keep cost, trust, and output visible enough to adjust without drama.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://openai.com/index/premium-seats-chatgpt-business/" target="_blank" rel="noreferrer">OpenAI: Premium seats are coming to ChatGPT Business</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-31-enterprise-teams-model-policy-targeting-in-public-preview/" target="_blank" rel="noreferrer">GitHub Changelog: Enterprise teams model policy targeting in public preview</a></li>
+          <li><a href="https://github.blog/changelog/2026-07-29-default-model-enablement-for-copilot-business-and-enterprise/" target="_blank" rel="noreferrer">GitHub Changelog: Default model enablement for Copilot Business and Enterprise</a></li>
+          <li><a href="https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/" target="_blank" rel="noreferrer">GitHub Changelog: MCP allowlists in enterprise managed settings</a></li>
+          <li><a href="https://github.blog/changelog/2026-08-07-copilot-code-review-effort-levels-are-generally-available/" target="_blank" rel="noreferrer">GitHub Changelog: Copilot code review effort levels are generally available</a></li>
+          <li><a href="https://github.blog/changelog/2026-08-07-copilot-impact-dashboard-adds-a-return-on-investment-section/" target="_blank" rel="noreferrer">GitHub Changelog: Copilot impact dashboard adds a return on investment section</a></li>
+          <li><a href="https://github.blog/changelog/2026-08-07-copilot-usage-metrics-api-adds-agent-app-activity/" target="_blank" rel="noreferrer">GitHub Changelog: Copilot usage metrics API adds agent app activity</a></li>
+          <li><a href="https://aws.amazon.com/blogs/machine-learning/control-agent-behaviors-and-cost-beyond-a-single-action-new-capabilities-in-amazon-bedrock-agentcore/" target="_blank" rel="noreferrer">AWS Machine Learning Blog: Control agent behaviors and cost beyond a single action</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
