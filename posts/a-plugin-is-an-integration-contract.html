@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A plugin is an integration contract | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Reflection | August 17, 2026</p>
+      <h1>A plugin is an integration contract</h1>
+      <p class="hero-text">
+        The useful signal this week was not another model appearing in an IDE. It was Agent Plugins
+        1.0 becoming available across coding clients. When a skill and an MCP server can travel as
+        one governed package, the reusable unit of AI work starts to look less like a prompt and
+        more like a software integration.
+      </p>
+
+      <article class="article-body">
+        <p>
+          I feel this friction whenever I move between a Java test-repair loop, a terminal agent,
+          and a browser-based workflow. The useful context is rarely just a system prompt. It is a
+          small operating bundle: how the repository builds, where coverage is measured, which
+          commands are safe, how a failure becomes evidence, and which external action needs a
+          human to approve it. Recreating that bundle client by client is slow. Copying it without
+          a boundary is worse.
+        </p>
+        <p>
+          This week GitHub made Agent Plugins 1.0 generally available in VS Code, Copilot CLI, the
+          Copilot SDK, and the Copilot app. The open format packages skills and MCP server
+          configuration together, while leaving room for client-specific extensions. That is a
+          modest-looking release with a practical implication: teams can begin to treat their
+          agent setup as an installable, versioned delivery asset rather than a collection of chat
+          instructions and local setup notes.
+        </p>
+
+        <h2>Portability is useful only when the boundary is real</h2>
+        <p>
+          The important design choice in the specification is not portability by itself. It is
+          containment. A plugin has a root manifest, fixed locations for skills and MCP
+          configuration, explicit versioning, and rules that reject package-relative paths that
+          escape the plugin root. Individual invalid servers can be skipped without making every
+          skill unusable. Credentials are intentionally not a portable header field.
+        </p>
+        <p>
+          Those details sound unglamorous, but they are exactly what separates a reusable
+          integration from an attractive prompt folder. An enterprise cannot safely standardize on
+          a package if nobody can answer what it loads, where it runs, what it connects to, how it
+          fails, or how it is upgraded. The package boundary gives those questions somewhere
+          concrete to live.
+        </p>
+
+        <h2>What I think is real, and what is still hype</h2>
+        <p>
+          The real opportunity is to package narrow, repeatable workflows. A Java quality plugin,
+          for example, could carry an approved test-generation skill, a read-only coverage report
+          connector, a documented Maven verification sequence, and a rule that stops before
+          writing a pull request. It would save setup time across IDE and terminal clients while
+          keeping the workflow reviewable. That is a better starting point than a general-purpose
+          “engineering agent” with broad repository and network permissions.
+        </p>
+        <p>
+          The hype is assuming that a plugin marketplace makes agent work safe or mature by
+          default. A package can distribute unsafe instructions just as efficiently as good ones.
+          Portable MCP configuration does not make a tool trustworthy; it makes its connection
+          repeatable. The security and product work still includes provenance, allowlists,
+          least-privilege scopes, compatibility testing, observability, and an explicit owner for
+          updates and incidents.
+        </p>
+
+        <h2>Why this matters for enterprise delivery</h2>
+        <p>
+          Enterprise teams already know how to operate artifacts: libraries, CI templates,
+          Terraform modules, Spring Boot starters, and internal developer platforms. Agent plugins
+          can fit that familiar delivery model if teams resist treating them as magic. A platform
+          team can publish a signed or reviewed package, scope which marketplaces are allowed,
+          allowlist its MCP servers, roll out a compatible version, and measure whether the
+          workflow actually improves quality or cycle time.
+        </p>
+        <p>
+          That also creates a cleaner division of labor. Domain engineers own the skill content
+          and acceptance checks. Platform and security teams own distribution, tool policy, and
+          telemetry. Product owners decide whether the packaged workflow reduces an actual delay
+          or defect. Nobody has to pretend that a generic model conversation is a production
+          system.
+        </p>
+
+        <h2>How I would build the first one</h2>
+        <ul>
+          <li>Choose one repeatable workflow with a clear before-and-after measure, not a broad assistant persona.</li>
+          <li>Keep the skill instructions short and point to versioned scripts, checklists, and reference material.</li>
+          <li>Expose the smallest useful MCP surface; start read-only and put every side effect behind an approval boundary.</li>
+          <li>Test installation, missing credentials, invalid configuration, and client compatibility as deliberately as the happy path.</li>
+          <li>Version the package and write a rollback path before publishing it to a team marketplace.</li>
+          <li>Measure task completion, review findings, latency, and cost against the existing manual workflow.</li>
+        </ul>
+
+        <h2>Where I land</h2>
+        <p>
+          I do not think the next advantage comes from collecting the most agent plugins. It comes
+          from turning a few trusted workflows into small integration contracts that another
+          engineer can install, inspect, and safely improve.
+        </p>
+        <p>
+          That is a direction that fits how I want to build Applied AI systems: less hidden
+          promptcraft, more versioned operational knowledge with clear tools, tests, and ownership.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app/" target="_blank" rel="noreferrer">GitHub Changelog: Agent Plugins 1.0 in VS Code, Copilot CLI, and the Copilot app</a></li>
+          <li><a href="https://github.com/agentplugins/agent-plugins-spec/blob/main/spec/1.0.0.md" target="_blank" rel="noreferrer">Agent Plugins Specification v1.0.0</a></li>
+          <li><a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/configure-enterprise-managed-settings" target="_blank" rel="noreferrer">GitHub Docs: Configuring enterprise-managed settings</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
