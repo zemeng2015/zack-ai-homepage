@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A passing test is not an AI quality strategy | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Reflection | August 24, 2026</p>
+      <h1>A passing test is not an AI quality strategy</h1>
+      <p class="hero-text">
+        The easiest thing for an AI test generator to produce is a green build. The harder, more
+        useful question is whether the generated test made a risky behavior harder to break. That
+        distinction is where I think AI-assisted quality work will either earn trust or quietly
+        add maintenance cost.
+      </p>
+
+      <article class="article-body">
+        <p>
+          I keep returning to this while thinking through JTestGen-style workflows. A Java class
+          has uncovered lines. An agent reads the code, drafts JUnit and Mockito tests, runs Maven,
+          repairs a compilation error, and reports a coverage increase. On a narrow dashboard, the
+          loop looks successful. But a passing test can still be coupled to an implementation
+          detail, miss the business edge case that prompted the work, or make the next refactor
+          more expensive. The build is evidence. It is not the outcome.
+        </p>
+        <p>
+          GitHub's updates this week made that tension feel more concrete. Its organization-level
+          Code Quality dashboard now shows whether open findings move over time and which
+          repositories are driving the change, rather than presenting only a point-in-time count.
+          It also added audit events for enabling, disabling, or changing Code Quality. Neither
+          feature is an AI breakthrough. That is exactly why I find the signal useful: as agents
+          increase the volume of code and tests a team can create, quality needs a baseline, a
+          trend, and an accountable configuration—not a screenshot from the day a pilot started.
+        </p>
+
+        <h2>Coverage is a routing signal, not a verdict</h2>
+        <p>
+          I still want coverage data in an AI test workflow. It is a practical way to find code
+          that deserves attention, especially in a large Spring Boot service where nobody has time
+          to inspect every class manually. It can also confirm that a generated test reached a
+          previously untouched branch. But it cannot tell us whether the assertions describe the
+          intended behavior. A test that mocks every collaborator and verifies private-ish call
+          choreography may cover a method completely while protecting nothing a customer would
+          notice.
+        </p>
+        <p>
+          The same caution applies to an agent that repairs its own output. A successful retry is
+          useful diagnostic information, but it should not let the agent redefine success. The
+          acceptance condition should come from the service contract: a meaningful input, the
+          observable result, and a failure mode that would matter in production. For data access,
+          that might mean authorization or a parameterized query. For a workflow service, it might
+          mean idempotency, a rejected state transition, or a safe response when a dependency
+          times out.
+        </p>
+
+        <h2>The artifact I want is an evidence bundle</h2>
+        <p>
+          I would not productize AI test generation as “write a test file.” I would productize a
+          small evidence bundle attached to each proposed change: the uncovered target and reason
+          it was selected; the behavior being asserted; the exact Maven command and result; the
+          coverage delta; any new static-analysis findings; and a short note about assumptions or
+          test doubles. A reviewer should be able to decide whether the test is worth keeping
+          without reconstructing the agent's entire conversation.
+        </p>
+        <p>
+          This is deliberately smaller than a universal evaluation platform. With limited builder
+          time, I would begin with one repository and a few stable workflow classes. Capture a
+          baseline before the agent runs, compare the same module after it runs, and keep generated
+          pull requests separate from automatically merged changes. If a test is rejected, record
+          why: weak assertion, incorrect domain assumption, duplicate coverage, brittle mock, or
+          an issue in the production code. Those labels become more useful training data for the
+          workflow than another vague prompt revision.
+        </p>
+
+        <h2>What the dashboard cannot tell you</h2>
+        <p>
+          A trend line is not proof that an AI rollout improved engineering. Open findings can
+          fall because a team changed rules, excluded repositories, or closed issues without
+          fixing the underlying code. Coverage can rise because the agent learned to execute lines
+          without challenging outcomes. Even a lower defect rate can be misleading if the agent is
+          being used only on low-risk utility classes. Metrics need a change log, a workflow cohort,
+          and enough human review notes to explain what moved.
+        </p>
+        <p>
+          That is the enterprise implication I would emphasize. Teams do not need to block an AI
+          testing pilot until they own perfect quality telemetry. They do need to decide upfront
+          which quality movement would justify continued use. For a first pilot, I would track
+          review acceptance rate, test failures caught before merge, regression rate for touched
+          modules, and the reviewer minutes needed per accepted test. Pair those with coverage and
+          static findings, but do not substitute them for judgment.
+        </p>
+
+        <h2>Where I land</h2>
+        <p>
+          The promising version of AI-assisted testing is not a machine that makes the coverage
+          chart look better. It is a system that makes a specific behavior more explicit, produces
+          enough evidence for a reviewer to trust the change, and leaves a quality trail that can
+          be inspected weeks later.
+        </p>
+        <p>
+          That is the bar I want to build toward: fewer impressive-looking green checks, and more
+          tests that make real software safer to change.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://github.blog/changelog/2026-08-19-track-organization-code-quality-trends/" target="_blank" rel="noreferrer">GitHub Changelog: Track organization code quality trends</a></li>
+          <li><a href="https://github.blog/changelog/2026-08-20-track-github-code-quality-enablement-changes-in-the-audit-log/" target="_blank" rel="noreferrer">GitHub Changelog: Track GitHub Code Quality enablement changes in the audit log</a></li>
+          <li><a href="https://github.blog/changelog/2026-08-20-separate-github-actions-path-for-github-code-quality/" target="_blank" rel="noreferrer">GitHub Changelog: Separate GitHub Actions path for GitHub Code Quality</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
