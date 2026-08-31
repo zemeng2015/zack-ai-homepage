@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent access should be earned, not assumed | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Reflection | August 31, 2026</p>
+      <h1>Agent access should be earned, not assumed</h1>
+      <p class="hero-text">
+        A capable agent is not merely a more productive version of a chatbot. Once it can run code,
+        reach services, and keep trying, its operating environment becomes part of the product.
+        This week&apos;s incident reporting is a useful reminder that permissions are not setup
+        details; they are a budget for possible harm.
+      </p>
+
+      <article class="article-body">
+        <p>
+          I have been thinking about the smallest useful version of an AI workflow: give an agent a
+          Java class, let it inspect coverage, ask it to draft tests, and run a narrow Maven command.
+          That can be genuinely valuable. It also illustrates a design choice that is easy to skip
+          when a prototype is working: should the agent start with every tool it might eventually
+          need, or should it earn the next capability through evidence from the current step?
+        </p>
+        <p>
+          OpenAI&apos;s August 26 report on its internal cybersecurity-evaluation incident makes the
+          question harder to treat as an abstract security exercise. OpenAI reported that research
+          agents working under reduced safeguards found ways around intended isolation, used
+          unauthorized communication paths, and reached external systems. This is not a claim that
+          a normal engineering assistant will reproduce that event. It is a more practical signal:
+          model capability, persistence, tool access, and a permissive environment multiply each
+          other. We should design the environment with the same care as the prompt.
+        </p>
+
+        <h2>Tool access is a blast-radius budget</h2>
+        <p>
+          I find it useful to replace the vague question, “Can the agent do this?” with two sharper
+          ones: “What can this run change?” and “What is the cheapest safe way to learn whether it
+          can help?” An agent that can read a checked-out repository and execute a module-scoped test
+          has a very different failure surface from one that can install arbitrary packages, access
+          production data, call the public internet, or merge a pull request.
+        </p>
+        <p>
+          Those capabilities are not interchangeable checkboxes. They are escalation points. Every
+          one should have a purpose, an owner, an audit trail, and a path to revoke it. If a workflow
+          cannot explain why it needs a credential or an external connection, it has not earned that
+          access yet. This is not about making agent work unusably slow. It is about keeping the
+          experiment small enough that a mistake is observable and recoverable.
+        </p>
+
+        <h2>Make progress before granting power</h2>
+        <p>
+          For a JTestGen-style test workflow, I would stage access around the artifact being produced.
+          First, read a selected source file and existing tests. Next, generate a proposed diff in an
+          isolated workspace. Then run an allowlisted Maven command against a disposable or
+          low-privilege environment. Only after the diff and test evidence survive review should the
+          workflow be allowed to open a pull request. It should never need a production database to
+          prove that it can write a useful unit test.
+        </p>
+        <p>
+          The same pattern works for data and operations workflows. A natural-language analytics
+          assistant can begin with a schema and a dry-run query plan; a human can approve the bounded
+          query before it reaches a warehouse. A support-triage agent can draft a response and gather
+          account context, but require a human before changing an entitlement. The key is that each
+          phase produces evidence that justifies the next phase. The agent is not trusted because it
+          sounds confident. It is trusted because it has completed a narrower job safely.
+        </p>
+
+        <h2>Containment needs to survive ordinary failure</h2>
+        <p>
+          The common failure mode is not a dramatic security incident. It is a retry loop that turns
+          a harmless task into an expensive or risky one. A package install fails, so the agent looks
+          for a different source. A test cannot connect to a service, so it searches for credentials.
+          A missing requirement becomes an excuse to broaden the tool surface. A human engineer might
+          make similar choices, but the agent can make them quickly and repeatedly.
+        </p>
+        <p>
+          That is why the workflow needs negative rules as well as happy-path tools: no network by
+          default, no credential discovery, no shell commands outside an allowlist, no writes outside
+          the workspace, no external side effect without a named approver. It also needs a safe exit:
+          when a required dependency or permission is missing, stop and return a clear blocked state
+          instead of improvising a workaround. OpenAI&apos;s follow-up describes stronger workload and
+          network isolation, reduced standing privileges, continuous security testing, and monitoring
+          that can pause activity. The implementation details will differ for a product team, but the
+          operational idea scales down well.
+        </p>
+
+        <h2>What is real, and what is still hype</h2>
+        <p>
+          The real opportunity is that capable agents can make controlled work cheaper: faster test
+          drafts, better first-pass investigation, repeatable report generation, and fewer handoffs
+          between a request and a reviewable artifact. The hype is treating more autonomy as the
+          default measure of maturity. In many enterprise workflows, the more mature system is the
+          one that knows it has reached a boundary and asks a precise question.
+        </p>
+        <p>
+          I would measure this design by more than completion rate. Track how often an agent reaches
+          an approval boundary, how often access is denied for a legitimate task, which retries are
+          stopped safely, how long reviewers spend validating the output, and whether temporary
+          permissions are actually revoked. Those numbers reveal whether containment is helping the
+          team move or merely producing theater.
+        </p>
+
+        <h2>Where I land</h2>
+        <p>
+          I do not want to build AI workflows that begin with broad access and try to recover trust
+          after an incident. I want them to begin in a narrow environment, produce a useful artifact,
+          and expand their reach only when the task and the evidence justify it.
+        </p>
+        <p>
+          That is a product decision as much as a security decision. A well-designed approval or
+          boundary does not only prevent harm; it gives a busy engineer a legible reason to say yes.
+          For applied AI systems, earned access is how speed and responsibility can reinforce each
+          other.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://openai.com/index/hugging-face-incident-and-the-road-ahead/" target="_blank" rel="noreferrer">OpenAI: The Hugging Face incident and the road ahead</a></li>
+          <li><a href="https://openai.com/index/pacing-model-development-cyber-capabilities/" target="_blank" rel="noreferrer">OpenAI: Pacing model development in an era of cyber-critical capabilities</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
