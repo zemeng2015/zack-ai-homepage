@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>An AI approval is not a merge policy | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Reflection | September 10, 2026</p>
+      <h1>An AI approval is not a merge policy</h1>
+      <p class="hero-text">
+        AI code review can now be allowed to approve a pull request. That is a useful capability,
+        but it makes one design question unavoidable: what, exactly, is the approval promising?
+        If the answer is vague, counting it toward a merge requirement creates false confidence
+        faster than it creates delivery speed.
+      </p>
+
+      <article class="article-body">
+        <p>
+          I have been thinking about this from the perspective of a small AI-assisted Java testing
+          workflow. An agent can identify uncovered code, draft a JUnit test, run Maven, and open a
+          reviewable change. A second agent can inspect the diff. Each step can be useful. None of
+          them, by itself, knows whether the change is safe to merge into an enterprise service.
+          That decision also depends on the business rule, dependency behavior, deployment risk,
+          and the team&apos;s actual ownership model.
+        </p>
+        <p>
+          GitHub&apos;s September 1 preview makes the boundary concrete: Copilot code review now
+          surfaces an approval assessment on every review, and administrators can optionally let
+          that approval count toward a repository&apos;s required-approval rule. The feature is off by
+          default and can be controlled at enterprise, organization, repository, and file-path
+          levels. That is a better release signal than another benchmark claim because it moves AI
+          judgment into a real delivery control: the point where a proposed change becomes shared
+          responsibility.
+        </p>
+
+        <h2>An approval needs a defined claim</h2>
+        <p>
+          A pull-request approval is often treated as one word, but it bundles several claims:
+          the diff is understandable; relevant tests ran; the change respects local conventions;
+          the behavior matches an intended requirement; and the person or system approving it has
+          enough context to accept the residual risk. An AI reviewer may provide strong evidence
+          for some of these. It can compare a diff with nearby code, trace obvious error paths,
+          flag missing tests, or enforce a repository-specific checklist. It is much less reliable
+          at inferring a missing business constraint that never made it into the issue, code, or
+          tests.
+        </p>
+        <p>
+          That difference matters. “No issue found in this diff under the checks I was given” is a
+          valuable, testable claim. “This is safe for production” is not, unless the workflow has
+          explicit access to the evidence and authority needed to support it. Treating those two
+          statements as equivalent is how review automation becomes ceremony.
+        </p>
+
+        <h2>Start with shadow approvals</h2>
+        <p>
+          I would begin by collecting the AI approval assessment without letting it satisfy a merge
+          rule. For a selected set of low-risk repositories, record the assessment, its findings,
+          the eventual human decision, and any issue discovered after merge. This creates a
+          calibration dataset grounded in the team&apos;s own codebase, not a vendor demo. It also makes
+          disagreement useful: when a human requests changes after an AI approval, the review note
+          can reveal whether the miss was missing context, an unclear policy, a weak test, or a
+          limitation of the model.
+        </p>
+        <p>
+          Only then would I consider allowing the approval to count, and only for paths where the
+          claim is deliberately narrow. A documentation-only area, generated fixture update, or a
+          well-bounded internal utility may be a reasonable first cohort. Authentication, money,
+          data-retention, migration, deployment, and externally visible workflow paths should keep
+          a named human owner even when AI review is useful. GitHub&apos;s file-path controls make that
+          kind of policy possible; they do not choose the policy for the team.
+        </p>
+
+        <h2>Branch protection is product design</h2>
+        <p>
+          It is tempting to frame this as a configuration choice for engineering managers. I think
+          it is also product design. The merge policy tells contributors what evidence their
+          changes must produce and tells customers which risks the team has decided to own. A good
+          AI reviewer can shorten the path to that evidence: point out a missing null case, ask for
+          a regression test, summarize the surface area, or check a defined rule on every change.
+          It should not obscure which decisions still require domain accountability.
+        </p>
+        <p>
+          For an AI test-generation product, I would make this visible in the pull request itself:
+          the behavior targeted, exact commands run, coverage change, reviewer scope, and any
+          assumptions the agent could not verify. The review assistant can then evaluate an
+          evidence bundle instead of a mysterious generated diff. This gives the human reviewer a
+          smaller, clearer job and makes an eventual automation decision easier to audit.
+        </p>
+
+        <h2>What I would measure before changing the rule</h2>
+        <ul>
+          <li>Agreement rate between AI approval assessments and final human review outcomes.</li>
+          <li>Escaped defects and reverted changes by file path and change type, not only in aggregate.</li>
+          <li>Reviewer minutes saved after excluding time spent correcting false reassurance.</li>
+          <li>Which findings are actionable, repeated, or consistently missed.</li>
+          <li>Whether the AI review improves the test and evidence quality of generated changes.</li>
+        </ul>
+        <p>
+          These measures keep the decision honest. A high approval rate is not necessarily good; it
+          may mean the reviewer is too permissive or is only seeing easy changes. The desired
+          outcome is a review system that makes the next human decision faster and more informed,
+          while still stopping on ambiguity that it cannot resolve.
+        </p>
+
+        <h2>Where I land</h2>
+        <p>
+          I expect AI review to become a normal part of the pull-request surface. The mature use is
+          not to replace a merge policy with a model&apos;s confidence. It is to define the limited
+          claim an AI reviewer can make, measure that claim against real outcomes, and grant it
+          merge authority only where the team can explain the remaining risk.
+        </p>
+        <p>
+          That is slower than flipping a global setting. It is also how a useful review signal can
+          become a durable engineering capability instead of another green check nobody trusts.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://github.blog/changelog/2026-09-01-copilot-code-review-can-now-approve-pull-requests/" target="_blank" rel="noreferrer">GitHub Changelog: Copilot code review can now approve pull requests</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
