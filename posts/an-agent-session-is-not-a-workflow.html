@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>An agent session is not a workflow | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Reflection | September 14, 2026</p>
+      <h1>An agent session is not a workflow</h1>
+      <p class="hero-text">
+        A capable agent can keep working through a long task. That is useful. But a workflow only
+        becomes trustworthy when it can stop, resume, retry, and explain what happened without
+        duplicating an action or losing the reason for the next one.
+      </p>
+
+      <article class="article-body">
+        <p>
+          I have been thinking about this while designing small AI-assisted engineering loops around
+          real constraints: a Java service with a slow test suite, an AWS-backed data dependency,
+          and only a limited window to investigate a failure after work. The attractive demo is an
+          agent that reads a ticket, changes code, runs Maven, and reports success. The more useful
+          product question arrives when the process is interrupted after the test run but before the
+          pull request summary, or when a retry cannot tell whether it already updated an external
+          record. The agent may have a session. The team still needs a workflow.
+        </p>
+        <p>
+          This week&apos;s tooling signal makes that distinction more concrete. OpenAI released the
+          Agents API in public beta with managed session orchestration, context compaction, and
+          recovery; AWS separately published guidance on monitoring production agent lifecycles,
+          including continuous quality scoring and autonomous investigation. These are not merely
+          convenience features. They acknowledge that agent quality depends on what happens between
+          model calls: persisted state, replay rules, observable transitions, and safe recovery.
+        </p>
+
+        <h2>Conversation history is not operational state</h2>
+        <p>
+          A chat transcript can help an agent continue reasoning, but it is a weak record of work.
+          It does not reliably say which source revision was inspected, whether a migration was
+          applied, which test command completed, or whether a notification was already sent. If
+          those facts matter, they should be stored as explicit workflow state with timestamps,
+          identifiers, inputs, outputs, and a clear status. Context compaction can preserve useful
+          reasoning; it should not become the only ledger for an irreversible action.
+        </p>
+        <p>
+          That distinction is familiar to enterprise engineers. A Spring service does not treat a
+          log line as the source of truth for a payment or an order. It uses transaction boundaries,
+          idempotency keys, durable records, and audit trails. An agent that touches repositories,
+          tickets, data, or customers needs the same discipline. The model may decide the next
+          step, but the system must be able to prove which step actually occurred.
+        </p>
+
+        <h2>Recovery is a product behavior</h2>
+        <p>
+          I would make interruption a first-class acceptance case, not an infrastructure detail.
+          For a test-generation workflow, that means deliberately stopping a run after code
+          analysis, after test creation, and after verification. Each restart should answer three
+          small questions: what is already complete, what evidence is still valid, and what action
+          is safe to take next? If a source file changed while the agent was paused, the workflow
+          should invalidate the stale plan rather than quietly continuing from old context.
+        </p>
+        <p>
+          The same principle applies to data and operational agents. A retried query should not
+          create duplicate tickets. A delayed tool call should not be reported as successful until
+          the receiving system confirms it. A failed action should leave behind a useful state for
+          a human or a later run: the attempted operation, the response, the scope of any partial
+          effect, and the chosen recovery path. This is less glamorous than a longer autonomous
+          session, but it is what makes an AI feature survivable on a busy team.
+        </p>
+
+        <h2>What I would persist before adding more autonomy</h2>
+        <ul>
+          <li>A durable run identifier tied to the user request, repository revision, and environment.</li>
+          <li>Named stages with allowed transitions: inspect, plan, execute, verify, await review, and complete.</li>
+          <li>Artifacts rather than summaries alone: diffs, commands, test output, citations, and tool responses.</li>
+          <li>Idempotency keys and confirmation checks for every external write or notification.</li>
+          <li>A restart policy that distinguishes retryable failures from stale context and actions needing a person.</li>
+          <li>Metrics for recovery rate, duplicated side effects, stale-plan rejection, and time to a useful handoff.</li>
+        </ul>
+        <p>
+          This is also a better way to spend limited builder time. I would rather make one
+          high-value workflow restartable than give a broad assistant another tool. The former
+          produces a reusable delivery primitive. The latter often produces one more impressive
+          path that works only when every dependency, prompt, and model call behaves perfectly.
+        </p>
+
+        <h2>Where the hype stops</h2>
+        <p>
+          Managed sessions do not automatically solve workflow reliability. They reduce some of
+          the plumbing around continuation and recovery, but they cannot define a business
+          idempotency key, decide which evidence expires, or choose how to compensate for a
+          partially completed action. Those remain product and engineering decisions. A platform
+          should expose them clearly rather than hiding them behind a claim that the agent is
+          &ldquo;durable.&rdquo;
+        </p>
+        <p>
+          The realistic enterprise opportunity is not an agent that never fails. It is an agent
+          whose failures are bounded, inspectable, and cheap to resume. That changes the operator&apos;s
+          experience from &ldquo;start over and hope it remembers&rdquo; to &ldquo;review the recorded state and
+          continue from a known checkpoint.&rdquo;
+        </p>
+
+        <h2>Where I land</h2>
+        <p>
+          As agent runtimes become more capable, I expect the differentiator to move from the
+          length of a session to the quality of its recovery. The systems I want to build will let
+          a model reason across steps, but will keep the workflow&apos;s facts, side effects, and
+          restart decisions in a durable layer that engineers can inspect.
+        </p>
+        <p>
+          A long-running agent is promising. A restartable workflow is something a team can own.
+        </p>
+
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://openai.com/products/release-notes/" target="_blank" rel="noreferrer">OpenAI release notes: Agents API public beta</a></li>
+          <li><a href="https://aws.amazon.com/blogs/machine-learning/monitoring-production-agent-lifecycle-with-aws-devops-agent-and-agentcore-evaluations/" target="_blank" rel="noreferrer">AWS Machine Learning Blog: Monitoring production agent lifecycle with AWS DevOps Agent and AgentCore Evaluations</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
