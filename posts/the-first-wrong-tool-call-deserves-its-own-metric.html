@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The first wrong tool call deserves its own metric | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Reflection | September 21, 2026</p>
+      <h1>The first wrong tool call deserves its own metric</h1>
+      <p class="hero-text">
+        A failed agent run is often counted as one failed task. In a real workflow, that number can
+        hide the only decision worth fixing: the early tool call that made every later step wrong.
+      </p>
+
+      <article class="article-body">
+        <p>
+          When I think about an AI-assisted Java engineering loop, the final answer is the least
+          interesting place to begin debugging. Imagine an agent that reads a ticket, finds a Maven
+          module, chooses a class with weak coverage, drafts a JUnit test, runs it, and opens a
+          pull request. If it selects the wrong module near the start, the generated test, failed
+          command, repair attempt, and summary can all look like separate defects. They are usually
+          one defect with a long shadow.
+        </p>
+        <p>
+          AWS published a useful evaluation signal this month: its Agent Evaluation Metric scores
+          multi-turn work at the turn level and explicitly separates the root failure from later
+          turns that merely inherited it. The example is simple: one action passes the wrong report
+          parameter, then several later responses continue faithfully from the bad result. A
+          task-level score says the conversation failed. Attribution says where the repair starts.
+          That is a much more practical distinction for teams trying to improve an agent rather
+          than merely describe it.
+        </p>
+
+        <h2>Outcome metrics are necessary, but too compressed</h2>
+        <p>
+          I still want to know whether a workflow completed: did the test compile, did the cited
+          answer answer the question, did the release-risk report reach a reviewer? Those are the
+          outcomes a product owns. But a completion rate alone makes debugging expensive. A drop
+          from 82% to 70% could be a changed model, an unavailable dependency, a tool schema
+          regression, a retriever choosing stale context, or a planner sending one incorrect
+          argument. A team that treats all of those as the same failure will spend its limited
+          investigation time reading transcripts instead of improving the system.
+        </p>
+        <p>
+          The pattern from AWS is useful because it makes the evaluation record resemble a normal
+          engineering incident: identify the first failed operation, name the type of failure, and
+          distinguish direct impact from propagation. For tool calls, the basic checks are not
+          exotic. Was the right tool selected? Was the requested action allowed? Were required
+          fields present? Were the values semantically correct? For a response, did it cover the
+          request and remain grounded in the preceding evidence? Each check can be attached to a
+          concrete trace rather than a vague judgment that the conversation felt poor.
+        </p>
+
+        <h2>Make the error budget causal</h2>
+        <p>
+          I would not create a new dashboard for every turn. I would start with a small failure
+          record for high-value flows: run ID, workflow stage, repository revision or data snapshot,
+          tool and action, expected versus actual inputs, first-failure flag, downstream count, and
+          a human-reviewed reason code. The goal is not to pretend that every semantic decision can
+          be reduced to a perfect metric. It is to give a maintainer a short ordered queue.
+        </p>
+        <p>
+          A useful weekly review might then ask: which root causes created the most downstream
+          wasted work? If a missing authorization field causes ten failed queries, that belongs in
+          the integration contract. If an agent repeatedly chooses a low-value test target, improve
+          the selection policy or feed it better coverage and ownership context. If the agent calls
+          the right tool with the wrong domain value, build a validator or require confirmation at
+          that boundary. The remediation follows the cause, not the final wording of the response.
+        </p>
+
+        <h2>What this changes for a small builder</h2>
+        <p>
+          This is a discipline I can apply without building a large evaluation platform. For one
+          JTestGen-style workflow, I would annotate a modest set of representative tasks and record
+          the expected module, class, test behavior, and verification command. Then I would log the
+          agent&apos;s plan and tool calls in named stages. A reviewer only needs to label the first
+          incorrect stage and whether later failures were independent or inherited. After a few
+          runs, the failure distribution tells me where the next hour of work belongs.
+        </p>
+        <p>
+          This also protects against a common kind of false progress. An agent can become better at
+          recovering from its own late failures while continuing to make the same early routing
+          mistake. The final success rate may improve a little; the cost, latency, and reviewer
+          burden can remain high. Tracking first-failure rate, root-cause category, and downstream
+          turns per root cause makes that waste visible. I would pair those with the product metrics
+          that matter: accepted pull requests, regressions prevented, time to a trustworthy
+          handoff, and cost per useful result.
+        </p>
+
+        <h2>Where the metric should stop</h2>
+        <p>
+          Turn-level scoring is not a license to automate judgment away. The expected action for an
+          ambiguous request may have more than one valid path. Similarity thresholds can call a
+          correct value wrong, and a neat taxonomy can miss a business constraint that a reviewer
+          notices immediately. That is why the reference set, thresholds, and failure labels need
+          periodic review by the people who own the workflow. The metric is a navigation aid, not a
+          substitute for product judgment.
+        </p>
+        <p>
+          Still, the direction is clear. As agents take longer, multi-tool paths, teams will get
+          more value from knowing which decision first broke the run than from another aggregate
+          success percentage. I want the systems I build to treat an agent trace as evidence: enough
+          detail to fix the first wrong move, verify the correction, and avoid blaming every later
+          turn for a mistake it only carried forward.
+        </p>
+
+        <h2>Source</h2>
+        <ul>
+          <li><a href="https://aws.amazon.com/blogs/machine-learning/agent-evaluation-metric-for-multi-turn-conversations/" target="_blank" rel="noreferrer">AWS Machine Learning Blog: Agent Evaluation Metric for multi-turn conversations</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
