@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The trace should travel with the change | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Reflection | September 28, 2026</p>
+      <h1>The trace should travel with the change</h1>
+      <p class="hero-text">
+        An AI workflow does not become reviewable because its prompt lives in Git. A reviewer needs
+        to see what that prompt, model, and tool contract actually did on a meaningful task.
+      </p>
+
+      <article class="article-body">
+        <p>
+          In conventional application work, a pull request gives a reviewer a useful starting
+          point: the code diff, tests, expected behavior, and perhaps a deployed preview. AI
+          workflow changes weaken that contract. A one-line prompt edit can reroute a Java test
+          generation run, change which data query is issued, or make a previously safe tool call
+          too eager. The textual diff says what changed. It does not say whether the new behavior
+          is better, cheaper, or still within the boundary the team intended.
+        </p>
+        <p>
+          AWS introduced CloudWatch Omni this week with a small but important design choice: the
+          trace a developer inspects in an IDE is the same data an operator can investigate later
+          in production. The product announcement is naturally ambitious, but that shared record
+          is the durable engineering idea. AI systems should not have one story during development
+          and a different, disconnected story after release.
+        </p>
+
+        <h2>A configuration diff is not behavioral evidence</h2>
+        <p>
+          Teams increasingly version prompts, model settings, skills, and MCP tool definitions.
+          They should. But versioning makes a change reproducible; it does not make its effect
+          legible. A prompt can look clearer while producing a worse tool sequence. A model swap
+          can improve a polished answer while increasing retries and latency. A tool-description
+          change can preserve the happy path while making an edge case select a write operation.
+        </p>
+        <p>
+          For a high-value workflow, I would treat a small evidence bundle as part of the change:
+          the task fixture and source revision, the trace or ordered tool calls, deterministic
+          assertions, selected quality scores, latency and cost, and a short note about the known
+          tradeoff. This is not a request to attach every production transcript to every pull
+          request. It is a request to make the claim reviewable. If the change claims to improve
+          test selection, show the selected class and the verification result. If it claims to
+          make a support workflow safer, show the blocked action and the explicit approval path.
+        </p>
+
+        <h2>Use the same shape of evidence before and after release</h2>
+        <p>
+          The practical value of shared traces is continuity. A developer needs enough context to
+          compare two candidate configurations. An operator needs enough context to explain a
+          degraded result without reconstructing an invisible chain of model calls. Those are
+          different jobs, but they benefit from the same identifiers: workflow version, input
+          class, tool name, policy decision, evaluator result, latency, cost, and final outcome.
+        </p>
+        <p>
+          This does not mean a staging trace is a promise that production will behave identically.
+          Real inputs, permissions, data freshness, and traffic patterns will differ. It means the
+          production trace should be comparable to the pre-release evidence. When success rate
+          drops, the team can ask a concrete question: did the workflow version change, did the
+          input mix move, did a dependency fail, or did the agent start taking a different path?
+          Without that bridge, every incident begins as a fresh forensic exercise.
+        </p>
+
+        <h2>Start with one reviewable path</h2>
+        <p>
+          I would apply this narrowly before buying a broad observability platform. For a
+          JTestGen-style Java workflow, choose ten representative targets: a simple service, a
+          Spring component with mocks, a legacy class with awkward dependencies, and a few prior
+          failures. Record the expected module, permitted commands, generated-test assertions, and
+          Maven result. On each meaningful prompt, model, or tool change, run that set and retain
+          the compact trace summary beside the diff.
+        </p>
+        <p>
+          Production should emit the same fields, with appropriate redaction and sampling. Then a
+          weekly review can compare three things that are often separated: offline behavior,
+          deployed behavior, and reviewer effort. A better agent is not simply one with a higher
+          judge score. It is one that produces useful tests, keeps the command and repository
+          boundary intact, costs a sensible amount, and leaves a maintainer enough evidence to
+          trust or reject the handoff quickly.
+        </p>
+
+        <h2>Do not confuse visibility with control</h2>
+        <p>
+          A beautiful trace can still document an unsafe system. Observability does not replace
+          allowlists, schema validation, approval gates, or ordinary tests. It also has a cost:
+          traces can expose proprietary prompts, source fragments, customer data, and credentials
+          if they are collected indiscriminately. The data model needs redaction rules, access
+          controls, retention limits, and a clear answer to which workflow decisions are actually
+          worth recording.
+        </p>
+        <p>
+          But that is exactly why trace design belongs near the feature, rather than after an
+          incident. The goal is not to watch an agent more closely. It is to make its behavioral
+          claims testable before release and diagnosable after release. The trace should travel
+          with the change because that is where an AI workflow becomes an engineering artifact a
+          team can review, operate, and improve.
+        </p>
+
+        <h2>Source</h2>
+        <ul>
+          <li><a href="https://aws.amazon.com/blogs/aws/introducing-amazon-cloudwatch-omni-ai-powered-observability-for-generative-ai-and-agentic-workloads/" target="_blank" rel="noreferrer">AWS News Blog: Introducing Amazon CloudWatch Omni</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
