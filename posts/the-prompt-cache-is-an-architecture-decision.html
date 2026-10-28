@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The prompt cache is an architecture decision | Zack Wang</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">ZW</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#profile">Profile</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
+    <main class="section article">
+      <p class="eyebrow">AI Engineering Reflection | October 28, 2026</p>
+      <h1>The prompt cache is an architecture decision</h1>
+      <p class="hero-text">
+        Lower token prices do not make an AI workflow economical by themselves. The important question is
+        whether its expensive shared context is stable enough to deserve an engineered boundary.
+      </p>
+
+      <article class="article-body">
+        <p>
+          When I build a small AI workflow after work, the first constraint is rarely model capability. It
+          is repetition. The same repository rules, Java module conventions, approved commands, fixture
+          definitions, and response contract can be sent on every turn before the workflow does any useful
+          work. The prototype is still impressive. The bill, latency, and maintenance burden are simply
+          hiding in the preamble.
+        </p>
+        <p>
+          OpenAI added a 12-hour prompt-cache option this month. The detail that matters is not the feature
+          name. A longer cache window makes it possible to reuse a deliberately stable prefix across work
+          performed hours apart, while charging more to write that cache. That is a useful engineering
+          signal: context design is becoming a cost and latency architecture decision, not only a prompting
+          exercise.
+        </p>
+
+        <h2>Shared context should have an owner</h2>
+        <p>
+          A cache rewards sameness. That is exactly why teams should not respond by placing every policy,
+          document, and recent transcript at the front of every request. A large, frequently changing
+          prefix misses the cache and turns the system prompt into an unreviewable application database.
+          It also makes it hard to tell whether a bad answer came from a model change, stale instructions,
+          or accidental context drift.
+        </p>
+        <p>
+          I would separate context into three explicit layers. First is the stable contract: role, permitted
+          tools, output schema, security rules, and a small set of durable project conventions. Second is
+          versioned reference material: a repository map, API specification, or approved test patterns,
+          refreshed through a controlled build step. Third is the live task: the target class, failure log,
+          customer question, or approval request. Only the first layer is an obvious caching candidate; the
+          second should earn that status through measured reuse, and the third should remain per request.
+        </p>
+
+        <h2>Cache hits are not a quality metric</h2>
+        <p>
+          It is tempting to treat a high hit rate as optimization success. It can instead be a warning that a
+          workflow is carrying obsolete policy. For a JTestGen-style Java test workflow, a cached prefix may
+          correctly preserve the Maven command allowlist and test-only write boundary, but it must not freeze
+          an old module layout or a prior test failure as if it were ground truth. The workflow still needs
+          fresh source selection, deterministic compilation, and a visible Maven result.
+        </p>
+        <p>
+          This is the same tradeoff enterprise teams already understand from build caches and dependency
+          layers. A cache is valuable because it avoids recomputing a known artifact. It becomes dangerous
+          when nobody can answer what produced that artifact, which version is active, or when it should be
+          invalidated. Prompt caching needs the same discipline: a context version, a source revision where
+          relevant, an owner, an expiry policy, and a small regression set that exercises the behavior the
+          context is meant to preserve.
+        </p>
+
+        <h2>Measure the whole request, not just tokens</h2>
+        <p>
+          The economics are not automatic. A more expensive cache write only pays back when the stable prefix
+          is reused enough, within the configured retention period, to offset it. More importantly, cheaper
+          input does not compensate for a slow tool call, an unnecessary retry, or a reviewer who cannot
+          understand why an agent selected a risky action. Cost per successful, accepted outcome is the
+          better unit than cost per request.
+        </p>
+        <p>
+          For one workflow, I would log four compact fields alongside ordinary quality evidence: context
+          version, cached versus uncached input, end-to-end latency, and outcome. Then compare a stable
+          baseline against a candidate design on a representative task set. If the change lowers cost but
+          raises repair attempts, slows human review, or weakens groundedness, it has not improved the
+          product. If it lowers repeated setup cost while keeping the same verification and handoff quality,
+          it has created room to invest in the parts users actually notice.
+        </p>
+
+        <h2>Start with one repeated path</h2>
+        <p>
+          I would not begin with an organization-wide prompt library. Pick one repeated path with a bounded
+          audience: generating unit tests for a known Java service family, triaging a narrow class of CI
+          failures, or summarizing an approved operational report. Write down the immutable prefix, the data
+          that must remain live, and the event that invalidates each reference artifact. Run it long enough
+          to see a realistic mix of fresh and repeated work.
+        </p>
+        <p>
+          The lesson is modest but durable. Better models will keep reducing the cost of generation. Teams
+          that get more value from them will be the ones that make shared context small, inspectable, and
+          deliberately reusable. A prompt cache is not merely a billing feature. It is an invitation to give
+          the hidden foundation of an AI workflow the same design care as code, data, and deployment.
+        </p>
+
+        <h2>Source</h2>
+        <ul>
+          <li><a href="https://developers.openai.com/api/docs/changelog" target="_blank" rel="noreferrer">OpenAI API changelog: 12-hour prompt caching</a></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
